@@ -12,9 +12,9 @@ import { DiarioContable } from '../diarioscontables.model';
 export class PopupComponentDC implements OnInit {
   Naturaleza = [];
 
-  public itemForm: FormGroup;
+  public itemForm: FormGroup;   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,     
     public dialogRef: MatDialogRef<PopupComponentDC>,
     private fb: FormBuilder,
     private crudService: CrudService
