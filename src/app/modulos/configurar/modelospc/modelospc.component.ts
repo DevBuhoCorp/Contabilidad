@@ -24,27 +24,40 @@ export class ModelospcComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getItems()
+    this.getItems("All", 0)
   }
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe()
     }
   }
-  getItems() {
-    this.crudService.ListarDatos("diarios","All",0).map((response) => {
+  getItems(opt, id) {
+    this.crudService.ListarDatos("modeloplancontable", opt, id).map((response) => {
       return response.json() as ModeloPlanContable[];
     }).toPromise().then(x => {
       this.items = x;
+      let index = 0;
+      for (let i of this.items) {
+        
+        if (i.Estado == 'ACT') {
+          this.items[index].Estado = true;
+        }
+        else{
+          this.items[index].Estado = false;
+        }
+        index++;
+      }
     })
+
   }
   openPopUp(data: any = {}, isNew?) {
+
     let title = isNew ? 'Agregar' : 'Actualizar';
-    this.getItems();
+
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentMPC, {
       width: '720px',
       disableClose: true,
-      data: { title: title, payload: this.items }
+      data: { title: title, payload: data }
     })
     dialogRef.afterClosed()
       .subscribe(res => {
@@ -54,14 +67,14 @@ export class ModelospcComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(res, "diarios/").subscribe(data => {
-            this.getItems();
+          this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
+            this.getItems("All", 0);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 })
           })
         } else {
-          this.crudService.Actualizar(data.ID, res, "diarios/").subscribe(data => {
-            this.getItems();
+          this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
+            this.getItems("All", 0);
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 })
           })
@@ -73,8 +86,8 @@ export class ModelospcComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.Eliminar(row.ID, "diarios/").subscribe(data => {
-            this.getItems();
+          this.crudService.Eliminar(row.ID, "modeloplancontable/").subscribe(data => {
+            this.getItems("All", 0);
             this.loader.close();
             this.snack.open('Eliminado!', 'OK', { duration: 4000 })
           })
