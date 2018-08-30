@@ -1,0 +1,141 @@
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label="Datos Transacción">
+      <mat-card-content class="mt-1">
+        <h1 matDialogTitle>{{data.title}}</h1>
+        <form [formGroup]="itemForm" (ngSubmit)="submit()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="NumTransaccion" placeholder="Núm. transacción">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Fecha" placeholder="Fecha" [matDatepicker]="appDatepicker">
+                <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+              </mat-form-field>
+              <mat-datepicker #appDatepicker></mat-datepicker>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="DocContable" placeholder="Documento Contable">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <mat-select name="CuentaContable	" placeholder="Cuenta contable	">
+                  <mat-option *ngFor="let cuenta of Cuentas" [value]="cuenta.value" ngDefaultControl>
+                    {{cuenta.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Etiqueta" placeholder="Etiqueta">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Debe" placeholder="Debe">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Haber" placeholder="Haber">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <mat-select name="DiarioContable" placeholder="Diario Contable	">
+                  <mat-option *ngFor="let diario of Diarios" [value]="diario.value" ngDefaultControl>
+                    {{diario.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" class="mt-1">
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+              <span fxFlex></span>
+              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-tab>
+    <mat-tab label="Imagen Documento Contable">
+      <mat-card-content>
+        <div class="mb-1 mt-1">
+            <h1 matDialogTitle>Cargar Imagen de Documento Contable</h1>
+          <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+
+        <div class="mb-1">
+          <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader" (fileOver)="fileOverBase($event)"
+            class="fileupload-drop-zone">
+            Arrastra tu Imagen png/jpeg aquí
+          </div>
+        </div>
+        <table class="default-table mat-box-shadow" style="width: 100%">
+          <thead>
+            <tr>
+              <th width="30%">Nombre</th>
+              <th>Tamaño</th>
+              <th>Progreso</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="uploader.queue.length; else tableNoData">
+            <tr *ngFor="let item of uploader.queue">
+              <td>{{ item?.file?.name }}</td>
+              <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+              <td>
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  <mat-progress-bar class="" color="primary" mode="determinate" [value]="item.progress">
+                  </mat-progress-bar>
+                </div>
+              </td>
+              <td class="">
+                <mat-icon *ngIf="item.isSuccess">check</mat-icon>
+                <mat-icon *ngIf="item.isCancel" color="accent">cancel</mat-icon>
+                <mat-icon *ngIf="item.isError" color="warn">error</mat-icon>
+              </td>
+              <td nowrap>
+                <button mat-raised-button class="mat-primary" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">Subir</button>
+                <button mat-raised-button class="mat-accent" (click)="item.cancel()" [disabled]="!item.isUploading">Cancelar</button>
+
+                <button mat-raised-button class="mat-warn" (click)="item.remove()">Eliminar</button>
+              </td>
+            </tr>
+            <tr>
+              <div fxFlex="100" class="mt-1">
+                <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+                <span fxFlex></span>
+                <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+              </div>
+
+            </tr>
+          </tbody>
+          <ng-template #tableNoData>
+            <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+          </ng-template>
+
+        </table>
+
+      </mat-card-content>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

@@ -1,0 +1,43 @@
+<div class="m-333">
+
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Grupos personalizados:" placeholder="Grupos personalizados:" [(ngModel)]="selectedValueG">
+        <mat-option *ngFor="let grupo of Grupos" [value]="grupo.value" ngDefaultControl>
+          {{grupo.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Cuenta disponible sin grupo personalizado:" placeholder="Cuenta disponible sin grupo personalizado:" [(ngModel)]="selectedValueC">
+        <mat-option *ngFor="let cuenta of Cuentas" [value]="cuenta.value" ngDefaultControl>
+          {{cuenta.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="m-333">
+    <button mat-raised-button class="mb-05" color="primary">Añadir</button>
+  </div>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
+      [rowHeight]="'auto'">
+      <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.CuentaContable }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Etiqueta }}
+        </ng-template>
+      </ngx-datatable-column>
+    
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

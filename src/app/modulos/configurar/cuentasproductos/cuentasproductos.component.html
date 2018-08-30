@@ -1,0 +1,59 @@
+<div class="m-333">
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Modo" placeholder="Seleccione un modo :" [(ngModel)]="selectedValue">
+        <mat-option *ngFor="let modo of Modos" [value]="modo.value" ngDefaultControl>
+          {{modo.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="m-333">
+    <button mat-raised-button class="mb-05" color="primary">Guardar</button>
+  </div>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
+      [rowHeight]="'auto'">
+      <ngx-datatable-column name="Referencia" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Referencia }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Etiqueta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="En Venta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Venta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="En Compra" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Compra }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Cuenta Contable dedicada" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Cuenta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Nueva Cuenta a Asignar" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.NuevaCuenta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

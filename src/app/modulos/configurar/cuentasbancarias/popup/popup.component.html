@@ -1,0 +1,107 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" >
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Referencia" placeholder="Referencia">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Etiqueta cuenta o caja" placeholder="Etiqueta cuenta o caja">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="Tipo de cuenta" placeholder="Tipo de cuenta">
+          <mat-option *ngFor="let tipo of Tipos" [value]="tipo.value" ngDefaultControl>
+            {{tipo.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pt-1 pr-1">
+      <mat-slide-toggle>Estado</mat-slide-toggle>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Web" placeholder="Web">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Saldo inicial" placeholder="Saldo inicial">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Fecha" placeholder="Fecha" [matDatepicker]="appDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker></mat-datepicker>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Saldo mínimo autorizado" placeholder="Saldo mínimo autorizado">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Nombre del banco" placeholder="Nombre del banco">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Número de cuenta" placeholder="Número de cuenta">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Nombre del titular de la cuenta" placeholder="Nombre del titular de la cuenta">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Dirección del titular de la cuenta" placeholder="Dirección del titular de la cuenta">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="Cuenta contable	" placeholder="Cuenta contable	">
+          <mat-option *ngFor="let cuenta of Cuentas" [value]="cuenta.value" ngDefaultControl>
+            {{cuenta.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="Código contable diario" placeholder="Código contable diario">
+          <mat-option *ngFor="let codigo of Codigos" [value]="codigo.value" ngDefaultControl>
+            {{codigo.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

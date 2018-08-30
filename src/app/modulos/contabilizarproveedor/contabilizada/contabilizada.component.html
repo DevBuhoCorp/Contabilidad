@@ -1,0 +1,46 @@
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
+      [rowHeight]="'auto'">
+      <ngx-datatable-column name="Id línea" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.IdLinea }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Factura" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Factura }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+      <ngx-datatable-column name="Fecha" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Fecha }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Referencia" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.RefProducto }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.CuentaContable }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Contabilizar línea" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.CuentaContable }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

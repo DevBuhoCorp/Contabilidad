@@ -1,0 +1,64 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="Pais" placeholder="País">
+          <mat-option *ngFor="let pais of Paises" [value]="pais.value" ngDefaultControl>
+            {{pais.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Codigo" placeholder="Codigo">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Tarifa" placeholder="Tarifa">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="Cuenta de venta" placeholder="Cuenta de venta">
+          <mat-option *ngFor="let cuentav of Cuentas" [value]="cuentav.value" ngDefaultControl>
+            {{cuentav.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="Cuenta de compra" placeholder="Cuenta de compra">
+          <mat-option *ngFor="let cuentac of Cuentas" [value]="cuentac.value" ngDefaultControl>
+            {{cuentac.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Nota" placeholder="Nota">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pt-1 pr-1">
+      <mat-slide-toggle>Estado</mat-slide-toggle>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

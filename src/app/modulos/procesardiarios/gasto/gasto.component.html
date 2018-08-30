@@ -1,0 +1,75 @@
+<div class="m-333">
+  <div fxFlex="20" class="pr-1">
+    <mat-form-field class="full-width">
+      <input matInput name="FechaInicio" placeholder="Fecha de Inicio" [matDatepicker]="appDatepicker">
+      <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+    </mat-form-field>
+    <mat-datepicker #appDatepicker></mat-datepicker>
+  </div>
+
+
+  <div fxFlex="20" class="pr-1">
+    <mat-form-field class="full-width">
+      <input matInput name="FechaFin" placeholder="Fecha de Fin" [matDatepicker]="appDatepicker2">
+      <mat-datepicker-toggle matSuffix [for]="appDatepicker2"></mat-datepicker-toggle>
+    </mat-form-field>
+    <mat-datepicker #appDatepicker2></mat-datepicker>
+  </div>
+
+  <button mat-raised-button class="mb-05" color="primary">Refrescar Período del reporte</button>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
+      [rowHeight]="'auto'">
+
+      <ngx-datatable-column name="Fecha" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Fecha }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Doc. Contabilidad (Ref. Factura)" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.DocContable }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+      <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.CuentaContable }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Subcuenta Contable" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Subcuenta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Etiqueta Operación" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Etiqueta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+      <ngx-datatable-column name="Debe" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Debe }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Haber" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Haber }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
