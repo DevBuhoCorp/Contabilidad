@@ -5,18 +5,18 @@ import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
 @Injectable()
 export class CrudService {
   readonly puerto = "http://localhost:8000/api/";
-  items:any[];
-  constructor(private http: Http) { 
+  items: any[];
+  constructor(private http: Http) {
   }
 
- 
-  ListarDatos(api,opt,id) {
-      return this.http.get(this.puerto + api+'?opt='+opt+'&id='+id);
+
+  ListarDatos(api, opt, id) {
+    return this.http.get(this.puerto + api + '?opt=' + opt + '&id=' + id);
   }
- 
+
   Actualizar(id, objeto, api) {
     var body = objeto;
-    var headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    var headerOptions = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
     var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
     return this.http.put(this.puerto + api + id, body, requestOptions).map(res => res.json());
   }
@@ -79,5 +79,5 @@ export class CrudService {
       "Estado": false,
     },
   ]*/
-  
+
 }

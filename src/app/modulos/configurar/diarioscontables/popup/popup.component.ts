@@ -41,10 +41,10 @@ export class PopupComponentDC implements OnInit {
   buildItemForm(item) {
     this.itemForm = this.fb.group({
       Codigo: [item.Codigo || '', Validators.required],
-      Etiqueta: [item.Etiqueta || ''],
-      Naturaleza: [item.IDNaturaleza || 0],
-      Estado: [item.Estado || false],
-      ID: [item.ID || 0]
+      Etiqueta: [item.Etiqueta || '', Validators.required],
+      Naturaleza: [item.IDNaturaleza || 0, Validators.required],
+      Estado: [item.Estado || false, Validators.required],
+      ID: [item.ID || 0, Validators.required]
     })
   }
 

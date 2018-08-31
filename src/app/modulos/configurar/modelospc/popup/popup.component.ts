@@ -31,14 +31,19 @@ export class PopupComponentMPC implements OnInit {
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
-      ModelosPC: [item.Modelo || '' ],
-      Etiqueta: [item.Etiqueta || '',Validators.required],
-      Pais: [item.Pais || ''],
-      Estado: [item.Estado || false]
+      Modelo: [item.Modelo || '', Validators.required],
+      Etiqueta: [item.Etiqueta || '', Validators.required],
+      Estado: [item.Estado || false, Validators.required]
     })
   }
 
   submit() {
+    if (this.itemForm.value.Estado) {
+      this.itemForm.value.Estado = 'ACT'
+    }
+    else {
+      this.itemForm.value.Estado = 'INA'
+    }
     this.dialogRef.close(this.itemForm.value)
   }
 }
