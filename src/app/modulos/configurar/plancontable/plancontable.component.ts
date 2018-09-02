@@ -32,19 +32,24 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getItems()
+    this.getItems();
+    console.log(this.crudService.getItems().subscribe(data => {
+      this.items = data;
+    }));
   }
   ngOnDestroy() {
     if (this.getItemSub) {
-      this.getItemSub.unsubscribe()
+      this.getItemSub.unsubscribe();
     }
   }
+
   getItems() {
     this.getItemSub = this.crudService.getItems()
       .subscribe(data => {
         this.items = data;
-      })
+      });
   }
+
   openPopUp(data: any = {}, isNew?) {
     let title = isNew ? 'Agregar' : 'Actualizar';
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
@@ -76,6 +81,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
       })
   }
+
   deleteItem(row) {
     this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
       .subscribe(res => {

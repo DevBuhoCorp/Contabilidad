@@ -81,6 +81,7 @@ import { PopupLibroMayor } from './libromayor/popup/popup.component';
 import { LibroMayorService } from './libromayor/libromayor.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ViewmodelopcComponent } from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 
 
 
@@ -156,6 +157,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
         ClienteComponent,
         UsuarioComponent,
         ProductosComponent,
+        ViewmodelopcComponent,
 
     ],
     providers: [

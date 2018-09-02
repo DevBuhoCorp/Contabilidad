@@ -45,16 +45,15 @@ export class PopupComponentDC implements OnInit {
       Naturaleza: [item.IDNaturaleza || 0],
       Estado: [item.Estado || false],
       ID: [item.ID || 0]
-    })
+    });
   }
 
   submit() {
     if (this.itemForm.value.Estado) {
-      this.itemForm.value.Estado = 'ACT'
+      this.itemForm.value.Estado = 'ACT';
+    } else {
+      this.itemForm.value.Estado = 'INA';
     }
-    else {
-      this.itemForm.value.Estado = 'INA'
-    }
-    this.dialogRef.close(this.itemForm.value)
+    this.dialogRef.close(this.itemForm.value);
   }
 }

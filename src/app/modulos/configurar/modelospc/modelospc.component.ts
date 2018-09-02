@@ -6,6 +6,7 @@ import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loade
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { ModeloPlanContable } from './modelopc.model';
+import {ViewmodelopcComponent} from './viewmodelopc/viewmodelopc.component';
 
 @Component({
   selector: 'app-modelospc',
@@ -24,41 +25,48 @@ export class ModelospcComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getItems("All", 0)
+    this.getItems("All", 0);
   }
   ngOnDestroy() {
     if (this.getItemSub) {
-      this.getItemSub.unsubscribe()
+      this.getItemSub.unsubscribe();
     }
   }
+  viewModeloPlanContable(item) {
+    console.log(item);
+    const dialogRef: MatDialogRef<any> = this.dialog.open(ViewmodelopcComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { title: '', payload: {} }
+    });
+  }
+
   getItems(opt, id) {
-    this.crudService.ListarDatos("modeloplancontable", opt, id).map((response) => {
+    this.crudService.ListarDatos('modeloplancontable', opt, id).map((response) => {
       return response.json() as ModeloPlanContable[];
     }).toPromise().then(x => {
       this.items = x;
       let index = 0;
       for (let i of this.items) {
-        
-        if (i.Estado == 'ACT') {
+        if (i.Estado === 'ACT') {
           this.items[index].Estado = true;
-        }
-        else{
+        } else {
           this.items[index].Estado = false;
         }
         index++;
       }
-    })
+    });
 
   }
   openPopUp(data: any = {}, isNew?) {
 
-    let title = isNew ? 'Agregar' : 'Actualizar';
+    const title = isNew ? 'Agregar' : 'Actualizar';
 
-    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentMPC, {
+    const dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentMPC, {
       width: '720px',
       disableClose: true,
       data: { title: title, payload: data }
-    })
+    });
     dialogRef.afterClosed()
       .subscribe(res => {
         if (!res) {
@@ -67,19 +75,19 @@ export class ModelospcComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
-            this.getItems("All", 0);
+          this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
+            this.getItems('All', 0);
             this.loader.close();
-            this.snack.open('Agregado!', 'OK', { duration: 4000 })
+            this.snack.open('Agregado!', 'OK', { duration: 4000 });
           })
         } else {
-          this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
-            this.getItems("All", 0);
+          this.crudService.Actualizar(data.ID, res, 'modeloplancontable/').subscribe(data => {
+            this.getItems('All', 0);
             this.loader.close();
-            this.snack.open('Actualizado!', 'OK', { duration: 4000 })
-          })
+            this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+          });
         }
-      })
+      });
   }
   deleteItem(row) {
     this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })

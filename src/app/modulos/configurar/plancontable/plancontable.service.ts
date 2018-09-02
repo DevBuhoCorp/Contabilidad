@@ -6,9 +6,9 @@ import 'rxjs/add/operator/delay';
 export class PlanContableService {
     constructor() { }
 
-    //******* Implement your APIs ********
+    /* Implement your APIs */
     getItems(): Observable<any> {
-        return Observable.of(this.items.slice())
+        return Observable.of(this.items.slice());
     }
     addItem(item): Observable<any> {
         item._id = Math.round(Math.random() * 10000000000).toString();
@@ -79,5 +79,5 @@ export class PlanContableService {
             "GrupoCuenta": "Detalle",
             "Estado": true,
         },
-    ]
+    ];
 }
