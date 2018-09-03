@@ -3,8 +3,8 @@
   <div fxFlex="50" class="pr-1">
     <mat-form-field class="full-width">
       <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedValue">
-        <mat-option *ngFor="let plan of Planes" [value]="plan.value" ngDefaultControl>
-          {{plan.viewValue}}
+        <mat-option *ngFor="let modelo of Modelos" [value]="modelo.value" ngDefaultControl>
+          {{modelo.Etiqueta}}
         </mat-option>
       </mat-select>
     </mat-form-field>

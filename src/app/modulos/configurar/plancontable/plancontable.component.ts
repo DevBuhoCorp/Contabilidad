@@ -4,7 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { PopupComponentPC } from './popup/popup.component';
 import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
-import { PlanContableService } from './plancontable.service';
+import { CrudService } from '../../../shared/servicios/crud.service';
+import { PlanContable } from './plancontable.model';
+import { ModeloPlanContable } from '../modelospc/modelopc.model';
 
 @Component({
   selector: 'app-plancontable',
@@ -12,41 +14,54 @@ import { PlanContableService } from './plancontable.service';
   styles: []
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
-  selectedValue: string = '';
-  Planes = [
-    { value: 1, viewValue: 'Plan Contable 1' },
-    { value: 2, viewValue: 'Plan Contable 2' },
-    { value: 3, viewValue: 'Plan Contable 3' },
-    { value: 4, viewValue: 'Plan Contable 4' },
-    { value: 5, viewValue: 'Plan Contable 5' },
-    { value: 6, viewValue: 'Plan Contable 6' },
-  ];
+  Modelos = [];
   public items: any[];
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private crudService: PlanContableService,
+    private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
-  ) { }
+  ) {
+    this.crudService.ListarDatos("modeloplancontable", "All", 0).map((response) => {
+      return response.json() as ModeloPlanContable[];
+    }).toPromise().then(x => {
+      this.Modelos = x;
+    })
+  }
 
   ngOnInit() {
-    this.getItems()
+    this.getItems("All", 0)
   }
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe()
     }
   }
-  getItems() {
-    this.getItemSub = this.crudService.getItems()
-      .subscribe(data => {
-        this.items = data;
-      })
+  getItems(opt, id) {
+    this.crudService.ListarDatos("modeloplancontable", opt, id).map((response) => {
+      return response.json() as ModeloPlanContable[];
+    }).toPromise().then(x => {
+      this.items = x;
+      let index = 0;
+      for (let i of this.items) {
+
+        if (i.Estado == 'ACT') {
+          this.items[index].Estado = true;
+        }
+        else {
+          this.items[index].Estado = false;
+        }
+        index++;
+      }
+    })
+
   }
   openPopUp(data: any = {}, isNew?) {
+
     let title = isNew ? 'Agregar' : 'Actualizar';
+
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
@@ -60,19 +75,17 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.addItem(res)
-            .subscribe(data => {
-              this.items = data;
-              this.loader.close();
-              this.snack.open('Agregado!', 'OK', { duration: 4000 })
-            })
+          this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
+            this.getItems("All", 0);
+            this.loader.close();
+            this.snack.open('Agregado!', 'OK', { duration: 4000 })
+          })
         } else {
-          this.crudService.updateItem(data.ID, res)
-            .subscribe(data => {
-              this.items = data;
-              this.loader.close();
-              this.snack.open('Actualizado!', 'OK', { duration: 4000 })
-            })
+          this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
+            this.getItems("All", 0);
+            this.loader.close();
+            this.snack.open('Actualizado!', 'OK', { duration: 4000 })
+          })
         }
       })
   }
@@ -81,13 +94,15 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.removeItem(row)
-            .subscribe(data => {
-              this.items = data;
-              this.loader.close();
-              this.snack.open('Eliminado!', 'OK', { duration: 4000 })
-            })
+          this.crudService.Eliminar(row.ID, "modeloplancontable/").subscribe(data => {
+            this.getItems("All", 0);
+            this.loader.close();
+            this.snack.open('Eliminado!', 'OK', { duration: 4000 })
+          })
         }
       })
+
   }
+
+
 }
