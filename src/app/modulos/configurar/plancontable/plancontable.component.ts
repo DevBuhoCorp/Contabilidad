@@ -1,18 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
+import {TreeNode} from 'primeng/components/common/api';
 import { PopupComponentPC } from './popup/popup.component';
 import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { PlanContableService } from './plancontable.service';
+import {CrudService} from '../../../shared/servicios/crud.service';
+
 
 @Component({
   selector: 'app-plancontable',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './plancontable.component.html',
-  styles: []
+  styleUrls: [
+    './plancontable.component.css',
+  ]
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
+
+  filesTree0: TreeNode[];
+  selectedFile: TreeNode;
+
   Planes = [
     { value: 1, viewValue: 'Plan Contable 1' },
     { value: 2, viewValue: 'Plan Contable 2' },
@@ -26,16 +36,21 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private crudService: PlanContableService,
+    private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
   ) { }
 
   ngOnInit() {
     this.getItems();
-    console.log(this.crudService.getItems().subscribe(data => {
-      this.items = data;
-    }));
+    // console.log(this.crudService.getItems().subscribe(data => {
+    //   this.items = data;
+    // }));
+    this.crudService.ListarDatos('plancontable','ALL', 0).map((response) => {
+      return response.json();
+    }).toPromise().then(x => {
+      this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
+    });
   }
   ngOnDestroy() {
     if (this.getItemSub) {
@@ -44,56 +59,64 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   getItems() {
-    this.getItemSub = this.crudService.getItems()
-      .subscribe(data => {
-        this.items = data;
-      });
+    // this.getItemSub = this.crudService.getItems()
+    //   .subscribe(data => {
+    //     this.items = data;
+    //   });
   }
 
   openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? 'Agregar' : 'Actualizar';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
-      width: '720px',
-      disableClose: true,
-      data: { title: title, payload: data }
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          // If user press cancel
-          return;
-        }
-        this.loader.open();
-        if (isNew) {
-          this.crudService.addItem(res)
-            .subscribe(data => {
-              this.items = data;
-              this.loader.close();
-              this.snack.open('Agregado!', 'OK', { duration: 4000 })
-            })
-        } else {
-          this.crudService.updateItem(data.ID, res)
-            .subscribe(data => {
-              this.items = data;
-              this.loader.close();
-              this.snack.open('Actualizado!', 'OK', { duration: 4000 })
-            })
-        }
-      })
+    // let title = isNew ? 'Agregar' : 'Actualizar';
+    // let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
+    //   width: '720px',
+    //   disableClose: true,
+    //   data: { title: title, payload: data }
+    // })
+    // dialogRef.afterClosed()
+    //   .subscribe(res => {
+    //     if (!res) {
+    //       // If user press cancel
+    //       return;
+    //     }
+    //     this.loader.open();
+    //     if (isNew) {
+    //       this.crudService.addItem(res)
+    //         .subscribe(data => {
+    //           this.items = data;
+    //           this.loader.close();
+    //           this.snack.open('Agregado!', 'OK', { duration: 4000 })
+    //         })
+    //     } else {
+    //       this.crudService.updateItem(data.ID, res)
+    //         .subscribe(data => {
+    //           this.items = data;
+    //           this.loader.close();
+    //           this.snack.open('Actualizado!', 'OK', { duration: 4000 })
+    //         })
+    //     }
+    //   })
   }
 
   deleteItem(row) {
-    this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
-      .subscribe(res => {
-        if (res) {
-          this.loader.open();
-          this.crudService.removeItem(row)
-            .subscribe(data => {
-              this.items = data;
-              this.loader.close();
-              this.snack.open('Eliminado!', 'OK', { duration: 4000 })
-            })
-        }
-      })
+    // this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
+    //   .subscribe(res => {
+    //     if (res) {
+    //       this.loader.open();
+    //       this.crudService.removeItem(row)
+    //         .subscribe(data => {
+    //           this.items = data;
+    //           this.loader.close();
+    //           this.snack.open('Eliminado!', 'OK', { duration: 4000 })
+    //         })
+    //     }
+    //   })
+  }
+
+  nodeSelect(event) {
+    console.log(event.node);
+  }
+
+  nodeUnselect(event) {
+    console.log(event.node);
   }
 }
