@@ -27,6 +27,7 @@ export class PopupComponentMPC implements OnInit {
       })
 
     }
+    console.log(this.data.payload);
     this.buildItemForm(this.data.payload)
   }
   buildItemForm(item) {

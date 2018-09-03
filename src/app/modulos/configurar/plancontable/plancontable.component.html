@@ -2,8 +2,8 @@
 
   <div fxFlex="50" class="pr-1">
     <mat-form-field class="full-width">
-      <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedValue">
-        <mat-option *ngFor="let modelo of Modelos" [value]="modelo.value" ngDefaultControl>
+      <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedValue" (selectionChange)="CargarPlan()">
+        <mat-option *ngFor="let modelo of Modelos" [value]="modelo.ID" ngDefaultControl>
           {{modelo.Etiqueta}}
         </mat-option>
       </mat-select>
@@ -11,6 +11,8 @@
   </div>
   <div class="m-333">
     <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Añadir</button>
+    <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, false)">Editar</button>
+    <!--<button mat-raised-button class="mb-05" color="primary" (click)="deleteItem()">Eliminar</button>-->
   </div>
 </div>
 

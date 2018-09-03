@@ -16,18 +16,18 @@ export class ViewmodelopcComponent implements OnInit {
   selectedFile: TreeNode;
 
   constructor(private _activateRoute: ActivatedRoute,
-              private crudService: CrudService ) {
+              private crudService: CrudService) {
     this._activateRoute.params.subscribe(params => {
-      // console.log(params);
+      this.crudService.ListarDatos('plancontable','ALL', params['id']).map((response) => {
+        return response.json();
+      }).toPromise().then(x => {
+        this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
+      });
     });
   }
 
   ngOnInit() {
-    this.crudService.ListarDatos('plancontable','ALL', 0).map((response) => {
-      return response.json();
-    }).toPromise().then(x => {
-      this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
-    });
+    
   }
 
   nodeSelect(event) {

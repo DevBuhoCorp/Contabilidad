@@ -3,7 +3,7 @@
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Número de cuenta" [formControl]="itemForm.controls['NumeroCuenta']" placeholder="Número de cuenta">
+        <input matInput name="NumeroCuenta" [formControl]="itemForm.controls['NumeroCuenta']" placeholder="Número de cuenta">
       </mat-form-field>
     </div>
 
@@ -13,13 +13,19 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pr-1">
+<!--    <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <mat-select name="CuentaPadre" placeholder="Cuenta Padre" [formControl]="itemForm.controls['CuentaPadre']">
-          <mat-option *ngFor="let cuenta of Cuentas" [value]="cuenta.value" ngDefaultControl>
-            {{cuenta.viewValue}}
+          <mat-option *ngFor="let cuenta of Cuentas" [value]="cuenta.ID" ngDefaultControl>
+            {{cuenta.Etiqueta}}
           </mat-option>
         </mat-select>
+      </mat-form-field>
+    </div>-->
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="CuentaPadre" [formControl]="itemForm.controls['CuentaPadre']" placeholder="Cuenta Padre" disabled="true">
       </mat-form-field>
     </div>
 

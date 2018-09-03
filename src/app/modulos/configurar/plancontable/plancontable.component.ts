@@ -19,7 +19,7 @@ import { ModeloPlanContable } from '../modelospc/modelopc.model';
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
-
+  SelFila: any[];
   filesTree0: TreeNode[];
   selectedFile: TreeNode;
 
@@ -41,8 +41,10 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getItems("All", 0);
-    this.crudService.ListarDatos('plancontable', 'ALL', 0).map((response) => {
+
+  }
+  CargarPlan() {
+    this.crudService.ListarDatos('plancontable', 'ALL', this.selectedValue).map((response) => {
       return response.json();
     }).toPromise().then(x => {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
@@ -53,30 +55,11 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.getItemSub.unsubscribe();
     }
   }
-  getItems(opt, id) {
-    this.crudService.ListarDatos("modeloplancontable", opt, id).map((response) => {
-      return response.json() as ModeloPlanContable[];
-    }).toPromise().then(x => {
-      this.items = x;
-      let index = 0;
-      for (let i of this.items) {
-
-        if (i.Estado == 'ACT') {
-          this.items[index].Estado = true;
-        }
-        else {
-          this.items[index].Estado = false;
-        }
-        index++;
-      }
-    })
-
-  }
 
   openPopUp(data: any = {}, isNew?) {
-
+    data = this.SelFila;
+    console.log(data);
     let title = isNew ? 'Agregar' : 'Actualizar';
-
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
@@ -91,13 +74,13 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         this.loader.open();
         if (isNew) {
           this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
-            this.getItems("All", 0);
+            // this.getItems("All", 0);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 })
           })
         } else {
           this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
-            this.getItems("All", 0);
+            //  this.getItems("All", 0);
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 })
           })
@@ -111,7 +94,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         if (res) {
           this.loader.open();
           this.crudService.Eliminar(row.ID, "modeloplancontable/").subscribe(data => {
-            this.getItems("All", 0);
+            // this.getItems("All", 0);
             this.loader.close();
             this.snack.open('Eliminado!', 'OK', { duration: 4000 })
           })
@@ -120,7 +103,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   }
   nodeSelect(event) {
-    console.log(event.node);
+    this.SelFila = event.node;
   }
 
   nodeUnselect(event) {
