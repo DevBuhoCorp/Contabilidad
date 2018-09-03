@@ -1,0 +1,9 @@
+<div class="p-0">
+  <mat-card>
+    <!-- <h3 class="first">Basic</h3> -->
+    <p-tree [style]="{'width':'100%'}" [value]="filesTree0" selectionMode="single" [(selection)]="selectedFile"
+            (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+    </p-tree>
+
+  </mat-card>
+</div>

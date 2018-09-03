@@ -41,20 +41,27 @@ export class PopupComponentDC implements OnInit {
   buildItemForm(item) {
     this.itemForm = this.fb.group({
       Codigo: [item.Codigo || '', Validators.required],
+<<<<<<< HEAD
       Etiqueta: [item.Etiqueta || '', Validators.required],
       Naturaleza: [item.IDNaturaleza || 0, Validators.required],
       Estado: [item.Estado || false, Validators.required],
       ID: [item.ID || 0, Validators.required]
     })
+=======
+      Etiqueta: [item.Etiqueta || ''],
+      Naturaleza: [item.IDNaturaleza || 0],
+      Estado: [item.Estado || false],
+      ID: [item.ID || 0]
+    });
+>>>>>>> origin/kbsg
   }
 
   submit() {
     if (this.itemForm.value.Estado) {
-      this.itemForm.value.Estado = 'ACT'
+      this.itemForm.value.Estado = 'ACT';
+    } else {
+      this.itemForm.value.Estado = 'INA';
     }
-    else {
-      this.itemForm.value.Estado = 'INA'
-    }
-    this.dialogRef.close(this.itemForm.value)
+    this.dialogRef.close(this.itemForm.value);
   }
 }

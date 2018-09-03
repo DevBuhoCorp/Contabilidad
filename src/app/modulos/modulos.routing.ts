@@ -29,6 +29,7 @@ import { GpredefinidoComponent } from './informes/resultado/gpredefinido/gpredef
 import { GpersonalizadoComponent } from './informes/resultado/gpersonalizado/gpersonalizado.component';
 import { ClienteComponent } from './informes/ventas/cliente/cliente.component';
 import { UsuarioComponent } from './informes/ventas/usuario/usuario.component';
+import { ViewmodelopcComponent } from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 
 
 
@@ -44,6 +45,9 @@ export const ModulosRoutes: Routes = [
     },
     {
         path: 'configurar/modelosplanescontables', component: ModelospcComponent, data: { title: 'Modelos Planes Contables', breadcrumb: 'CONFIGURAR MODELOS PLANES CONTABLES' }
+    },
+    {
+        path: 'configurar/modelosplanescontables/lista/:id', component: ViewmodelopcComponent, data: { title: 'Modelos Planes Contables', breadcrumb: 'VISUALIZAR MODELOS PLANES CONTABLES' }
     },
     {
         path: 'configurar/plancontable', component: PlancontableComponent, data: { title: 'Plan Contable', breadcrumb: 'CONFIGURAR PLAN CONTABLE' }
@@ -123,6 +127,5 @@ export const ModulosRoutes: Routes = [
     {
         path: 'ventas/usuario', component: UsuarioComponent, data: { title: 'Volumen de Ventas', breadcrumb: 'PROCESAR VOLUMEN DE VENTAS POR USUARIO' }
     },
-    
-];
 
+];
