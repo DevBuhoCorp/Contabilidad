@@ -7,6 +7,7 @@ import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-con
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { ModeloPlanContable } from './modelopc.model';
 import {ViewmodelopcComponent} from './viewmodelopc/viewmodelopc.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modelospc',
@@ -22,25 +23,20 @@ export class ModelospcComponent implements OnInit, OnDestroy {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.getItems("All", 0);
+    //this.getItems("All", 0);
+    this.items = [
+      {ID: 6, Modelo: "Plan Contable 1", Etiqueta: "Plan Contable para Aldebaran", Estado: "ACT"}
+    ];
   }
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
     }
   }
-  viewModeloPlanContable(item) {
-    console.log(item);
-    const dialogRef: MatDialogRef<any> = this.dialog.open(ViewmodelopcComponent, {
-      width: '720px',
-      disableClose: true,
-      data: { title: '', payload: {} }
-    });
-  }
-
   getItems(opt, id) {
     this.crudService.ListarDatos('modeloplancontable', opt, id).map((response) => {
       return response.json() as ModeloPlanContable[];

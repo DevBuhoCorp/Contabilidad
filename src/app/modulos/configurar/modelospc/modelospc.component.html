@@ -32,7 +32,7 @@
           <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" (click)="viewModeloPlanContable(row.ID)">
+          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID]">
             <mat-icon>list</mat-icon>
           </button>
         </ng-template>
