@@ -19,11 +19,11 @@ import { ModeloPlanContable } from '../modelospc/modelopc.model';
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
-  SelFila: any[];
   filesTree0: TreeNode[];
   selectedFile: TreeNode;
 
   Modelos: ModeloPlanContable[];
+  Cuentas: any[];
   public items: any[];
   public getItemSub: Subscription;
   constructor(
@@ -50,6 +50,15 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
     });
   }
+  CargarCuenta(id){
+    this.crudService.ListarDatos("cuentacontable", "ID", id).map((response) => {
+      return response.json();
+    }).toPromise().then(x => {
+      this.Cuentas = x;
+      console.log(this.Cuentas);
+    })
+
+  }
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
@@ -57,9 +66,9 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   openPopUp(data: any = {}, isNew?) {
-    data = this.SelFila;
-    console.log(data);
     let title = isNew ? 'Agregar' : 'Actualizar';
+    /*this.CargarCuenta(data.data);
+    console.log(this.Cuentas);*/
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
@@ -103,11 +112,11 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   }
   nodeSelect(event) {
-    this.SelFila = event.node;
+    console.log(event.node);
   }
 
   nodeUnselect(event) {
-    console.log(event.node);
+    //console.log(event.node);
   }
 
 

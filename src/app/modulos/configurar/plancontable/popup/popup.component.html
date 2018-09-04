@@ -25,11 +25,17 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="CuentaPadre" [formControl]="itemForm.controls['CuentaPadre']" placeholder="Cuenta Padre" disabled="true">
+        <input matInput name="CuentaPadre" [formControl]="itemForm.controls['CuentaPadre']" placeholder="Cuenta Padre">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="GrupoCuenta" [formControl]="itemForm.controls['GrupoCuenta']" placeholder="GrupoCuenta">
+      </mat-form-field>
+    </div>
+
+   <!-- <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <mat-select name="GrupoCuenta" placeholder="Grupo de Cuenta" [formControl]="itemForm.controls['GrupoCuenta']">
           <mat-option *ngFor="let grupo of Grupos" [value]="grupo.value" ngDefaultControl>
@@ -37,7 +43,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
+    </div>-->
 
     <div fxFlex="50" class="pt-1 pr-1">
       <mat-slide-toggle [formControl]="itemForm.controls['Estado']">Estado</mat-slide-toggle>

@@ -23,6 +23,7 @@ export class PopupComponentDC implements OnInit {
       return response.json();
     }).toPromise().then(x => {
       this.Naturaleza = x;
+      console.log(this.Naturaleza);
     })
   }
 
@@ -33,10 +34,13 @@ export class PopupComponentDC implements OnInit {
         return response.json() as DiarioContable[];
       }).toPromise().then(x => {
         this.data.payload = x;
+        console.log(this.data.payload);
       })
 
     }
+
     this.buildItemForm(this.data.payload)
+    console.log(this.data.payload);
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({

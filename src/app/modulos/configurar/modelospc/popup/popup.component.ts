@@ -20,15 +20,17 @@ export class PopupComponentMPC implements OnInit {
 
   ngOnInit() {
     if (this.data.title == 'Actualizar') {
-      this.crudService.ListarDatos("diarios", "ID", this.data.payload.ID).map((response) => {
+      this.crudService.ListarDatos("modeloplancontable", "ID", this.data.payload.ID).map((response) => {
         return response.json() as ModeloPlanContable[];
       }).toPromise().then(x => {
         this.data.payload = x;
+        console.log('consulta',this.data.payload);
       })
 
     }
-    console.log(this.data.payload);
     this.buildItemForm(this.data.payload)
+    console.log(this.data.payload);
+
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
