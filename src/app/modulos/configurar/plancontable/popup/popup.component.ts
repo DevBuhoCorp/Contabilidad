@@ -11,7 +11,8 @@ import { CuentaContable } from '../cuentacontable.model';
 })
 export class PopupComponentPC implements OnInit {
   Grupo = "Detalle";
-  Cuentas = [];
+  Nhijos;
+  NumeroCuenta:string;
   public itemForm: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -19,31 +20,28 @@ export class PopupComponentPC implements OnInit {
     private fb: FormBuilder,
     private crudService: CrudService,
   ) {
+     this.crudService.ListarDatos("numerocuenta", this.data.payload.data, this.data.Modelo).map((response) => {
+      return response.json();
+    }).toPromise().then(x => {
+      this.Nhijos = JSON.parse(x[0].data);
+      console.log(x);
+      console.log(this.Nhijos.ncuenta);
+      this.NumeroCuenta = this.data.payload.numerocuenta + "." + this.Nhijos.ncuenta;
+      console.log(this.NumeroCuenta);
+    })
 
-
-   }
+  }
 
   ngOnInit() {
-
-    //if (this.data.title == 'Actualizar') {
-      this.crudService.ListarDatos("cuentacontable", "ID", this.data.payload.data).map((response) => {
-        return response.json() as CuentaContable[];
-      }).toPromise().then(x => {
-        this.data.payload = x;
-        console.log(this.data.payload);
-      })
-
-   // }
-    console.log(this.data.payload);
+   
     this.buildItemForm(this.data.payload);
   }
   buildItemForm(item) {
-   
+
     this.itemForm = this.fb.group({
-      NumeroCuenta: [item.NumeroCuenta || ''],
+      NumeroCuenta: [{ value: this.NumeroCuenta || '', disabled: true }],
       Etiqueta: [item.Etiqueta || '', Validators.required],
       CuentaPadre: [{ value: item.label || '', disabled: true }],
-      //GrupoCuenta: [item.GrupoCuenta || 0],
       GrupoCuenta: [{ value: this.Grupo || '', disabled: true }],
       Estado: [item.Estado || false]
     })

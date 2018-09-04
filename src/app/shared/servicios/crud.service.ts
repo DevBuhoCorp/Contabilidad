@@ -10,7 +10,7 @@ export class CrudService {
 
 
   ListarDatos(api, opt, id) {
-    return this.http.get(this.puerto + api + '?opt=' + opt + '&id=' + id);
+     return this.http.get(this.puerto + api + '?opt=' + opt + '&id=' + id);
   }
 
   Actualizar(id, objeto, api) {

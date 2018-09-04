@@ -20,12 +20,14 @@ import { ModeloPlanContable } from '../modelospc/modelopc.model';
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
   filesTree0: TreeNode[];
-  selectedFile: TreeNode;
+  selectedFile: any;
 
   Modelos: ModeloPlanContable[];
   Cuentas: any[];
   public items: any[];
   public getItemSub: Subscription;
+  Nhijos: any;
+  NumeroCuenta: string;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -50,14 +52,16 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
     });
   }
-  CargarCuenta(id){
-    this.crudService.ListarDatos("cuentacontable", "ID", id).map((response) => {
+  CargarHijo() {
+    this.crudService.ListarDatos("numerocuenta", this.selectedFile.data, this.selectedValue).map((response) => {
       return response.json();
     }).toPromise().then(x => {
-      this.Cuentas = x;
-      console.log(this.Cuentas);
+      this.Nhijos = JSON.parse(x[0].data);
+      console.log(x);
+      console.log(this.Nhijos.ncuenta);
+      this.NumeroCuenta = this.selectedFile.numerocuenta + "." + this.Nhijos.ncuenta;
+      console.log(this.NumeroCuenta);
     })
-
   }
   ngOnDestroy() {
     if (this.getItemSub) {
@@ -66,13 +70,14 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   openPopUp(data: any = {}, isNew?) {
+   // this.CargarHijo();
     let title = isNew ? 'Agregar' : 'Actualizar';
     /*this.CargarCuenta(data.data);
     console.log(this.Cuentas);*/
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
-      data: { title: title, payload: data }
+      data: { title: title, payload: data, Modelo: this.selectedValue }
     })
     dialogRef.afterClosed()
       .subscribe(res => {
