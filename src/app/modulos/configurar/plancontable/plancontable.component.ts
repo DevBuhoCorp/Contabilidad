@@ -81,15 +81,23 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       data: { title: title, payload: data }
     });
 
-    dialogRef.afterClosed().subscribe(res => {
+   /* dialogRef.afterClosed().subscribe(res => {
       // res => Etiqueta , Estado
       if (!res) return;
 
       if (isNew) {
-
-        console.log(data.promise2);
-        console.log(res);
-        console.log(Object.assign(res, data.promise2));
+        // let ccontable: CuentaContable = {
+        //   ID: 0,
+        //   NumeroCuenta: 0,
+        //   Etiqueta: '',
+        //   IDGrupo: 0,
+        //   Grupo: 0,
+        //   IDPadre: 0,
+        //   Saldo: 0,
+        //   Estado: 'ACT'
+        //
+        // };
+        console.log(Object.assign(res, data.promise));
       }
       else
         console.log(Object.assign(res, data.promise));
@@ -102,33 +110,33 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       // });
 
 
-    });
+    });*/
 
 
-    // this.CargarCuenta(data.data);
 
 
-    // dialogRef.afterClosed()
-    //   .subscribe(res => {
-    //     if (!res) {
-    //       // If user press cancel
-    //       return;
-    //     }
-    //     this.loader.open();
-    //     if (isNew) {
-    //       this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
-    //         // this.getItems("All", 0);
-    //         this.loader.close();
-    //         this.snack.open('Agregado!', 'OK', { duration: 4000 })
-    //       })
-    //     } else {
-    //       this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
-    //         //  this.getItems("All", 0);
-    //         this.loader.close();
-    //         this.snack.open('Actualizado!', 'OK', { duration: 4000 })
-    //       })
-    //     }
-    //   });
+
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+        this.loader.open();
+        if (isNew) {
+          this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
+            this.CargarPlan();
+            this.loader.close();
+            this.snack.open('Agregado!', 'OK', { duration: 4000 });
+          })
+        } else {
+          this.crudService.Actualizar(data.data, res, 'cuentacontable/').subscribe(data => {
+            this.CargarPlan();
+            this.loader.close();
+            this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+          });
+        }
+      });
   }
 
   deleteItem(row) {
