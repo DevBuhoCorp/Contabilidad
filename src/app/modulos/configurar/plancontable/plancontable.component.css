@@ -2,3 +2,8 @@
 @import "~primeng/resources/primeng.min.css";
 @import "~primeng/resources/themes/nova-light/theme.css";
 @import "~font-awesome/css/font-awesome.min.css";
+
+
+.bnt-group button{
+    margin-right: 3px;
+}
