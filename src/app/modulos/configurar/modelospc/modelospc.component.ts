@@ -27,10 +27,7 @@ export class ModelospcComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    //this.getItems("All", 0);
-    this.items = [
-      {ID: 6, Modelo: "Plan Contable 1", Etiqueta: "Plan Contable para Aldebaran", Estado: "ACT"}
-    ];
+    this.getItems("All", 0);
   }
   ngOnDestroy() {
     if (this.getItemSub) {
