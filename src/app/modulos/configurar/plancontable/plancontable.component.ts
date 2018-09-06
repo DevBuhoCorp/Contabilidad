@@ -22,7 +22,8 @@ import { HttpClient } from '@angular/common/http';
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
   filesTree0: TreeNode[];
-  selectedFile: any;
+  selectedFile: any ;
+  selectedFile_2: any = null ;
 
   Modelos: ModeloPlanContable[];
   Cuentas: any[];
@@ -74,46 +75,12 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     else {
       data.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);;
     }
-    
+
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
       data: { title: title, payload: data, PlanContable: this.selectedValue }
     });
-
-   /* dialogRef.afterClosed().subscribe(res => {
-      // res => Etiqueta , Estado
-      if (!res) return;
-
-      if (isNew) {
-        // let ccontable: CuentaContable = {
-        //   ID: 0,
-        //   NumeroCuenta: 0,
-        //   Etiqueta: '',
-        //   IDGrupo: 0,
-        //   Grupo: 0,
-        //   IDPadre: 0,
-        //   Saldo: 0,
-        //   Estado: 'ACT'
-        //
-        // };
-       // console.log(Object.assign(res, data.promise));
-      }
-      else
-        console.log(Object.assign(res, data.promise));
-
-      // this.loader.open();
-      // this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
-      //   this.getItems('All', 0);
-      //   this.loader.close();
-      //   this.snack.open('Agregado!', 'OK', {duration: 4000});
-      // });
-
-
-    });*/
-
-
-   
 
 
     dialogRef.afterClosed()
@@ -125,11 +92,11 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         this.loader.open();
         if (isNew) {
           console.log(res);
-         /* this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
+         this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
-          })*/
+          });
         } else {
           this.crudService.Actualizar(data.data, res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
@@ -156,12 +123,23 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   nodeSelect(event) {
-    // console.log(event.node);
+
+    // if ( this.selectedFile_2 == null || this.selectedFile_2.data !=  this.selectedFile.data )
+    //   this.selectedFile_2 = this.selectedFile;
+    // else
+    //   this.selectedFile_2 = null;
+
+    if( this.selectedFile_2 == null )
+      this.selectedFile_2 = this.selectedFile;
+    else if ( this.selectedFile_2.data ==  this.selectedFile.data )
+      this.selectedFile = null;
+    else
+      this.selectedFile_2 = this.selectedFile;
   }
-  //
-  // nodeUnselect(event) {
-  //   this.selectedFile = null;
-  // }
+
+  nodeUnselect(event) {
+    console.log("unselect");
+  }
 
 
 }
