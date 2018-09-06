@@ -78,7 +78,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
-      data: { title: title, payload: data }
+      data: { title: title, payload: data, PlanContable: this.selectedValue }
     });
 
    /* dialogRef.afterClosed().subscribe(res => {
@@ -124,11 +124,12 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
+          console.log(res);
+         /* this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
-          })
+          })*/
         } else {
           this.crudService.Actualizar(data.data, res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
