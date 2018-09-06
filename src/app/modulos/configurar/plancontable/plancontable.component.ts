@@ -57,10 +57,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       return response.json();
     }).toPromise().then(x => {
       this.Nhijos = JSON.parse(x[0].data);
-      console.log(x);
-      console.log(this.Nhijos.ncuenta);
       this.NumeroCuenta = this.selectedFile.numerocuenta + "." + this.Nhijos.ncuenta;
-      console.log(this.NumeroCuenta);
+      
     })
   }
   ngOnDestroy() {

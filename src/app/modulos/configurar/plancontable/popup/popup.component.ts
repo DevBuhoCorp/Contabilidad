@@ -23,11 +23,11 @@ export class PopupComponentPC implements OnInit {
      this.crudService.ListarDatos("numerocuenta", this.data.payload.data, this.data.Modelo).map((response) => {
       return response.json();
     }).toPromise().then(x => {
+      
       this.Nhijos = JSON.parse(x[0].data);
-      console.log(x);
-      console.log(this.Nhijos.ncuenta);
-      this.NumeroCuenta = this.data.payload.numerocuenta + "." + this.Nhijos.ncuenta;
-      console.log(this.NumeroCuenta);
+      console.log(this.Nhijos);
+      //this.NumeroCuenta = this.data.payload.numerocuenta + "." + this.Nhijos.ncuenta;
+     
     })
 
   }
@@ -39,7 +39,7 @@ export class PopupComponentPC implements OnInit {
   buildItemForm(item) {
 
     this.itemForm = this.fb.group({
-      NumeroCuenta: [{ value: this.NumeroCuenta || '', disabled: true }],
+      NumeroCuenta: [{ value: this.Nhijos || '', disabled: true }],
       Etiqueta: [item.Etiqueta || '', Validators.required],
       CuentaPadre: [{ value: item.label || '', disabled: true }],
       GrupoCuenta: [{ value: this.Grupo || '', disabled: true }],
