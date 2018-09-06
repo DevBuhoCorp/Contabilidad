@@ -41,7 +41,7 @@ export class PopupComponentPC implements OnInit {
       Etiqueta: ['', Validators.required],
       CuentaPadre: [{ value: item.label || '', disabled: true }],
       GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
-      IDDiario: [item.IDDiario || 0, Validators.required],
+      IDDiario: [item.IDDiario || 1, Validators.required],
       Estado: [item.Estado || false, Validators.required]
 
     });
@@ -56,7 +56,7 @@ export class PopupComponentPC implements OnInit {
         Etiqueta: [item.promise[0].etiqueta, Validators.required],
         CuentaPadre: [{ value: item.parent.label || '', disabled: true }],
         GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
-        IDDiario: [item.promise[0].IDDiario || 0, Validators.required],
+        IDDiario: [item.promise[0].IDDiario || 1, Validators.required],
         Estado: [item.Estado || false, Validators.required]
       });
     }
@@ -66,7 +66,7 @@ export class PopupComponentPC implements OnInit {
         Etiqueta: [item.promise[0].etiqueta, Validators.required],
         CuentaPadre: [{ value: '', disabled: true }],
         GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
-        IDDiario: [item.promise[0].IDDiario || 0, Validators.required],
+        IDDiario: [item.promise[0].IDDiario || 1, Validators.required],
         Estado: [item.Estado || false, Validators.required]
       });
     }
@@ -75,7 +75,7 @@ export class PopupComponentPC implements OnInit {
   submit() {
     this.itemForm.value.NumeroCuenta = this.itemForm.controls.NumeroCuenta.value;
     this.itemForm.value.IDPadre = this.data.payload.data;
-    this.itemForm.value.IDGrupo = 2;
+    this.itemForm.value.IDGrupoCuenta = 2;
     this.itemForm.value.IDPlanContable = this.data.PlanContable;
     if (this.itemForm.value.Estado) {
       this.itemForm.value.Estado = 'ACT'
