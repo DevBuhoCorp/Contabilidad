@@ -1,17 +1,22 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
 import {Http, Headers, RequestOptions, RequestMethod} from '@angular/http';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
 
 @Injectable()
 export class CrudService {
   readonly puerto = "http://localhost:8000/api/";
-  constructor(private http: Http) {
+  constructor(private http: Http,private httpClient: HttpClient  ) {
   }
 
 
   ListarDatos(api, opt, id) {
      return this.http.get(this.puerto + api + '?opt=' + opt + '&id=' + id);
   }
+ 
+  ListarDatosAsync(api, opt, id) {
+    return this.httpClient.get(this.puerto + api + '?opt=' + opt + '&id=' + id).toPromise();
+ }
 
   Actualizar(id, objeto, api) {
     var body = objeto;

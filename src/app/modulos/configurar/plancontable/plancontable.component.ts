@@ -8,6 +8,8 @@ import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-con
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { PlanContable } from './plancontable.model';
 import { ModeloPlanContable } from '../modelospc/modelopc.model';
+import { CuentaContable } from './cuentacontable.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-plancontable',
@@ -26,25 +28,25 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   Cuentas: any[];
   public items: any[];
   public getItemSub: Subscription;
-  Nhijos: any;
-  NumeroCuenta: string;
   constructor(
     private dialog: MatDialog,
+    private httpClient: HttpClient,
     private snack: MatSnackBar,
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
   ) {
-    this.crudService.ListarDatos("modeloplancontable", "All", 0).map((response) => {
+    this.crudService.ListarDatos('modeloplancontable', 'All', 0).map((response) => {
       return response.json() as ModeloPlanContable[];
     }).toPromise().then(x => {
       this.Modelos = x;
-    })
+    });
   }
 
   ngOnInit() {
 
   }
+
   CargarPlan() {
     this.crudService.ListarDatos('plancontable', 'ALL', this.selectedValue).map((response) => {
       return response.json();
@@ -52,52 +54,89 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
     });
   }
-  CargarHijo() {
-    this.crudService.ListarDatos("numerocuenta", this.selectedFile.data, this.selectedValue).map((response) => {
-      return response.json();
-    }).toPromise().then(x => {
-      this.Nhijos = JSON.parse(x[0].data);
-      this.NumeroCuenta = this.selectedFile.numerocuenta + "." + this.Nhijos.ncuenta;
-      
-    })
-  }
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
     }
   }
 
-  openPopUp(data: any = {}, isNew?) {
-   // this.CargarHijo();
+  async openPopUp(data: any = {}, isNew?) {
+    // data.promise = await this.httpClient.get(`http://localhost:8000/api/plancontable/${ this.selectedValue }/cuentacontable/${ data.data }`).toPromise();
     let title = isNew ? 'Agregar' : 'Actualizar';
-    /*this.CargarCuenta(data.data);
-    console.log(this.Cuentas);*/
+    data.promise = undefined;
+    /*if (!isNew)
+      data.promise = await this.httpClient.get(`http://localhost:8000/api/cuentacontable/${ data.data }`).toPromise();
+      else
+      data.promise = await this.httpClient.get(`http://localhost:8000/api/plancontable/${ this.selectedValue }/cuentacontable/${ data.data }`).toPromise();*/
+    if (!isNew) {
+      data.promise = await this.crudService.ListarDatosAsync("cuentacontable", "ID", data.data);
+    }
+    else {
+      data.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);;
+    }
+
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
-      data: { title: title, payload: data, Modelo: this.selectedValue }
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          // If user press cancel
-          return;
-        }
-        this.loader.open();
-        if (isNew) {
-          this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
-            // this.getItems("All", 0);
-            this.loader.close();
-            this.snack.open('Agregado!', 'OK', { duration: 4000 })
-          })
-        } else {
-          this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
-            //  this.getItems("All", 0);
-            this.loader.close();
-            this.snack.open('Actualizado!', 'OK', { duration: 4000 })
-          })
-        }
-      })
+      data: { title: title, payload: data }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      // res => Etiqueta , Estado
+      if (!res) return;
+
+      if (isNew) {
+        // let ccontable: CuentaContable = {
+        //   ID: 0,
+        //   NumeroCuenta: 0,
+        //   Etiqueta: '',
+        //   IDGrupo: 0,
+        //   Grupo: 0,
+        //   IDPadre: 0,
+        //   Saldo: 0,
+        //   Estado: 'ACT'
+        //
+        // };
+        console.log(Object.assign(res, data.promise));
+      }
+      else
+        console.log(Object.assign(res, data.promise));
+
+      // this.loader.open();
+      // this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
+      //   this.getItems('All', 0);
+      //   this.loader.close();
+      //   this.snack.open('Agregado!', 'OK', {duration: 4000});
+      // });
+
+
+    });
+
+
+    // this.CargarCuenta(data.data);
+
+
+    // dialogRef.afterClosed()
+    //   .subscribe(res => {
+    //     if (!res) {
+    //       // If user press cancel
+    //       return;
+    //     }
+    //     this.loader.open();
+    //     if (isNew) {
+    //       this.crudService.Insertar(res, "modeloplancontable/").subscribe(data => {
+    //         // this.getItems("All", 0);
+    //         this.loader.close();
+    //         this.snack.open('Agregado!', 'OK', { duration: 4000 })
+    //       })
+    //     } else {
+    //       this.crudService.Actualizar(data.ID, res, "modeloplancontable/").subscribe(data => {
+    //         //  this.getItems("All", 0);
+    //         this.loader.close();
+    //         this.snack.open('Actualizado!', 'OK', { duration: 4000 })
+    //       })
+    //     }
+    //   });
   }
 
   deleteItem(row) {
@@ -105,22 +144,23 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.Eliminar(row.ID, "modeloplancontable/").subscribe(data => {
+          this.crudService.Eliminar(row.ID, 'modeloplancontable/').subscribe(data => {
             // this.getItems("All", 0);
             this.loader.close();
-            this.snack.open('Eliminado!', 'OK', { duration: 4000 })
-          })
+            this.snack.open('Eliminado!', 'OK', { duration: 4000 });
+          });
         }
-      })
+      });
 
   }
+
   nodeSelect(event) {
-    console.log(event.node);
+    // console.log(event.node);
   }
-
-  nodeUnselect(event) {
-    //console.log(event.node);
-  }
+  //
+  // nodeUnselect(event) {
+  //   this.selectedFile = null;
+  // }
 
 
 }

@@ -10,44 +10,58 @@ import { CuentaContable } from '../cuentacontable.model';
   styles: []
 })
 export class PopupComponentPC implements OnInit {
-  Grupo = "Detalle";
-  Nhijos;
-  NumeroCuenta:string;
+  Cuentas = [];
   public itemForm: FormGroup;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupComponentPC>,
-    private fb: FormBuilder,
-    private crudService: CrudService,
-  ) {
-     this.crudService.ListarDatos("numerocuenta", this.data.payload.data, this.data.Modelo).map((response) => {
-      return response.json();
-    }).toPromise().then(x => {
-      
-      this.Nhijos = JSON.parse(x[0].data);
-      console.log(this.Nhijos);
-      //this.NumeroCuenta = this.data.payload.numerocuenta + "." + this.Nhijos.ncuenta;
-     
-    })
-
+    private fb: FormBuilder) {
   }
 
   ngOnInit() {
-   
-    this.buildItemForm(this.data.payload);
-  }
-  buildItemForm(item) {
+    if (Array.isArray(this.data.payload.promise)) {
+      this.newItemform(this.data.payload);
+    } else {
+      this.buildItemForm(this.data.payload);
+    }
 
-    this.itemForm = this.fb.group({
-      NumeroCuenta: [{ value: this.Nhijos || '', disabled: true }],
-      Etiqueta: [item.Etiqueta || '', Validators.required],
-      CuentaPadre: [{ value: item.label || '', disabled: true }],
-      GrupoCuenta: [{ value: this.Grupo || '', disabled: true }],
-      Estado: [item.Estado || false]
-    })
+  }
+
+  buildItemForm(item) {
+      this.itemForm = this.fb.group({
+        NumeroCuenta: [{ value: (item.numerocuenta + '.' + item.promise2[0].ncuenta), disabled: true }],
+        Etiqueta: ['', Validators.required],
+        CuentaPadre: [{ value: item.label || '', disabled: true }],
+        GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
+        Estado: [true]
+      });
+    }
+    
+  
+
+  newItemform(item) {
+    if (item.parent) {
+      this.itemForm = this.fb.group({
+        NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
+        Etiqueta: [item.promise[0].etiqueta, Validators.required],
+        CuentaPadre: [{ value: item.parent.label || '', disabled: true }],
+        GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
+        Estado: [true]
+      });
+    }
+    else {
+      this.itemForm = this.fb.group({
+        NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
+        Etiqueta: [item.promise[0].etiqueta, Validators.required],
+        CuentaPadre: [{ value: '', disabled: true }],
+        GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
+        Estado: [true]
+      });
+    }
   }
 
   submit() {
-    this.dialogRef.close(this.itemForm.value)
+    this.dialogRef.close(this.itemForm.value);
   }
 }

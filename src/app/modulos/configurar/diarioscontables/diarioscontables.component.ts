@@ -37,11 +37,11 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
       this.items = x;
       let index = 0;
       for (let i of this.items) {
-        
+
         if (i.Estado == 'ACT') {
           this.items[index].Estado = true;
         }
-        else{
+        else {
           this.items[index].Estado = false;
         }
         index++;
@@ -49,10 +49,13 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
     })
 
   }
-  openPopUp(data: any = {}, isNew?) {
+  async openPopUp(data: any = {}, isNew?) {
 
     let title = isNew ? 'Agregar' : 'Actualizar';
-
+    if (!isNew)
+    {
+      data.promise = await this.crudService.ListarDatosAsync("diarios", "ID", data.ID);
+    }
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentDC, {
       width: '720px',
       disableClose: true,

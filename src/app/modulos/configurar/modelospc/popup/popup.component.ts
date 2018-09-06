@@ -19,18 +19,19 @@ export class PopupComponentMPC implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.data.title == 'Actualizar') {
-      this.crudService.ListarDatos("modeloplancontable", "ID", this.data.payload.ID).map((response) => {
-        return response.json() as ModeloPlanContable[];
-      }).toPromise().then(x => {
-        this.data.payload = x;
-        console.log('consulta',this.data.payload);
-      })
-
+    if (Array.isArray(this.data.payload.promise)) {
+      this.newItemform(this.data.payload.promise[0]);
+    } else {
+      this.buildItemForm(this.data.payload);
     }
-    this.buildItemForm(this.data.payload)
-    console.log(this.data.payload);
 
+  }
+  newItemform(item) {
+    this.itemForm = this.fb.group({
+      Modelo: [item.Modelo || '', Validators.required],
+      Etiqueta: [item.Etiqueta || '', Validators.required],
+      Estado: [item.Estado || false, Validators.required]
+    })
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({

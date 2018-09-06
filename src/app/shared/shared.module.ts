@@ -53,6 +53,7 @@ import { ScrollToDirective } from './directives/scroll-to.directive';
 import { DropdownAnchorDirective } from './directives/dropdown-anchor.directive';
 import { DropdownLinkDirective } from './directives/dropdown-link.directive';
 import { CrudService } from './servicios/crud.service';
+import { HttpClientModule } from '../../../node_modules/@angular/common/http';
 const classesToInclude = [
   
   
@@ -95,7 +96,8 @@ const classesToInclude = [
     MatCheckboxModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatRippleModule
+    MatRippleModule,
+    HttpClientModule
   ],
   providers: [
     ThemeService,

@@ -23,24 +23,25 @@ export class PopupComponentDC implements OnInit {
       return response.json();
     }).toPromise().then(x => {
       this.Naturaleza = x;
-      console.log(this.Naturaleza);
+
     })
   }
-
-
   ngOnInit() {
-    if (this.data.title == 'Actualizar') {
-      this.crudService.ListarDatos("diarios", "ID", this.data.payload.ID).map((response) => {
-        return response.json() as DiarioContable[];
-      }).toPromise().then(x => {
-        this.data.payload = x;
-        console.log(this.data.payload);
-      })
-
+    if (Array.isArray(this.data.payload.promise)) {
+      this.newItemform(this.data.payload.promise[0]);
+    } else {
+      this.buildItemForm(this.data.payload);
     }
 
-    this.buildItemForm(this.data.payload)
-    console.log(this.data.payload);
+  }
+  newItemform(item) {
+    this.itemForm = this.fb.group({
+      Codigo: [item.Codigo || '', Validators.required],
+      Etiqueta: [item.Etiqueta || '', Validators.required],
+      Naturaleza: [item.IDNaturaleza || 0, Validators.required],
+      Estado: [item.Estado || false, Validators.required],
+      ID: [item.ID || 0, Validators.required]
+    })
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
@@ -51,7 +52,6 @@ export class PopupComponentDC implements OnInit {
       ID: [item.ID || 0, Validators.required]
     })
   }
-
   submit() {
     if (this.itemForm.value.Estado) {
       this.itemForm.value.Estado = 'ACT';

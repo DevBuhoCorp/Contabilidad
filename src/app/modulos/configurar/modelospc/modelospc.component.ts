@@ -51,10 +51,13 @@ export class ModelospcComponent implements OnInit, OnDestroy {
     });
 
   }
-  openPopUp(data: any = {}, isNew?) {
+  async openPopUp(data: any = {}, isNew?) {
 
-    const title = isNew ? 'Agregar' : 'Actualizar';
-
+    const title = isNew ? 'Agregar' : 'Actualizar'; 
+    if (!isNew)
+    {
+      data.promise = await this.crudService.ListarDatosAsync("modeloplancontable", "ID", data.ID);
+    }
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentMPC, {
       width: '720px',
       disableClose: true,

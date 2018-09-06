@@ -13,15 +13,14 @@
     <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp(selectedFile, true)">Añadir</button>
   </div>
   <div class="m-333">
-    <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, false)">Editar</button>
+    <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp(selectedFile, false)">Editar</button>
   </div>
 </div>
 
 
 <mat-card>
-  <p-tree [style]="{'width':'100%'}" [value]="filesTree0" selectionMode="single" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)"
-    (onNodeUnselect)="nodeUnselect($event)">
-  </p-tree>
+  <p-tree [style]="{'width':'100%'}" [value]="filesTree0" selectionMode="single" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">  </p-tree>
+  <!-- (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" -->
 
 </mat-card>
 <!--<mat-card class="p-0">-->
