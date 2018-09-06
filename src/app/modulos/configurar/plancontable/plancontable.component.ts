@@ -86,18 +86,10 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       if (!res) return;
 
       if (isNew) {
-        // let ccontable: CuentaContable = {
-        //   ID: 0,
-        //   NumeroCuenta: 0,
-        //   Etiqueta: '',
-        //   IDGrupo: 0,
-        //   Grupo: 0,
-        //   IDPadre: 0,
-        //   Saldo: 0,
-        //   Estado: 'ACT'
-        //
-        // };
-        console.log(Object.assign(res, data.promise));
+
+        console.log(data.promise2);
+        console.log(res);
+        console.log(Object.assign(res, data.promise2));
       }
       else
         console.log(Object.assign(res, data.promise));

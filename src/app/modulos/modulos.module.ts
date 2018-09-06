@@ -85,6 +85,7 @@ import {LibroMayorService} from './libromayor/libromayor.service';
 import {FileUploadModule} from 'ng2-file-upload';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
+import { EmpresaComponent } from './configurar/empresa/empresa.component';
 
 
 @NgModule({
@@ -162,6 +163,7 @@ import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmod
     UsuarioComponent,
     ProductosComponent,
     ViewmodelopcComponent,
+    EmpresaComponent,
 
   ],
   providers: [

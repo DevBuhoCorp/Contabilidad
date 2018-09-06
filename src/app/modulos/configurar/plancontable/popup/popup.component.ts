@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { CrudService } from '../../../../shared/servicios/crud.service';
-import { CuentaContable } from '../cuentacontable.model';
+import {Component, OnInit, Inject} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {CrudService} from '../../../../shared/servicios/crud.service';
+import {CuentaContable} from '../cuentacontable.model';
 
 @Component({
   selector: 'app-popup',
@@ -29,33 +29,32 @@ export class PopupComponentPC implements OnInit {
   }
 
   buildItemForm(item) {
-      this.itemForm = this.fb.group({
-        NumeroCuenta: [{ value: (item.numerocuenta + '.' + item.promise2[0].ncuenta), disabled: true }],
-        Etiqueta: ['', Validators.required],
-        CuentaPadre: [{ value: item.label || '', disabled: true }],
-        GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
-        Estado: [true]
-      });
-    }
-    
-  
+    this.itemForm = this.fb.group({
+      NumeroCuenta: [{value: (item.numerocuenta + '.' + item.promise2[0].ncuenta), disabled: true}],
+      Etiqueta: ['', Validators.required],
+      CuentaPadre: [{value: item.label || '', disabled: true}],
+      GrupoCuenta: [{value: 'Detalle' || '', disabled: true}],
+      Estado: [true]
+    });
+  }
+
 
   newItemform(item) {
     if (item.parent) {
       this.itemForm = this.fb.group({
-        NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
+        NumeroCuenta: [{value: (item.promise[0].numerocuenta), disabled: true}],
         Etiqueta: [item.promise[0].etiqueta, Validators.required],
-        CuentaPadre: [{ value: item.parent.label || '', disabled: true }],
-        GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
+        CuentaPadre: [ { value: item.parent.label || '', disabled: true} ],
+        GrupoCuenta: [{value: item.promise[0].grupo || '', disabled: true}],
         Estado: [true]
       });
     }
     else {
       this.itemForm = this.fb.group({
-        NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
+        NumeroCuenta: [{value: (item.promise[0].numerocuenta), disabled: true}],
         Etiqueta: [item.promise[0].etiqueta, Validators.required],
-        CuentaPadre: [{ value: '', disabled: true }],
-        GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
+        CuentaPadre: [{value: '', disabled: true}],
+        GrupoCuenta: [{value: item.promise[0].grupo || '', disabled: true}],
         Estado: [true]
       });
     }
