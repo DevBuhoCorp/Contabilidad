@@ -36,7 +36,6 @@ import {GeneralService} from './configurar/general/general.service';
 import {ModelospcComponent} from './configurar/modelospc/modelospc.component';
 import {PopupComponentMPC} from './configurar/modelospc/popup/popup.component';
 import {PlancontableComponent} from './configurar/plancontable/plancontable.component';
-import {PlanContableService} from './configurar/plancontable/plancontable.service';
 import {PopupComponentPC} from './configurar/plancontable/popup/popup.component';
 import {GrupospersonalizadosComponent} from './configurar/grupospersonalizados/grupospersonalizados.component';
 import {GPersonalizadoService} from './configurar/grupospersonalizados/grupospersonalizados.service';
@@ -171,7 +170,6 @@ import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.componen
   providers: [
     //servicios
     GeneralService,
-    PlanContableService,
     GPersonalizadoService,
     CuentaDefectoService,
     CuentaBancariaService,

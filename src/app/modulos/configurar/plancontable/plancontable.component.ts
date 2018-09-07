@@ -22,8 +22,8 @@ import { HttpClient } from '@angular/common/http';
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
   filesTree0: TreeNode[];
-  selectedFile: any ;
-  selectedFile_2: any = null ;
+  selectedFile: any;
+  selectedFile_2: any = null;
 
   Modelos: ModeloPlanContable[];
   Cuentas: any[];
@@ -64,13 +64,17 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   async openPopUp(data: any = {}, isNew?) {
     // data.promise = await this.httpClient.get(`http://localhost:8000/api/plancontable/${ this.selectedValue }/cuentacontable/${ data.data }`).toPromise();
     let title = isNew ? 'Agregar' : 'Actualizar';
-    data.promise = undefined;
+    
+
     /*if (!isNew)
       data.promise = await this.httpClient.get(`http://localhost:8000/api/cuentacontable/${ data.data }`).toPromise();
       else
       data.promise = await this.httpClient.get(`http://localhost:8000/api/plancontable/${ this.selectedValue }/cuentacontable/${ data.data }`).toPromise();*/
     if (!isNew) {
       data.promise = await this.crudService.ListarDatosAsync("cuentacontable", "ID", data.data);
+    }
+    else if(!data.data){
+      data.promise2 = await this.crudService.ListarDatosAsync("cuentapadre", "All", 0);
     }
     else {
       data.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);;
@@ -91,8 +95,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          console.log(res);
-         this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
+          this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
@@ -129,10 +132,12 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     // else
     //   this.selectedFile_2 = null;
 
-    if( this.selectedFile_2 == null )
+    if (this.selectedFile_2 == null)
       this.selectedFile_2 = this.selectedFile;
-    else if ( this.selectedFile_2.data ==  this.selectedFile.data )
+    else if (this.selectedFile_2.data == this.selectedFile.data) {
+      this.selectedFile_2 = null;
       this.selectedFile = null;
+    }
     else
       this.selectedFile_2 = this.selectedFile;
   }
