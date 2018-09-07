@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { TreeNode } from 'primeng/components/common/api';
+import { TreeDragDropService } from 'primeng/api';
+
 import { PopupComponentPC } from './popup/popup.component';
 import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { CrudService } from '../../../shared/servicios/crud.service';
-import { PlanContable } from './plancontable.model';
+
 import { ModeloPlanContable } from '../modelospc/modelopc.model';
-import { CuentaContable } from './cuentacontable.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -17,13 +18,23 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './plancontable.component.html',
   styleUrls: [
     './plancontable.component.css',
+  ],
+  providers: [
+    TreeDragDropService
   ]
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
+
   filesTree0: TreeNode[];
+  filesDrag: TreeNode[];
   selectedFile: any;
+  sNodeDrag: any;
   selectedFile_2: any = null;
+
+
+
+  list: any = false;
 
   Modelos: ModeloPlanContable[];
   Cuentas: any[];
@@ -55,6 +66,17 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
     });
   }
+
+  loadCuentas(){
+    this.list = true;
+    this.crudService.ListarDatos('dragcuentacontable', 'ALL', this.selectedValue).map((response) => {
+      return response.json();
+    }).toPromise().then(x => {
+      this.filesDrag = x as TreeNode[];
+    });
+
+  }
+
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
@@ -144,6 +166,33 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   nodeUnselect(event) {
     console.log("unselect");
+  }
+
+  onNDrop(event){
+    console.log(event);
+    console.log(event.dragNode);
+    console.log(event.dropNode);
+  }
+
+  expandAll(){
+    this.filesTree0.forEach( node => {
+      this.expandRecursive(node, true);
+    } );
+  }
+
+  collapseAll(){
+    this.filesTree0.forEach( node => {
+      this.expandRecursive(node, false);
+    } );
+  }
+
+  private expandRecursive(node:TreeNode, isExpand:boolean){
+    node.expanded = isExpand;
+    if(node.children){
+      node.children.forEach( childNode => {
+        this.expandRecursive(childNode, isExpand);
+      } );
+    }
   }
 
 
