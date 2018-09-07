@@ -61,6 +61,7 @@ export class NavigationService {
       state: 'modulos/configurar',
       sub: [
         //{ name: 'General', state: 'general' },
+        { name: 'Empresa', state: 'empresas' },
         { name: 'Diarios Contables', state: 'diarioscontables' },
         { name: 'Modelos de Planes Contables', state: 'modelosplanescontables' },
         { name: 'Plan Contable', state: 'plancontable' },

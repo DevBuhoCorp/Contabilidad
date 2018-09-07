@@ -23,7 +23,7 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getItems("All", 0)
+    this.getItems("All", 0);
   }
   ngOnDestroy() {
     if (this.getItemSub) {

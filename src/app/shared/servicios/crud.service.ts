@@ -18,6 +18,10 @@ export class CrudService {
     return this.httpClient.get(this.puerto + api + '?opt=' + opt + '&id=' + id).toPromise();
  }
 
+  _listParams(api, params?) {
+    return this.httpClient.post(this.puerto + api + '/list', params).toPromise();
+  }
+
   Actualizar(id, objeto, api) {
     var body = objeto;
     var headerOptions = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });

@@ -86,6 +86,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 import { EmpresaComponent } from './configurar/empresa/empresa.component';
+import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.component';
 
 
 @NgModule({
@@ -164,6 +165,7 @@ import { EmpresaComponent } from './configurar/empresa/empresa.component';
     ProductosComponent,
     ViewmodelopcComponent,
     EmpresaComponent,
+    PopupComponentEmpresa,
 
   ],
   providers: [
@@ -192,7 +194,8 @@ import { EmpresaComponent } from './configurar/empresa/empresa.component';
     PopupComponentIVA,
     PopupComponentImpuesto,
     PopupComponentCuentaP,
-    PopupLibroMayor
+    PopupLibroMayor,
+    PopupComponentEmpresa
   ]
 })
 export class ModulosModule {
