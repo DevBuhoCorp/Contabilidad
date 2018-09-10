@@ -27,47 +27,44 @@ export class PopupComponentPC implements OnInit {
 
   ngOnInit() {
     if (Array.isArray(this.data.payload.promise)) {
-      this.newItemform(this.data.payload);
-    } else {
       this.buildItemForm(this.data.payload);
+    } else {
+      this.newItemform(this.data.payload);
     }
 
   }
 
-  buildItemForm(item) {
+  newItemform(item) {
     if (item.numerocuenta) {
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.numerocuenta + '.' + item.promise2[0].ncuenta), disabled: true }],
-        Etiqueta: ['', Validators.required],
+        Etiqueta: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: item.label || '', disabled: true }],
         GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
         IDDiario: [item.IDDiario || 1, Validators.required],
-        // Estado: [item.Estado || false, Validators.required]
-        Estado: [{ value: (item.Estado || true), disabled: true }],
+        Estado: [{ value: (item.Estado || true) }],
 
       });
     }
     else {
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: item.promise2, disabled: true }],
-        Etiqueta: ['', Validators.required],
+        Etiqueta: ['',Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: '', disabled: true }],
         GrupoCuenta: [{ value: 'Total' || '', disabled: true }],
         IDDiario: [item.IDDiario || 1, Validators.required],
-        // Estado: [item.Estado || false, Validators.required]
-        Estado: [{ value: (item.Estado || true), disabled: true }],
+        Estado: [{ value: (item.Estado || true) }],
 
       });
     }
   }
 
 
-
-  newItemform(item) {
+  buildItemForm(item) {
     if (item.parent) {
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
-        Etiqueta: [item.promise[0].etiqueta, Validators.required],
+        Etiqueta: [item.promise[0].etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: item.parent.label || '', disabled: true }],
         GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
         IDDiario: [item.promise[0].IDDiario || 1, Validators.required],
@@ -78,7 +75,7 @@ export class PopupComponentPC implements OnInit {
     else {
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
-        Etiqueta: [item.promise[0].etiqueta, Validators.required],
+        Etiqueta: [item.promise[0].etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: '', disabled: true }],
         GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
         IDDiario: [item.promise[0].IDDiario || 1, Validators.required],
