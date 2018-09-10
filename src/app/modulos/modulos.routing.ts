@@ -31,6 +31,7 @@ import {ClienteComponent} from './informes/ventas/cliente/cliente.component';
 import {UsuarioComponent} from './informes/ventas/usuario/usuario.component';
 import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 import {EmpresaComponent} from './configurar/empresa/empresa.component';
+import {AplicacionComponent} from './configurar/aplicacion/aplicacion.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -44,6 +45,11 @@ export const ModulosRoutes: Routes = [
     path: 'configurar/empresas',
     component: EmpresaComponent,
     data: {title: 'Empresa', breadcrumb: 'CONFIGURAR EMPRESA'}
+  },
+  {
+    path: 'configurar/aplicacion',
+    component: AplicacionComponent,
+    data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'}
   },
   {
     path: 'configurar/diarioscontables',
