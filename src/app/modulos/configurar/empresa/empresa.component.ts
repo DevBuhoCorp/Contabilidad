@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {CrudService} from '../../../shared/servicios/crud.service';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {PopupComponentEmpresa} from './popup/popup.component';
+import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 
 @Component({
   selector: 'app-empresa',
@@ -16,7 +17,8 @@ export class EmpresaComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private snack: MatSnackBar,
               private crudService: CrudService,
-              private loader: AppLoaderService,) { }
+              private loader: AppLoaderService,
+              private confirmService: AppConfirmService) { }
 
   ngOnInit() {
     this.getItems();
@@ -24,7 +26,6 @@ export class EmpresaComponent implements OnInit {
 
   async getItems() {
     this.items = await this.crudService._listParams("empresa", { op: 'ALL' });
-    console.log(this.items);
   }
 
   async openPopUp(data: any = {}, isNew?) {
@@ -35,6 +36,30 @@ export class EmpresaComponent implements OnInit {
       data: { title: title, payload: data }
     });
 
+
+    dialogRef.afterClosed()
+      .subscribe(response => {
+        if(!response)
+          return;
+
+        this.loader.open();
+        if(isNew){
+          this.crudService.Insertar(response, 'empresa/').subscribe(data => {
+            this.getItems();
+            this.loader.close();
+            this.snack.open('Agregado!', 'OK', { duration: 4000 });
+          });
+        }
+        else{
+          this.crudService.Actualizar(data.ID, response, 'empresa/')
+            .subscribe(response2 => {
+              this.getItems();
+              this.loader.close();
+              this.snack.open('Actualizado!', 'OK', {duration: 4000});
+            });
+        }
+      });
+
   }
 
   ngOnDestroy() {
@@ -42,8 +67,19 @@ export class EmpresaComponent implements OnInit {
       this.getItemSub.unsubscribe();
     }
   }
-  deleteItem(item){
 
+  deleteItem(item){
+    this.confirmService.confirm({ message: `Eliminar ${ item.Descripcion }?` })
+      .subscribe(res => {
+        if (res) {
+          this.loader.open();
+          this.crudService.Eliminar(item.ID, 'empresa/').subscribe(data => {
+            this.getItems();
+            this.loader.close();
+            this.snack.open('Eliminado!', 'OK', { duration: 4000 });
+          });
+        }
+      });
   }
 
 }

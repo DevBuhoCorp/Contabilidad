@@ -15,16 +15,15 @@ export class PopupComponentEmpresa implements OnInit {
               private fb: FormBuilder,) { }
 
   ngOnInit() {
-    console.log(this.data.payload);
     this.buildItemForm(this.data.payload);
   }
 
   buildItemForm(item) {
     this.itemForm = this.fb.group({
       // Codigo: [item.Codigo || ''],
-      Descripcion: [item.Descripcion || '', Validators.required],
-      Observacion: [item.Observacion || ''],
-      Estado: [item.Estado || false],
+      Descripcion: [ item.Descripcion || '', Validators.required ],
+      Observacion: [ item.Observacion || ''],
+      Estado: [ item.Estado == 'ACT' || false ],
     })
   }
 
