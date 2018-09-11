@@ -25,12 +25,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
-
+  res: any = {};
   filesTree0: TreeNode[];
   filesDrag: TreeNode[];
   selectedFile: any;
   sNodeDrag: any;
-  selectedFile_2: any = null;
+  selectedFile_2: any = undefined;
 
 
 
@@ -84,7 +84,6 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   async openPopUp(data: any = {}, isNew?) {
-    console.log(data);
     let title = isNew ? 'Agregar' : 'Actualizar';
     if (!isNew) {
       data.promise = await this.crudService.ListarDatosAsync("cuentacontable", "ID", data.data);
@@ -118,6 +117,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+            this.selectedFile = undefined;
+            this.selectedFile_2 = undefined;
           });
         }
       });
@@ -143,7 +144,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.selectedFile_2 = this.selectedFile;
     else if (this.selectedFile_2.data == this.selectedFile.data) {
       this.selectedFile_2 = {};
-      this.selectedFile = {};
+      this.selectedFile = undefined;
     }
     else
       this.selectedFile_2 = this.selectedFile;
@@ -153,15 +154,19 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     console.log("unselect");
   }
 
-  onNDrop(event) {
-    let res:any;
+  async onNDrop(event) {
+    this.res = {};
     console.log(event.dragNode);//arrastrado
     console.log(event.dropNode);//llega.
-   // res.Estado = "ACT";
-    //res.Etiqueta = event.dragNode.label;
-
-   // res.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);
-    this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
+    let cuenta = await this.crudService.ListarDatosAsync("numerocuenta", event.dropNode.data, this.selectedValue);
+    this.res.Estado = "ACT";
+    this.res.Etiqueta = event.dragNode.label;
+    this.res.IDDiario = event.dropNode.diario;
+    this.res.IDGrupoCuenta = 2;
+    this.res.IDPadre = event.dropNode.data;
+    this.res.IDPlanContable = this.selectedValue;
+    this.res.NumeroCuenta = event.dropNode.numerocuenta + '.' + cuenta[0].ncuenta;
+    this.crudService.Insertar(this.res, 'cuentacontable/').subscribe(data => {
       this.CargarPlan();
       this.loader.close();
       this.snack.open('Agregado!', 'OK', { duration: 4000 });
