@@ -38,6 +38,7 @@
       <p-tree #expandingTree [style]="{'width':'100%'}" [value]="filesTree0" selectionMode="single" [(selection)]="selectedFile"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" (onNodeDrop)="onNDrop($event)" droppableNodes="true">
       </p-tree>
+
       <div style="margin-top: 8px">
         <button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"
           (click)="expandAll()" style="margin-right: .25em">
@@ -48,11 +49,23 @@
           <mat-icon>arrow_upward</mat-icon>
         </button>
       </div>
+
+      <p> <br> Para deseleccionar una cuenta vuelva a marcarla.
+      </p>
     </div>
 
+
     <div class="dv" *ngIf="list" fxFlex="50">
+
       <p-tree [style]="{'width':'100%'}" [value]="filesDrag" selectionMode="single" [(selection)]="sNodeDrag" draggableNodes="true">
       </p-tree>
+    </div>
+    <div *ngIf="list" style="display: flex; justify-content: space-between;">
+      <div class="bnt-group">
+        <button mat-icon-button matTooltip="Cerrar Lista" mat-sm-button color="primary" class="mr-1" (click)="list=!list" [disabled]="!selectedValue">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
     </div>
 
   </mat-card-content>
