@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {PopupComponentEmpresa} from '../empresa/popup/popup.component';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-aplicacion',
@@ -21,7 +22,8 @@ export class AplicacionComponent implements OnInit {
     private snack: MatSnackBar,
     private crudService : CrudService,
     private loader: AppLoaderService,
-    private confirmService: AppConfirmService
+    private confirmService: AppConfirmService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -44,6 +46,9 @@ export class AplicacionComponent implements OnInit {
           });
         }
       });
+  }
+  listEstacion(item){
+    this.router.navigate(['estacion', item.ID ]);
   }
 
   async openPopUp(data: any = {}, isNew?){

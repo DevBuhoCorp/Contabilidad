@@ -1,21 +1,10 @@
 <div class="m-333">
-  <div fxFlex="50" class="pr-1">
-    <mat-form-field class="full-width">
-      <mat-select name="Plan" placeholder=" Seleccione una empresa activa:" [(ngModel)]="selEmpresa" (selectionChange)="loadApp()">
-        <mat-option *ngFor="let empresa of empresas | async" [value]="empresa.ID" ngDefaultControl>
-          {{ empresa.Descripcion }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-</div>
-<div class="m-333">
-  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)" [disabled]="!selEmpresa" >Agregar</button>
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)" >Agregar</button>
 </div>
 
 <mat-card class="p-0" >
   <mat-card-content class="p-0" >
-    <ngx-datatable class="material ml-0 mr-0" [rows]="apps" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
+    <ngx-datatable class="material ml-0 mr-0" [rows]="estacions" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
                    [rowHeight]="'auto'">
       <ngx-datatable-column name="Descripcion" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
@@ -36,9 +25,6 @@
           </button>
           <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['estacion', row.ID]" >
-            <mat-icon>list</mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>

@@ -87,6 +87,7 @@ import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmod
 import { EmpresaComponent } from './configurar/empresa/empresa.component';
 import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.component';
 import { AplicacionComponent } from './configurar/aplicacion/aplicacion.component';
+import { EstacionComponent } from './configurar/estacion/estacion.component';
 
 
 @NgModule({
@@ -167,6 +168,7 @@ import { AplicacionComponent } from './configurar/aplicacion/aplicacion.componen
     EmpresaComponent,
     PopupComponentEmpresa,
     AplicacionComponent,
+    EstacionComponent,
 
   ],
   providers: [
