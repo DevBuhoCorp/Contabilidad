@@ -12,7 +12,7 @@ import { CrudService } from '../../../shared/servicios/crud.service';
   styles: []
 })
 export class DiarioscontablesComponent implements OnInit, OnDestroy {
-  public items: any[];
+  public items: any={};
   public itemc: any = {};
   public getItemSub: any;
   constructor(
@@ -22,7 +22,7 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
   ) {
-    this.itemc.total = 0;
+    this.items.total = 0;
   }
 
   ngOnInit() {
@@ -37,37 +37,19 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
     this.crudService.Paginacion("diarios", opt, id, page).map((response) => {
       return response.json();
     }).toPromise().then(x => {
-      this.items = x.data;
-      this.itemc = x;
-      console.log(this.itemc);
-      //this.items = [];
+      this.items = x;
       let index = 0;
-      for (let i of this.items) {
+      for (let i of this.items.data) {
 
         if (i.Estado == 'ACT') {
-          this.items[index].Estado = true;
+          this.items.data[index].Estado = true;
         }
         else {
-          this.items[index].Estado = false;
+          this.items.data[index].Estado = false;
         }
         index++;
       }
     })
-    /* this.itemc = await this.crudService.PaginacionAsync("diarios", opt, id, page);
-     console.log(this.itemc);
-     this.items = itemc.data;
-     let index = 0;
-     for (let i of this.items) {
- 
-       if (i.Estado == 'ACT') {
-         this.items[index].Estado = true;
-       }
-       else {
-         this.items[index].Estado = false;
-       }
-       index++;
-     }*/
-
   }
   async openPopUp(data: any = {}, isNew?) {
 
