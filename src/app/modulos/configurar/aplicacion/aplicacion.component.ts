@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 })
 export class AplicacionComponent implements OnInit {
 
-  pageSize = [3, 5, 10, 20];
+  pageSize = [3, 5, 10, 20]; 
   empresas : any;
   selEmpresa : any;
   selPageSize : any = this.pageSize[0];

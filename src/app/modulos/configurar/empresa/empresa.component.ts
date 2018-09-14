@@ -11,6 +11,14 @@ import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confi
   styles: []
 })
 export class EmpresaComponent implements OnInit {
+  pageSize = [3, 5, 10, 20]; 
+  selPageSize : any = this.pageSize[0];
+  paginate: any={
+    data: [],
+    page: 1,
+    total: 0,
+    per_page: 0
+  };
   public items: any;
   public getItemSub: any;
 
