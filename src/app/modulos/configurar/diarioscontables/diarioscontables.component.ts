@@ -13,6 +13,7 @@ import { CrudService } from '../../../shared/servicios/crud.service';
 })
 export class DiarioscontablesComponent implements OnInit, OnDestroy {
   public items: any[];
+  public itemc: any = {};
   public getItemSub: any;
   constructor(
     private dialog: MatDialog,
@@ -20,21 +21,26 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
-  ) { }
+  ) {
+    this.itemc.total = 0;
+  }
 
   ngOnInit() {
-    this.getItems("All", 0);
+    this.getItems("All", 0, 1);
   }
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe()
     }
   }
-  getItems(opt, id) {
-    this.crudService.ListarDatos("diarios", opt, id).map((response) => {
-      return response.json() as DiarioContable[];
+  async getItems(opt, id, page) {
+    this.crudService.Paginacion("diarios", opt, id, page).map((response) => {
+      return response.json();
     }).toPromise().then(x => {
-      this.items = x;
+      this.items = x.data;
+      this.itemc = x;
+      console.log(this.itemc);
+      //this.items = [];
       let index = 0;
       for (let i of this.items) {
 
@@ -47,13 +53,26 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
         index++;
       }
     })
+    /* this.itemc = await this.crudService.PaginacionAsync("diarios", opt, id, page);
+     console.log(this.itemc);
+     this.items = itemc.data;
+     let index = 0;
+     for (let i of this.items) {
+ 
+       if (i.Estado == 'ACT') {
+         this.items[index].Estado = true;
+       }
+       else {
+         this.items[index].Estado = false;
+       }
+       index++;
+     }*/
 
   }
   async openPopUp(data: any = {}, isNew?) {
 
     let title = isNew ? 'Agregar' : 'Actualizar';
-    if (!isNew)
-    {
+    if (!isNew) {
       data.promise = await this.crudService.ListarDatosAsync("diarios", "ID", data.ID);
     }
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentDC, {
@@ -70,13 +89,13 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
         this.loader.open();
         if (isNew) {
           this.crudService.Insertar(res, "diarios/").subscribe(data => {
-            this.getItems("All", 0);
+            this.getItems("All", 0, 1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 })
           })
         } else {
           this.crudService.Actualizar(data.ID, res, "diarios/").subscribe(data => {
-            this.getItems("All", 0);
+            this.getItems("All", 0, 1);
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 })
           })
@@ -89,12 +108,18 @@ export class DiarioscontablesComponent implements OnInit, OnDestroy {
         if (res) {
           this.loader.open();
           this.crudService.Eliminar(row.ID, "diarios/").subscribe(data => {
-            this.getItems("All", 0);
+            this.getItems("All", 0, 1);
             this.loader.close();
             this.snack.open('Eliminado!', 'OK', { duration: 4000 })
           })
         }
       })
+
+  }
+
+  setPage(event) {
+    this.getItems("All", 0, event.offset + 1);
+    console.log(event.offset + 1);
 
   }
 

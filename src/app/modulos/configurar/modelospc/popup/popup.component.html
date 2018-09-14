@@ -4,12 +4,16 @@
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput name="Modelo" [formControl]="itemForm.controls['Modelo']" placeholder="Modelos de Planes Contables">
+        <small *ngIf="itemForm.controls['Modelo'].hasError('maxlength')" class="form-error-msg">
+            No se puede exceder de {{itemForm.controls['Modelo'].errors.maxlength.requiredLength}} caracteres </small>
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput name="Etiqueta" [formControl]="itemForm.controls['Etiqueta']" placeholder="Etiqueta">
+        <small *ngIf="itemForm.controls['Etiqueta'].hasError('maxlength')" class="form-error-msg">
+            No se puede exceder de {{itemForm.controls['Etiqueta'].errors.maxlength.requiredLength}} caracteres </small>
       </mat-form-field>
     </div>
 

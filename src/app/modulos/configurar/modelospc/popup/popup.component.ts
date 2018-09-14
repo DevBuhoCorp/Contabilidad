@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ModeloPlanContable } from '../modelopc.model';
 import { CrudService } from '../../../../shared/servicios/crud.service';
 
 @Component({
@@ -15,7 +14,6 @@ export class PopupComponentMPC implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupComponentMPC>,
     private fb: FormBuilder,
-    private crudService: CrudService,
   ) { }
 
   ngOnInit() {
@@ -23,20 +21,21 @@ export class PopupComponentMPC implements OnInit {
       this.newItemform(this.data.payload.promise[0]);
     } else {
       this.buildItemForm(this.data.payload);
+
     }
 
   }
-  newItemform(item) {
+  buildItemForm(item) {
     this.itemForm = this.fb.group({
-      Modelo: [item.Modelo || '', Validators.required],
-      Etiqueta: [item.Etiqueta || '', Validators.required],
+      Modelo: [item.Modelo || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
+      Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
       Estado: [item.Estado || false, Validators.required]
     })
   }
-  buildItemForm(item) {
+  newItemform(item) {
     this.itemForm = this.fb.group({
-      Modelo: [item.Modelo || '', Validators.required],
-      Etiqueta: [item.Etiqueta || '', Validators.required],
+      Modelo: [item.Modelo || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
+      Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
       Estado: [item.Estado || false, Validators.required]
     })
   }

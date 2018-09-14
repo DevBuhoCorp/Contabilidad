@@ -25,12 +25,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
   selectedValue: string = '';
-
+  res: any = {};
   filesTree0: TreeNode[];
   filesDrag: TreeNode[];
   selectedFile: any;
   sNodeDrag: any;
-  selectedFile_2: any = null;
+  selectedFile_2: any = undefined;
 
 
 
@@ -67,7 +67,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadCuentas(){
+  loadCuentas() {
     this.list = true;
     this.crudService.ListarDatos('dragcuentacontable', 'ALL', this.selectedValue).map((response) => {
       return response.json();
@@ -84,31 +84,21 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   async openPopUp(data: any = {}, isNew?) {
-    // data.promise = await this.httpClient.get(`http://localhost:8000/api/plancontable/${ this.selectedValue }/cuentacontable/${ data.data }`).toPromise();
     let title = isNew ? 'Agregar' : 'Actualizar';
-    
-
-    /*if (!isNew)
-      data.promise = await this.httpClient.get(`http://localhost:8000/api/cuentacontable/${ data.data }`).toPromise();
-      else
-      data.promise = await this.httpClient.get(`http://localhost:8000/api/plancontable/${ this.selectedValue }/cuentacontable/${ data.data }`).toPromise();*/
     if (!isNew) {
       data.promise = await this.crudService.ListarDatosAsync("cuentacontable", "ID", data.data);
     }
-    else if(!data.data){
+    else if (!data.data) {
       data.promise2 = await this.crudService.ListarDatosAsync("cuentapadre", "All", 0);
     }
     else {
-      data.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);;
+      data.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);
     }
-
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
       data: { title: title, payload: data, PlanContable: this.selectedValue }
     });
-
-
     dialogRef.afterClosed()
       .subscribe(res => {
         if (!res) {
@@ -127,6 +117,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+            this.selectedFile = undefined;
+            this.selectedFile_2 = undefined;
           });
         }
       });
@@ -148,17 +140,11 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   nodeSelect(event) {
-
-    // if ( this.selectedFile_2 == null || this.selectedFile_2.data !=  this.selectedFile.data )
-    //   this.selectedFile_2 = this.selectedFile;
-    // else
-    //   this.selectedFile_2 = null;
-
     if (this.selectedFile_2 == null)
       this.selectedFile_2 = this.selectedFile;
     else if (this.selectedFile_2.data == this.selectedFile.data) {
-      this.selectedFile_2 = null;
-      this.selectedFile = null;
+      this.selectedFile_2 = {};
+      this.selectedFile = undefined;
     }
     else
       this.selectedFile_2 = this.selectedFile;
@@ -168,30 +154,44 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     console.log("unselect");
   }
 
-  onNDrop(event){
-    console.log(event);
-    console.log(event.dragNode);
-    console.log(event.dropNode);
+  async onNDrop(event) {
+    this.res = {};
+    console.log(event.dragNode);//arrastrado
+    console.log(event.dropNode);//llega.
+    let cuenta = await this.crudService.ListarDatosAsync("numerocuenta", event.dropNode.data, this.selectedValue);
+    this.res.Estado = "ACT";
+    this.res.Etiqueta = event.dragNode.label;
+    this.res.IDDiario = event.dropNode.diario;
+    this.res.IDGrupoCuenta = 2;
+    this.res.IDPadre = event.dropNode.data;
+    this.res.IDPlanContable = this.selectedValue;
+    this.res.NumeroCuenta = event.dropNode.numerocuenta + '.' + cuenta[0].ncuenta;
+    this.crudService.Insertar(this.res, 'cuentacontable/').subscribe(data => {
+      this.CargarPlan();
+      this.loader.close();
+      this.snack.open('Agregado!', 'OK', { duration: 4000 });
+    });
+
   }
 
-  expandAll(){
-    this.filesTree0.forEach( node => {
+  expandAll() {
+    this.filesTree0.forEach(node => {
       this.expandRecursive(node, true);
-    } );
+    });
   }
 
-  collapseAll(){
-    this.filesTree0.forEach( node => {
+  collapseAll() {
+    this.filesTree0.forEach(node => {
       this.expandRecursive(node, false);
-    } );
+    });
   }
 
-  private expandRecursive(node:TreeNode, isExpand:boolean){
+  private expandRecursive(node: TreeNode, isExpand: boolean) {
     node.expanded = isExpand;
-    if(node.children){
-      node.children.forEach( childNode => {
+    if (node.children) {
+      node.children.forEach(childNode => {
         this.expandRecursive(childNode, isExpand);
-      } );
+      });
     }
   }
 

@@ -34,20 +34,20 @@ export class PopupComponentDC implements OnInit {
     }
 
   }
-  newItemform(item) {
+  buildItemForm(item) {
     this.itemForm = this.fb.group({
-      Codigo: [item.Codigo || '', Validators.required],
-      Etiqueta: [item.Etiqueta || '', Validators.required],
-      Naturaleza: [item.IDNaturaleza || 0, Validators.required],
+      Codigo: [item.Codigo || '', Validators.compose([Validators.required, Validators.maxLength(2)])],
+      Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
+      Naturaleza: [item.IDNaturaleza || 1, Validators.required],
       Estado: [item.Estado || false, Validators.required],
       ID: [item.ID || 0, Validators.required]
     })
   }
-  buildItemForm(item) {
+  newItemform(item) {
     this.itemForm = this.fb.group({
-      Codigo: [item.Codigo || '', Validators.required],
-      Etiqueta: [item.Etiqueta || '', Validators.required],
-      Naturaleza: [item.IDNaturaleza || 0, Validators.required],
+      Codigo: [item.Codigo || '', Validators.compose([Validators.required, Validators.maxLength(2)])],
+      Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
+      Naturaleza: [item.IDNaturaleza || 1, Validators.required],
       Estado: [item.Estado || false, Validators.required],
       ID: [item.ID || 0, Validators.required]
     })
