@@ -86,6 +86,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 import { EmpresaComponent } from './configurar/empresa/empresa.component';
 import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.component';
+import { AplicacionComponent } from './configurar/aplicacion/aplicacion.component';
+import { EstacionComponent } from './configurar/estacion/estacion.component';
 
 
 @NgModule({
@@ -165,6 +167,8 @@ import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.componen
     ViewmodelopcComponent,
     EmpresaComponent,
     PopupComponentEmpresa,
+    AplicacionComponent,
+    EstacionComponent,
 
   ],
   providers: [

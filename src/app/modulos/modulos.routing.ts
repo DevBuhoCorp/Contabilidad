@@ -31,19 +31,35 @@ import {ClienteComponent} from './informes/ventas/cliente/cliente.component';
 import {UsuarioComponent} from './informes/ventas/usuario/usuario.component';
 import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 import {EmpresaComponent} from './configurar/empresa/empresa.component';
+import {AplicacionComponent} from './configurar/aplicacion/aplicacion.component';
+import {EstacionComponent} from './configurar/estacion/estacion.component';
 
 
 export const ModulosRoutes: Routes = [
   {
-    path: 'contabilidad', component: ContabilidadComponent, data: {title: 'Contabilidad', breadcrumb: 'CONTABILIDAD'}
+    path: 'contabilidad',
+    component: ContabilidadComponent,
+    data: {title: 'Contabilidad', breadcrumb: 'CONTABILIDAD'}
   },
   {
-    path: 'configurar/general', component: GeneralComponent, data: {title: 'Configuraciones Generales', breadcrumb: 'CONFIGURACIÓN GENERAL'}
+    path: 'configurar/general',
+    component: GeneralComponent,
+    data: {title: 'Configuraciones Generales', breadcrumb: 'CONFIGURACIÓN GENERAL'}
   },
   {
     path: 'configurar/empresas',
     component: EmpresaComponent,
     data: {title: 'Empresa', breadcrumb: 'CONFIGURAR EMPRESA'}
+  },
+  {
+    path: 'configurar/aplicacion',
+    component: AplicacionComponent,
+    data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'}
+  },
+  {
+    path: 'configurar/aplicacion/estacion/:app',
+    component: EstacionComponent,
+    data: {title: 'Estación', breadcrumb: 'ESTACIÓN'}
   },
   {
     path: 'configurar/diarioscontables',
