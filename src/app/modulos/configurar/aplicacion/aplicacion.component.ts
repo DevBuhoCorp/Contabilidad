@@ -16,6 +16,7 @@ export class AplicacionComponent implements OnInit {
   empresas : any;
   apps : any;
   selEmpresa : any;
+  paginate: any;
 
   constructor(
     private dialog: MatDialog,
@@ -31,7 +32,8 @@ export class AplicacionComponent implements OnInit {
   }
 
   async loadApp(){
-    this.apps = await this.crudService._listParams('aplicacion', { op: 'ALL', empresa : this.selEmpresa });
+    this.paginate = await this.crudService.PaginacionTest('aplicacion', { page: 1 , empresa : this.selEmpresa });
+
   }
 
   deleteItem(item){
