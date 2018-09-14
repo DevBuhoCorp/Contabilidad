@@ -54,7 +54,10 @@ export const ModulosRoutes: Routes = [
   {
     path: 'configurar/aplicacion',
     component: AplicacionComponent,
-    data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'}
+    data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'},
+    children: [
+
+    ]
   },
   {
     path: 'configurar/aplicacion/estacion/:app',

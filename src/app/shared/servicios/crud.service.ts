@@ -17,6 +17,9 @@ export class CrudService {
   Paginacion(api, opt, id, page) {
     return this.http.get(this.puerto + api + '?page=' + page + '&opt=' + opt + '&id=' + id);
   }
+  PaginacionTest(api, param) {
+    return this.httpClient.get(this.puerto + api, { params: param}).toPromise();
+  }
 
   PaginacionAsync(api, opt, id, page) {
     return this.http.get(this.puerto + api + '?page=' + page + '&opt=' + opt + '&id=' + id).toPromise();

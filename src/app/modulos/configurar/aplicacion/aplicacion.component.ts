@@ -13,9 +13,16 @@ import {Router} from '@angular/router';
 })
 export class AplicacionComponent implements OnInit {
 
+  pageSize = [3, 5, 10, 20];
   empresas : any;
-  apps : any;
   selEmpresa : any;
+  selPageSize : any = this.pageSize[0];
+  paginate: any={
+    data: [],
+    page: 1,
+    total: 0,
+    per_page: 0
+  };
 
   constructor(
     private dialog: MatDialog,
@@ -31,7 +38,11 @@ export class AplicacionComponent implements OnInit {
   }
 
   async loadApp(){
-    this.apps = await this.crudService._listParams('aplicacion', { op: 'ALL', empresa : this.selEmpresa });
+    this.paginate = await this.crudService.PaginacionTest('aplicacion', { page: 1 , empresa : this.selEmpresa, psize: this.selPageSize });
+  }
+
+  async setPage(event){
+    this.paginate = await this.crudService.PaginacionTest('aplicacion', { page: event.offset + 1 , empresa : this.selEmpresa, psize: this.selPageSize });
   }
 
   deleteItem(item){
@@ -46,9 +57,6 @@ export class AplicacionComponent implements OnInit {
           });
         }
       });
-  }
-  listEstacion(item){
-    this.router.navigate(['estacion', item.ID ]);
   }
 
   async openPopUp(data: any = {}, isNew?){
