@@ -47,9 +47,6 @@ export class AplicacionComponent implements OnInit {
         }
       });
   }
-  listEstacion(item){
-    this.router.navigate(['estacion', item.ID ]);
-  }
 
   async openPopUp(data: any = {}, isNew?){
     let title = isNew ? 'Agregar' : 'Actualizar';
