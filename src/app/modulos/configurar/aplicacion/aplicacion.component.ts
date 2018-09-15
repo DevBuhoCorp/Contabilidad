@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
   styles: []
 })
 export class AplicacionComponent implements OnInit {
-
+ 
   pageSize = [3, 5, 10, 20]; 
   empresas : any;
   selEmpresa : any;
@@ -38,11 +38,11 @@ export class AplicacionComponent implements OnInit {
   }
 
   async loadApp(){
-    this.paginate = await this.crudService.PaginacionTest('aplicacion', { page: 1 , empresa : this.selEmpresa, psize: this.selPageSize });
+    this.paginate = await this.crudService.Paginacion('aplicacion', { page: 1 , empresa : this.selEmpresa, psize: this.selPageSize });
   }
 
   async setPage(event){
-    this.paginate = await this.crudService.PaginacionTest('aplicacion', { page: event.offset + 1 , empresa : this.selEmpresa, psize: this.selPageSize });
+    this.paginate = await this.crudService.Paginacion('aplicacion', { page: event.offset + 1 , empresa : this.selEmpresa, psize: this.selPageSize });
   }
 
   deleteItem(item){

@@ -1,17 +1,25 @@
-<div class="m-333">
+<div class="m-333" style="display: flex; justify-content: space-between;">
   <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Añadir</button>
   <div class="select-group">
     <mat-form-field class="full-width">
-      <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)="loadApp()">
+      <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
         <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-</div>
+</div> 
 <mat-card class="p-0">
   <mat-card-content class="p-0">
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
-      [limit]="10" [rowHeight]="'auto'">
+    <ngx-datatable class="material ml-0 mr-0"
+                   [rows]="items.data"
+                   [columnMode]="'flex'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="items.total"
+                   [limit]="items.per_page"
+                   (page)='setPage($event)' >
       <ngx-datatable-column name="Descripcion" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.Descripcion }}
@@ -20,7 +28,7 @@
       <ngx-datatable-column name="Estado" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <mat-chip mat-sm-chip [color]="'primary'" [selected]="row.Estado">
-            {{ row.Estado == 'ACT' ? 'activo' : 'inactivo' }}
+            {{ row.Estado ? 'activo' : 'inactivo' }}
           </mat-chip>
         </ng-template>
       </ngx-datatable-column>

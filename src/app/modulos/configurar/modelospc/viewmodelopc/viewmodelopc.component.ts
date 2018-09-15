@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {TreeNode} from 'primeng/components/common/api';
-import {CrudService} from '../../../../shared/servicios/crud.service';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TreeNode } from 'primeng/components/common/api';
+import { CrudService } from '../../../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-viewmodelopc',
@@ -12,32 +12,28 @@ import {CrudService} from '../../../../shared/servicios/crud.service';
   ]
 })
 export class ViewmodelopcComponent implements OnInit {
-  filesTree0: TreeNode[];
+  datos: any = {};
+  filesTree0: any = [{
+    data:[]
+  }];
   selectedFile: TreeNode;
 
   constructor(private _activateRoute: ActivatedRoute,
-              private crudService: CrudService) {
-    this._activateRoute.params.subscribe(params => {
-      this.crudService.ListarDatos('plancontable','ALL', params['id']).map((response) => {
-        return response.json();
-      }).toPromise().then(x => {
-        this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
-      });
+    private crudService: CrudService) {
+    this._activateRoute.params.subscribe(async params => {
+      /* this.crudService.ListarDatos('plancontable','ALL', params['id']).map((response) => {
+         return response.json();
+       }).toPromise().then(x => {
+         this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
+       });*/
+      this.filesTree0 = await this.crudService.Paginacion('plancontable', { id: params['id'] });
+      this.filesTree0[0].data = await JSON.parse(this.filesTree0[0].data);
     });
   }
 
   ngOnInit() {
-    
-  }
 
-  nodeSelect(event) {
-    console.log(event.node);
   }
-
-  nodeUnselect(event) {
-    console.log(event.node);
-  }
-
 
 }
 /* Ejemplo  */

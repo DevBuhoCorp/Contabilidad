@@ -14,11 +14,12 @@ export class CrudService {
     return this.http.get(this.puerto + api + '?opt=' + opt + '&id=' + id);
   }
 
-  Paginacion(api, opt, id, page) {
+  Paginacion2(api, opt, id, page) {
     return this.http.get(this.puerto + api + '?page=' + page + '&opt=' + opt + '&id=' + id);
   }
-  PaginacionTest(api, param) {
-    return this.httpClient.get(this.puerto + api, { params: param}).toPromise();
+
+  Paginacion(api, param?) {
+    return this.httpClient.get(this.puerto + api, { params: param }).toPromise();
   }
 
   PaginacionAsync(api, opt, id, page) {
@@ -29,6 +30,20 @@ export class CrudService {
     return this.httpClient.get(this.puerto + api + '?opt=' + opt + '&id=' + id).toPromise();
   }
 
+  SetBool(datos) {
+    let index = 0;
+    for (let i of datos) {
+
+      if (i.Estado == 'ACT') {
+        datos[index].Estado = true;
+      }
+      else {
+        datos[index].Estado = false;
+      }
+      index++;
+    }
+    return datos;
+  }
   _listParams(api, params?) {
     return this.httpClient.post(this.puerto + api + '/list', params).toPromise();
   }
@@ -41,6 +56,7 @@ export class CrudService {
   }
 
   Insertar(objeto, api) {
+    console.log(objeto);
     var body = objeto;
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });

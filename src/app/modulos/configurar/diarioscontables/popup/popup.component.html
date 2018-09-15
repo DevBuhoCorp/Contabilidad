@@ -19,7 +19,7 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <mat-select name="Naturaleza" placeholder="Naturaleza" [formControl]="itemForm.controls['Naturaleza']">
+        <mat-select name="Naturaleza" placeholder="Naturaleza" [formControl]="itemForm.controls['IDNaturaleza']">
           <mat-option *ngFor="let tipos of Naturaleza" [value]="tipos.ID" ngDefaultControl>
             {{tipos.Etiqueta}}
           </mat-option>

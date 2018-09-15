@@ -48,15 +48,16 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
   ) {
-    this.crudService.ListarDatos('modeloplancontable', 'All', 0).map((response) => {
+    this.crudService.ListarDatos('combomodelo', 'All', 0).map((response) => {
       return response.json() as ModeloPlanContable[];
     }).toPromise().then(x => {
       this.Modelos = x;
     });
+    
   }
 
   ngOnInit() {
-
+    
   }
 
   CargarPlan() {

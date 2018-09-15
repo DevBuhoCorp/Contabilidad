@@ -14,9 +14,15 @@ import { Router } from '@angular/router';
   templateUrl: './modelospc.component.html',
   styles: []
 })
-export class ModelospcComponent implements OnInit, OnDestroy {
-  public items: any[];
-  public getItemSub: Subscription;
+export class ModelospcComponent implements OnInit {
+  pageSize = [1, 5, 10, 20];
+  selPageSize: any = this.pageSize[0];
+  items: any = {
+    data: [],
+    page: 1,
+    total: 0,
+    per_page: 0
+  };
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -27,36 +33,18 @@ export class ModelospcComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getItems("All", 0);
+    this.getItems(1);
   }
-  ngOnDestroy() {
-    if (this.getItemSub) {
-      this.getItemSub.unsubscribe();
-    }
-  }
-  getItems(opt, id) {
-    this.crudService.ListarDatos('modeloplancontable', opt, id).map((response) => {
-      return response.json() as ModeloPlanContable[];
-    }).toPromise().then(x => {
-      this.items = x;
-      let index = 0;
-      for (let i of this.items) {
-        if (i.Estado === 'ACT') {
-          this.items[index].Estado = true;
-        } else {
-          this.items[index].Estado = false;
-        }
-        index++;
-      }
-    });
-
+  async getItems(indice) {
+    this.items = await this.crudService.Paginacion("modeloplancontable", { page: indice, psize: this.selPageSize });
+    this.items.data = this.crudService.SetBool(this.items.data);
   }
   async openPopUp(data: any = {}, isNew?) {
 
     const title = isNew ? 'Agregar' : 'Actualizar'; 
     if (!isNew)
     {
-      data.promise = await this.crudService.ListarDatosAsync("modeloplancontable", "ID", data.ID);
+      data = await this.crudService.Paginacion("modeloplancontable/" + data.ID);
     }
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentMPC, {
       width: '720px',
@@ -72,13 +60,13 @@ export class ModelospcComponent implements OnInit, OnDestroy {
         this.loader.open();
         if (isNew) {
           this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
-            this.getItems('All', 0);
+            this.getItems(1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
           })
         } else {
           this.crudService.Actualizar(data.ID, res, 'modeloplancontable/').subscribe(data => {
-            this.getItems('All', 0);
+            this.getItems(1);
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 });
           });
@@ -91,7 +79,7 @@ export class ModelospcComponent implements OnInit, OnDestroy {
         if (res) {
           this.loader.open();
           this.crudService.Eliminar(row.ID, "modeloplancontable/").subscribe(data => {
-            this.getItems("All", 0);
+            this.getItems(1);
             this.loader.close();
             this.snack.open('Eliminado!', 'OK', { duration: 4000 })
           })
@@ -99,6 +87,10 @@ export class ModelospcComponent implements OnInit, OnDestroy {
       })
 
   }
+
+  setPage(event) {
+    this.getItems(event.offset + 1);
+  } 
 
 
 }

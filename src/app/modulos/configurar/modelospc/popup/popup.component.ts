@@ -15,24 +15,18 @@ export class PopupComponentMPC implements OnInit {
     public dialogRef: MatDialogRef<PopupComponentMPC>,
     private fb: FormBuilder,
   ) { }
-
   ngOnInit() {
-    if (Array.isArray(this.data.payload.promise)) {
-      this.newItemform(this.data.payload.promise[0]);
+    
+    console.log(this.data.payload);
+
+    if (Array.isArray(this.data.payload)) {
+      this.buildItemForm(this.data.payload[0]);
     } else {
       this.buildItemForm(this.data.payload);
-
     }
+  }
 
-  }
   buildItemForm(item) {
-    this.itemForm = this.fb.group({
-      Modelo: [item.Modelo || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
-      Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
-      Estado: [item.Estado || false, Validators.required]
-    })
-  }
-  newItemform(item) {
     this.itemForm = this.fb.group({
       Modelo: [item.Modelo || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
       Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
@@ -41,12 +35,6 @@ export class PopupComponentMPC implements OnInit {
   }
 
   submit() {
-    if (this.itemForm.value.Estado) {
-      this.itemForm.value.Estado = 'ACT'
-    }
-    else {
-      this.itemForm.value.Estado = 'INA'
-    }
     this.dialogRef.close(this.itemForm.value)
   }
 }
