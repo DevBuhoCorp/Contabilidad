@@ -10,7 +10,7 @@ import { DiarioContable } from '../diarioscontables.model';
   styles: []
 })
 export class PopupComponentDC implements OnInit {
-  Naturaleza = [];
+  Naturaleza:any = [];
 
   public itemForm: FormGroup;
   constructor(
@@ -18,15 +18,14 @@ export class PopupComponentDC implements OnInit {
     public dialogRef: MatDialogRef<PopupComponentDC>,
     private fb: FormBuilder,
     private crudService: CrudService
-  ) {
-    this.crudService.ListarDatos("naturaleza", "All", 0).map((response) => {
-      return response.json();
-    }).toPromise().then(x => {
-      this.Naturaleza = x;
+  ) { }
 
-    })
+  async CargarCombo(){
+    this.Naturaleza = await this.crudService.SeleccionarAsync("naturaleza");
   }
+
   ngOnInit() {
+    this.CargarCombo();
     if (Array.isArray(this.data.payload)) {
       this.buildItemForm(this.data.payload[0]);
     } else {

@@ -36,7 +36,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   list: any = false;
 
-  Modelos: ModeloPlanContable[];
+  Modelos: any = [];
   Cuentas: any[];
   public items: any[];
   public getItemSub: Subscription;
@@ -48,29 +48,34 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
   ) {
-    this.crudService.ListarDatos('combomodelo', 'All', 0).map((response) => {
-      return response.json() as ModeloPlanContable[];
-    }).toPromise().then(x => {
-      this.Modelos = x;
-    });
-    
+    /* this.crudService.ListarDatos('combomodelo', 'All', 0).map((response) => {
+       return response.json() as ModeloPlanContable[];
+     }).toPromise().then(x => {
+       this.Modelos = x;
+     });*/
+
+  }
+
+  async CargarCombo() {
+    this.Modelos = await this.crudService.SeleccionarAsync("combomodelo");
   }
 
   ngOnInit() {
-    
+    this.CargarCombo();
   }
 
   CargarPlan() {
-    this.crudService.ListarDatos('plancontable', 'ALL', this.selectedValue).map((response) => {
+    this.crudService.Seleccionar('plancontable', { id: this.selectedValue }).map((response) => {
       return response.json();
     }).toPromise().then(x => {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
     });
+
   }
 
   loadCuentas() {
     this.list = true;
-    this.crudService.ListarDatos('dragcuentacontable', 'ALL', this.selectedValue).map((response) => {
+    this.crudService.Seleccionar('dragcuentacontable', { id: this.selectedValue }).map((response) => {
       return response.json();
     }).toPromise().then(x => {
       this.filesDrag = x as TreeNode[];
@@ -87,13 +92,14 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   async openPopUp(data: any = {}, isNew?) {
     let title = isNew ? 'Agregar' : 'Actualizar';
     if (!isNew) {
-      data.promise = await this.crudService.ListarDatosAsync("cuentacontable", "ID", data.data);
+      data.promise = await this.crudService.SeleccionarAsync("cuentacontable/" + data.data);
+      console.log(data.promise);
     }
     else if (!data.data) {
-      data.promise2 = await this.crudService.ListarDatosAsync("cuentapadre", "All", 0);
+      data.promise2 = await this.crudService.SeleccionarAsync("cuentapadre");
     }
     else {
-      data.promise2 = await this.crudService.ListarDatosAsync("numerocuenta", data.data, this.selectedValue);
+      data.promise2 = await this.crudService.SeleccionarAsync("numerocuenta", { padre: data.data, plancontable: this.selectedValue });
     }
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
@@ -159,7 +165,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     this.res = {};
     console.log(event.dragNode);//arrastrado
     console.log(event.dropNode);//llega.
-    let cuenta = await this.crudService.ListarDatosAsync("numerocuenta", event.dropNode.data, this.selectedValue);
+    let cuenta = await this.crudService.SeleccionarAsync("numerocuenta", { padre: event.dropNode.data, plancontable: this.selectedValue });
     this.res.Estado = "ACT";
     this.res.Etiqueta = event.dragNode.label;
     this.res.IDDiario = event.dropNode.diario;

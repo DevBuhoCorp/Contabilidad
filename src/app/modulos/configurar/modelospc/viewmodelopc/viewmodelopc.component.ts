@@ -21,12 +21,7 @@ export class ViewmodelopcComponent implements OnInit {
   constructor(private _activateRoute: ActivatedRoute,
     private crudService: CrudService) {
     this._activateRoute.params.subscribe(async params => {
-      /* this.crudService.ListarDatos('plancontable','ALL', params['id']).map((response) => {
-         return response.json();
-       }).toPromise().then(x => {
-         this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
-       });*/
-      this.filesTree0 = await this.crudService.Paginacion('plancontable', { id: params['id'] });
+      this.filesTree0 = await this.crudService.SeleccionarAsync('plancontable', { id: params['id'] });
       this.filesTree0[0].data = await JSON.parse(this.filesTree0[0].data);
     });
   }

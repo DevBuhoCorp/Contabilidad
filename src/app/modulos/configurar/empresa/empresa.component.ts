@@ -30,13 +30,13 @@ export class EmpresaComponent implements OnInit {
   }
 
   async getItems(indice) {
-    this.items = await this.crudService.Paginacion("empresa", { page: indice, psize: this.selPageSize });
+    this.items = await this.crudService.SeleccionarAsync("empresa", { page: indice, psize: this.selPageSize });
     this.items.data = this.crudService.SetBool(this.items.data);
   }
 
   async openPopUp(data: any = {}, isNew?) {
     if (!isNew) {
-      data = await this.crudService.Paginacion("empresa/" + data.ID); 
+      data = await this.crudService.SeleccionarAsync("empresa/" + data.ID); 
     }
     console.log(data);
     let title = isNew ? 'Agregar' : 'Actualizar';

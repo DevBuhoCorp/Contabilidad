@@ -10,25 +10,14 @@ export class CrudService {
   }
 
 
-  ListarDatos(api, opt, id) {
-    return this.http.get(this.puerto + api + '?opt=' + opt + '&id=' + id);
+  Seleccionar(api, param?) {
+    return this.http.get(this.puerto + api, { params: param });
   }
 
-  Paginacion2(api, opt, id, page) {
-    return this.http.get(this.puerto + api + '?page=' + page + '&opt=' + opt + '&id=' + id);
-  }
-
-  Paginacion(api, param?) {
+  SeleccionarAsync(api, param?) {
     return this.httpClient.get(this.puerto + api, { params: param }).toPromise();
   }
 
-  PaginacionAsync(api, opt, id, page) {
-    return this.http.get(this.puerto + api + '?page=' + page + '&opt=' + opt + '&id=' + id).toPromise();
-  }
-
-  ListarDatosAsync(api, opt, id) {
-    return this.httpClient.get(this.puerto + api + '?opt=' + opt + '&id=' + id).toPromise();
-  }
 
   SetBool(datos) {
     let index = 0;

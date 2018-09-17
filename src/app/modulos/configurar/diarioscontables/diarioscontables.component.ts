@@ -32,14 +32,14 @@ export class DiarioscontablesComponent implements OnInit {
     this.getItems(1);
   }
   async getItems(indice) {
-    this.items = await this.crudService.Paginacion("diarios", { page: indice, psize: this.selPageSize });
+    this.items = await this.crudService.SeleccionarAsync("diarios", { page: indice, psize: this.selPageSize });
     this.items.data = this.crudService.SetBool(this.items.data);
   }
   async openPopUp(data: any = {}, isNew?) {
 
     let title = isNew ? 'Agregar' : 'Actualizar';
     if (!isNew) {
-      data = await this.crudService.Paginacion("diarios/" + data.ID);
+      data = await this.crudService.SeleccionarAsync("diarios/" + data.ID);
     }
     console.log(data);
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentDC, {

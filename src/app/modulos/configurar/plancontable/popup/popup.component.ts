@@ -11,22 +11,21 @@ import { CrudService } from '../../../../shared/servicios/crud.service';
 export class PopupComponentPC implements OnInit {
   Cuentas = [];
   public itemForm: FormGroup;
-  public Diarios = [];
+  public Diarios:any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupComponentPC>,
     private fb: FormBuilder,
-    private crudService: CrudService) {
-    this.crudService.ListarDatos("diarios", "All", 0).map((response) => {
-      return response.json();
-    }).toPromise().then(x => {
-      this.Diarios = x;
+    private crudService: CrudService) {  }
 
-    })
+  async CargarCombo() {
+    this.Diarios = await this.crudService.SeleccionarAsync("combodiario");
   }
 
   ngOnInit() {
-    if (Array.isArray(this.data.payload.promise)) {
+    this.CargarCombo();
+    console.log(this.data);
+    if ((this.data.payload.promise)) {
       this.buildItemForm(this.data.payload);
     } else {
       this.newItemform(this.data.payload);
@@ -35,7 +34,9 @@ export class PopupComponentPC implements OnInit {
   }
 
   newItemform(item) {
+   
     if (item.numerocuenta) {
+      console.log("new1");
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.numerocuenta + '.' + item.promise2[0].ncuenta), disabled: true }],
         Etiqueta: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
@@ -47,9 +48,10 @@ export class PopupComponentPC implements OnInit {
       });
     }
     else {
+      console.log("new2");
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: item.promise2, disabled: true }],
-        Etiqueta: ['',Validators.compose([Validators.required, Validators.maxLength(45)])],
+        Etiqueta: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: '', disabled: true }],
         GrupoCuenta: [{ value: 'Total' || '', disabled: true }],
         IDDiario: [item.IDDiario || 1, Validators.required],
@@ -61,24 +63,27 @@ export class PopupComponentPC implements OnInit {
 
 
   buildItemForm(item) {
+    
     if (item.parent) {
+      console.log("build1");
       this.itemForm = this.fb.group({
-        NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
-        Etiqueta: [item.promise[0].etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
+        NumeroCuenta: [{ value: (item.promise.numerocuenta), disabled: true }],
+        Etiqueta: [item.promise.label, Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: item.parent.label || '', disabled: true }],
-        GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
-        IDDiario: [item.promise[0].IDDiario || 1, Validators.required],
+        GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
+        IDDiario: [item.promise.IDDiario || 1, Validators.required],
         Estado: [item.Estado || true, Validators.required]
 
       });
     }
     else {
+      console.log("build2");
       this.itemForm = this.fb.group({
-        NumeroCuenta: [{ value: (item.promise[0].numerocuenta), disabled: true }],
-        Etiqueta: [item.promise[0].etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
+        NumeroCuenta: [{ value: (item.promise.NumeroCuenta), disabled: true }],
+        Etiqueta: [item.promise.Etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: '', disabled: true }],
-        GrupoCuenta: [{ value: item.promise[0].grupo || '', disabled: true }],
-        IDDiario: [item.promise[0].IDDiario || 1, Validators.required],
+        GrupoCuenta: [{ value: 'Total' || '', disabled: true }],
+        IDDiario: [item.promise.IDDiario || 1, Validators.required],
         Estado: [item.Estado || true, Validators.required]
       });
     }

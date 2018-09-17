@@ -38,11 +38,11 @@ export class AplicacionComponent implements OnInit {
   }
 
   async loadApp(){
-    this.paginate = await this.crudService.Paginacion('aplicacion', { page: 1 , empresa : this.selEmpresa, psize: this.selPageSize });
+    this.paginate = await this.crudService.SeleccionarAsync('aplicacion', { page: 1 , empresa : this.selEmpresa, psize: this.selPageSize });
   }
 
   async setPage(event){
-    this.paginate = await this.crudService.Paginacion('aplicacion', { page: event.offset + 1 , empresa : this.selEmpresa, psize: this.selPageSize });
+    this.paginate = await this.crudService.SeleccionarAsync('aplicacion', { page: event.offset + 1 , empresa : this.selEmpresa, psize: this.selPageSize });
   }
 
   deleteItem(item){

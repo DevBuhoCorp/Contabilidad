@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styles: []
 })
 export class ModelospcComponent implements OnInit {
-  pageSize = [1, 5, 10, 20];
+  pageSize = [3, 5, 10, 20];
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -36,7 +36,7 @@ export class ModelospcComponent implements OnInit {
     this.getItems(1);
   }
   async getItems(indice) {
-    this.items = await this.crudService.Paginacion("modeloplancontable", { page: indice, psize: this.selPageSize });
+    this.items = await this.crudService.SeleccionarAsync("modeloplancontable", { page: indice, psize: this.selPageSize });
     this.items.data = this.crudService.SetBool(this.items.data);
   }
   async openPopUp(data: any = {}, isNew?) {
@@ -44,7 +44,7 @@ export class ModelospcComponent implements OnInit {
     const title = isNew ? 'Agregar' : 'Actualizar'; 
     if (!isNew)
     {
-      data = await this.crudService.Paginacion("modeloplancontable/" + data.ID);
+      data = await this.crudService.SeleccionarAsync("modeloplancontable/" + data.ID);
     }
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentMPC, {
       width: '720px',

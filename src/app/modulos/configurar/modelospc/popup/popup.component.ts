@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { CrudService } from '../../../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-popup',
@@ -16,9 +15,6 @@ export class PopupComponentMPC implements OnInit {
     private fb: FormBuilder,
   ) { }
   ngOnInit() {
-    
-    console.log(this.data.payload);
-
     if (Array.isArray(this.data.payload)) {
       this.buildItemForm(this.data.payload[0]);
     } else {
