@@ -1,14 +1,23 @@
 <div class="m-333">
+  <h4 class="bc-title">Aplicación: {{ ( app.Descripcion  )  }}</h4>
   <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)" >Agregar</button>
 </div>
 
 <mat-card class="p-0" >
   <mat-card-content class="p-0" >
-    <ngx-datatable class="material ml-0 mr-0" [rows]="estacions" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
-                   [rowHeight]="'auto'">
+    <ngx-datatable class="material ml-0 mr-0"
+                   [rows]="estacions.data"
+                   [columnMode]="'flex'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="estacions.total"
+                   [limit]="estacions.per_page"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   (page)='setPage($event)'>
       <ngx-datatable-column name="Descripcion" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Descripcion }}
+          {{ row?.Nmaquina }}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Estado" [flexGrow]="1">

@@ -88,6 +88,7 @@ import { EmpresaComponent } from './configurar/empresa/empresa.component';
 import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.component';
 import { AplicacionComponent } from './configurar/aplicacion/aplicacion.component';
 import { EstacionComponent } from './configurar/estacion/estacion.component';
+import { PopupComponentEstacion } from './configurar/estacion/popup/popup.component';
 
 
 @NgModule({
@@ -169,6 +170,7 @@ import { EstacionComponent } from './configurar/estacion/estacion.component';
     PopupComponentEmpresa,
     AplicacionComponent,
     EstacionComponent,
+    PopupComponentEstacion,
 
   ],
   providers: [
@@ -197,7 +199,8 @@ import { EstacionComponent } from './configurar/estacion/estacion.component';
     PopupComponentImpuesto,
     PopupComponentCuentaP,
     PopupLibroMayor,
-    PopupComponentEmpresa
+    PopupComponentEmpresa,
+    PopupComponentEstacion
   ]
 })
 export class ModulosModule {
