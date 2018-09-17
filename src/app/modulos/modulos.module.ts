@@ -89,6 +89,7 @@ import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.componen
 import { AplicacionComponent } from './configurar/aplicacion/aplicacion.component';
 import { EstacionComponent } from './configurar/estacion/estacion.component';
 import { PopupComponentEstacion } from './configurar/estacion/popup/popup.component';
+import { TokenComponent } from './configurar/estacion/token/token.component';
 
 
 @NgModule({
@@ -171,6 +172,7 @@ import { PopupComponentEstacion } from './configurar/estacion/popup/popup.compon
     AplicacionComponent,
     EstacionComponent,
     PopupComponentEstacion,
+    TokenComponent,
 
   ],
   providers: [
@@ -200,7 +202,8 @@ import { PopupComponentEstacion } from './configurar/estacion/popup/popup.compon
     PopupComponentCuentaP,
     PopupLibroMayor,
     PopupComponentEmpresa,
-    PopupComponentEstacion
+    PopupComponentEstacion,
+    TokenComponent
   ]
 })
 export class ModulosModule {

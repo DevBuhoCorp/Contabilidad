@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {PopupComponentEstacion} from './popup/popup.component';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
+import {TokenComponent} from './token/token.component';
 
 @Component({
   selector: 'app-estacion',
@@ -89,6 +90,14 @@ export class EstacionComponent implements OnInit {
           });
         }
       });
+  }
+
+  async viewToken( item ){
+    let dialogRef: MatDialogRef<any> = this.dialog.open(TokenComponent, {
+      width: '720px',
+      // disableClose: true,
+      data: item.Token
+    });
   }
 
   async setPage(event) {
