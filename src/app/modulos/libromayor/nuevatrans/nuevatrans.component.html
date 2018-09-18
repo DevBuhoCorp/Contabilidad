@@ -44,7 +44,8 @@
               <mat-form-field>
                 <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="detalleForm.controls['Cuenta']">
               </mat-form-field>
-
+            </div>
+            <div fxFlex="50" class="pr-1">
               <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
                   {{ seleccionado }}
@@ -70,13 +71,19 @@
             </div>
 
             <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Ingresar Nuevo</button>
               <span fxFlex></span>
-              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Finalizar</button>
             </div>
           </div>
         </form>
       </mat-card-content>
     </mat-tab>
   </mat-tab-group>
+  <mat-divider class="mb-1"></mat-divider>
+  <mat-list>
+    <h3 matSubheader>Simple List</h3>
+    <mat-list-item  *ngFor="let cuenta of Cuentas | async">{{cuenta}}</mat-list-item>
+    
+  </mat-list>
 </mat-card>
