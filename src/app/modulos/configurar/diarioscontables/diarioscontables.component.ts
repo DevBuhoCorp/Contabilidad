@@ -34,6 +34,7 @@ export class DiarioscontablesComponent implements OnInit {
   async getItems(indice) {
     this.items = await this.crudService.SeleccionarAsync("diarios", { page: indice, psize: this.selPageSize });
     this.items.data = this.crudService.SetBool(this.items.data);
+    console.log(this.items.data);
   }
   async openPopUp(data: any = {}, isNew?) {
 

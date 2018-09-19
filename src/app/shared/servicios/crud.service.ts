@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/delay';
 import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
-import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { HttpClient, HttpHeaders } from '../../../../node_modules/@angular/common/http';
 
 @Injectable()
 export class CrudService {
-  readonly puerto = "http://localhost:8000/api/";
+  readonly puerto = "http://localhost:8000/";
   constructor(private http: Http, private httpClient: HttpClient) {
   }
 
 
   Seleccionar(api, param?) {
-    return this.http.get(this.puerto + api, { params: param });
+    var headerOptions = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    return this.http.get(this.puerto + api, { params: param, headers: headerOptions });
   }
 
   SeleccionarAsync(api, param?) {
-    return this.httpClient.get(this.puerto + api, { params: param }).toPromise();
+    var headerOptions = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    return this.httpClient.get(this.puerto + api, { params: param, headers: headerOptions }).toPromise();
   }
 
 

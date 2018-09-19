@@ -34,7 +34,7 @@ export class AplicacionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.empresas =  this.crudService._listParams('empresa',{ op: 'ALL' });
+    this.empresas =  this.crudService.SeleccionarAsync('comboempresa');
   }
 
   async loadApp(){
