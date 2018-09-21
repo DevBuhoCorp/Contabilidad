@@ -24,7 +24,6 @@ export class PopupComponentPC implements OnInit {
 
   ngOnInit() {
     this.CargarCombo();
-    console.log(this.data);
     if ((this.data.payload.promise)) {
       this.buildItemForm(this.data.payload);
     } else {
@@ -36,7 +35,6 @@ export class PopupComponentPC implements OnInit {
   newItemform(item) {
 
     if (item.numerocuenta) {
-      console.log("new1");
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.numerocuenta + '.' + item.promise2[0].ncuenta), disabled: true }],
         Etiqueta: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
@@ -48,7 +46,6 @@ export class PopupComponentPC implements OnInit {
       });
     }
     else {
-      console.log("new2");
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: item.promise2, disabled: true }],
         Etiqueta: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
@@ -59,14 +56,12 @@ export class PopupComponentPC implements OnInit {
 
       });
     }
-    console.log(this.itemForm);
   }
 
 
   buildItemForm(item) {
 
     if (item.parent) {
-      console.log("build1");
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.promise.numerocuenta), disabled: true }],
         Etiqueta: [item.promise.label, Validators.compose([Validators.required, Validators.maxLength(45)])],
@@ -78,7 +73,6 @@ export class PopupComponentPC implements OnInit {
       });
     }
     else {
-      console.log("build2");
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.promise.NumeroCuenta), disabled: true }],
         Etiqueta: [item.promise.Etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
