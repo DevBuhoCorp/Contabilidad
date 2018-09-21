@@ -11,12 +11,12 @@ import { CrudService } from '../../../../shared/servicios/crud.service';
 export class PopupComponentPC implements OnInit {
   Cuentas = [];
   public itemForm: FormGroup;
-  public Diarios:any = [];
+  public Diarios: any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupComponentPC>,
     private fb: FormBuilder,
-    private crudService: CrudService) {  }
+    private crudService: CrudService) { }
 
   async CargarCombo() {
     this.Diarios = await this.crudService.SeleccionarAsync("combodiario");
@@ -34,7 +34,7 @@ export class PopupComponentPC implements OnInit {
   }
 
   newItemform(item) {
-   
+
     if (item.numerocuenta) {
       console.log("new1");
       this.itemForm = this.fb.group({
@@ -59,11 +59,12 @@ export class PopupComponentPC implements OnInit {
 
       });
     }
+    console.log(this.itemForm);
   }
 
 
   buildItemForm(item) {
-    
+
     if (item.parent) {
       console.log("build1");
       this.itemForm = this.fb.group({

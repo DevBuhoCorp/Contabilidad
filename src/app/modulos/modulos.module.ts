@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {
+  
   MatInputModule,
   MatIconModule,
   MatCardModule,
@@ -18,7 +19,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatTabsModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatAutocompleteModule
 } from '@angular/material';
 // PrimeNG
 import {TreeModule} from 'primeng/tree';
@@ -88,8 +90,9 @@ import { EmpresaComponent } from './configurar/empresa/empresa.component';
 import { PopupComponentEmpresa } from './configurar/empresa/popup/popup.component';
 import { AplicacionComponent } from './configurar/aplicacion/aplicacion.component';
 import { EstacionComponent } from './configurar/estacion/estacion.component';
-import { PopupComponentEstacion } from './configurar/estacion/popup/popup.component';
-import { TokenComponent } from './configurar/estacion/token/token.component';
+import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.component';
+import {PopupComponentEstacion} from './configurar/estacion/popup/popup.component';
+import {TokenComponent} from './configurar/estacion/token/token.component';
 
 
 @NgModule({
@@ -120,6 +123,7 @@ import { TokenComponent } from './configurar/estacion/token/token.component';
     FileUploadModule,
     MatProgressBarModule,
     HttpClientModule,
+    MatAutocompleteModule,
     //PrimeNG
     TreeModule,
     RouterModule.forChild(ModulosRoutes)
@@ -171,8 +175,9 @@ import { TokenComponent } from './configurar/estacion/token/token.component';
     PopupComponentEmpresa,
     AplicacionComponent,
     EstacionComponent,
+    NuevatransComponent,
     PopupComponentEstacion,
-    TokenComponent,
+    TokenComponent
 
   ],
   providers: [

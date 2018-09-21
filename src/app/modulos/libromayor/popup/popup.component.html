@@ -6,7 +6,6 @@
         <form [formGroup]="itemForm" (ngSubmit)="submit()">
           <div fxLayout="row wrap" fxLayout.lt-sm="column">
 
-
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
                 <input matInput name="NumTransaccion" placeholder="Núm. transacción">
@@ -19,6 +18,12 @@
                 <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
               </mat-form-field>
               <mat-datepicker #appDatepicker></mat-datepicker>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Estacion" placeholder="Estación">
+              </mat-form-field>
             </div>
 
             <div fxFlex="50" class="pr-1">
@@ -55,16 +60,6 @@
               </mat-form-field>
             </div>
 
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <mat-select name="DiarioContable" placeholder="Diario Contable	">
-                  <mat-option *ngFor="let diario of Diarios" [value]="diario.value" ngDefaultControl>
-                    {{diario.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
             <div fxFlex="100" class="mt-1">
               <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
               <span fxFlex></span>
@@ -77,7 +72,7 @@
     <mat-tab label="Imagen Documento Contable">
       <mat-card-content>
         <div class="mb-1 mt-1">
-            <h1 matDialogTitle>Cargar Imagen de Documento Contable</h1>
+          <h1 matDialogTitle>Cargar Imagen de Documento Contable</h1>
           <input type="file" ng2FileSelect [uploader]="uploader" />
         </div>
 

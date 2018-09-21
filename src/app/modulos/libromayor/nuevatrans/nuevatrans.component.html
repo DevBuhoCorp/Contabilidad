@@ -1,0 +1,89 @@
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label="Datos Transacción">
+      <mat-card-content class="mt-1">
+        <h1 matDialogTitle>Ingresar Nuevo Movimiento</h1>
+        <form [formGroup]="itemForm" (ngSubmit)="submitTransaccion()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="NumTransaccion" placeholder="Núm. transacción" [formControl]="itemForm.controls['NumeroTrans']">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Fecha" placeholder="Fecha" [matDatepicker]="appDatepicker" [formControl]="itemForm.controls['Fecha']">
+                <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+              </mat-form-field>
+              <mat-datepicker #appDatepicker></mat-datepicker>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Estacion" placeholder="Estación" [formControl]="itemForm.controls['Estacion']">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" class="mt-1">
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-tab>
+
+
+    <mat-tab label="Detalles Transacción">
+      <mat-card-content class="mt-1">
+        <h1 matDialogTitle>Ingresar Nuevo Detalle</h1>
+        <form [formGroup]="detalleForm" (ngSubmit)="submitDetalle()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field>
+                <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="detalleForm.controls['Cuenta']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" class="pr-1">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
+                  {{ seleccionado }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Etiqueta" placeholder="Etiqueta" [formControl]="detalleForm.controls['Etiqueta']">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Debe" placeholder="Debe" [formControl]="detalleForm.controls['Debe']">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="Haber" placeholder="Haber" [formControl]="detalleForm.controls['Haber']">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" class="mt-1">
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Ingresar Nuevo</button>
+              <span fxFlex></span>
+              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Finalizar</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-divider class="mb-1"></mat-divider>
+  <mat-list>
+    <h3 matSubheader>Simple List</h3>
+    <mat-list-item  *ngFor="let cuenta of Cuentas | async">{{cuenta}}</mat-list-item>
+    
+  </mat-list>
+</mat-card>

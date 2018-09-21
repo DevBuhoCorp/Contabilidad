@@ -33,6 +33,7 @@ import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmod
 import {EmpresaComponent} from './configurar/empresa/empresa.component';
 import {AplicacionComponent} from './configurar/aplicacion/aplicacion.component';
 import {EstacionComponent} from './configurar/estacion/estacion.component';
+import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -167,6 +168,9 @@ export const ModulosRoutes: Routes = [
   },
   {
     path: 'libromayor', component: LibromayorComponent, data: {title: 'Libro Mayor', breadcrumb: 'PROCESAR LIBRO MAYOR'}
+  },
+  {
+    path: 'libromayor/nuevatransaccion', component: NuevatransComponent, data: {title: 'Nueva Transacción', breadcrumb: 'INGRESAR NUEVA TRANSACCIÓN'}
   },
   {
     path: 'saldocuenta', component: SaldocuentaComponent, data: {title: 'Saldo de la cuenta', breadcrumb: 'PROCESAR SALDOS'}
