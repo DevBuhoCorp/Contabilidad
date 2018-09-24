@@ -80,20 +80,14 @@
             <mat-list-item>
               <div fxFlex="20" class="pr-1">
                 <mat-form-field>
-                  <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="detalleForm.controls['Cuenta']">
+                  <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="detalleForm.controls['IDCuenta']">
                 </mat-form-field>
 
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
-                    {{ seleccionado }}
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado" >
+                    {{ seleccionado.cuenta }}
                   </mat-option>
                 </mat-autocomplete>
-              </div>
-
-              <div fxFlex="20" class="pr-1">
-                <mat-form-field class="full-width">
-                  <input matInput name="Descripción" placeholder="Descripción" [formControl]="detalleForm.controls['Descripcion']">
-                </mat-form-field>
               </div>
 
               <div fxFlex="20" class="pr-1">
@@ -119,7 +113,7 @@
               </div>
 
             </mat-list-item>
-            <!--<mat-list-item  *ngFor="let cuenta of Cuentas | async">{{cuenta}}</mat-list-item>-->
+            <mat-list-item  *ngFor="let cuenta of ListaDetalle | async">{{cuenta.Etiqueta}}</mat-list-item>
 
           </mat-list>
         </form>
