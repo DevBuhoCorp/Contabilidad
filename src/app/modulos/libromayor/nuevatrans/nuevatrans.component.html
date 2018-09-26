@@ -48,15 +48,15 @@
                 </mat-option>
               </mat-autocomplete>
             </div>-->
-            <div fxFlex="50" class="pr-1">
+            <!--<div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
                 <input matInput name="NumMovimiento" placeholder="Número de movimiento	" [formControl]="cabeceraForm.controls['NumMovimiento']">
               </mat-form-field>
-            </div>
+            </div>-->
 
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
-                <input matInput name="Fecha" placeholder="Fecha" [formControl]="cabeceraForm.controls['Fecha']">
+                <input matInput name="Fecha" placeholder="Fecha" [formControl]="cabeceraForm.controls['Fecha']" >
               </mat-form-field>
             </div>
 
@@ -84,7 +84,7 @@
                 </mat-form-field>
 
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                  <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado" >
+                  <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
                     {{ seleccionado.cuenta }}
                   </mat-option>
                 </mat-autocomplete>
@@ -112,8 +112,54 @@
                 <button mat-raised-button color="primary" [disabled]="detalleForm.invalid">Actualizar</button>
               </div>
 
+              <div fxFlex="20" class="mt-1" *ngIf="ListaDetalles.length > 0">
+                <a mat-raised-button color="primary" (click)="Guardar()">Finalizar</a>
+              </div>
+
             </mat-list-item>
-            <mat-list-item  *ngFor="let cuenta of ListaDetalle | async">{{cuenta.Etiqueta}}</mat-list-item>
+            <!--<mat-list-item  *ngFor="let cuenta of ListaDetalle | async">{{cuenta.Etiqueta}}</mat-list-item>-->
+            <mat-card class="p-0">
+              <mat-card-content class="p-0">
+                <ngx-datatable class="material ml-0 mr-0" [rows]="ListaDetalles" [columnMode]="'flex'" [headerHeight]="50"
+                  [footerHeight]="50" [rowHeight]="'auto'">
+
+                  <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Cuenta }}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Etiqueta }}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Debe" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Debe }}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Haber" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Haber }}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Actions" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
+                        <mat-icon>edit</mat-icon>
+                      </a>
+                      <a mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+                        <mat-icon>delete</mat-icon>
+                      </a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </mat-card-content>
+            </mat-card>
 
           </mat-list>
         </form>
