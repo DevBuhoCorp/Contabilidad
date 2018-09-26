@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { FileUploader } from 'ng2-file-upload';
+import { CrudService } from '../../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-popup',
@@ -9,52 +9,53 @@ import { FileUploader } from 'ng2-file-upload';
   styles: []
 })
 export class PopupLibroMayor implements OnInit {
-  public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
-  public hasBaseDropZoneOver: boolean = false;
-  Diarios = [
-    { value: 1, viewValue: 'Nuevo diario' },
-    { value: 2, viewValue: 'Diario del informe de gastos' },
-    { value: 3, viewValue: 'Diario bancario' },
-    { value: 4, viewValue: 'Diario de compra' },
-    { value: 5, viewValue: 'Diario de venta' }
-  ];
-  Cuentas = [
-    { value: 1, viewValue: '1. (ACTIVO)' },
-    { value: 2, viewValue: '1.01. (ACTIVO CORRIENTE)' },
-    { value: 3, viewValue: '1.01.01. (EFECTIVO Y EQUIVALENTES AL EFECTIVO)' },
-    { value: 4, viewValue: '1.01.02. (ACTIVOS FINANCIEROS)' },
-    { value: 5, viewValue: '1.01.02.01 (ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS)' },
-    { value: 6, viewValue: '1.01.02.02 (ACTIVOS FINANCIEROS DISPONIBLES PARA LA VENTA)' },
-  ];
+  cuenta: any = {
+    ID: 0
+  };
+  Cuentas: any = [];
   public itemForm: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupLibroMayor>,
     private fb: FormBuilder,
-  ) { }
+    private crudService: CrudService
+  ) {
+    this.CargarAuto();
+    this.buildItemForm(this.data.payload);
+    this.cuenta = this.itemForm.controls['IDCuenta'].valueChanges
+      .startWith(null)
+      .map(name =>
+        this.filtrar(name));
+  }
 
   ngOnInit() {
-    this.buildItemForm(this.data.payload)
+
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
-      Referencia: [item.Referencia || ''],
-      Etiqueta: [item.Etiqueta || '', Validators.required],
-      TipoCuenta: [item.TipoCuenta || ''],
-      Moneda: [item.Moneda || ''],
-      Estado: [item.Estado || ''],
-      Pais: [item.Pais || ''],
-      Provincia: [item.Provincia || false],
+      IDCuenta: [item.IDCuenta || 0, Validators.required],
+      Etiqueta: [item.Etiqueta, Validators.required],
+      Debe: [item.Debe, Validators.required],
+      Haber: [item.Haber, Validators.required],
+      Cuenta: [item.Cuenta]
     })
   }
 
   submit() {
     this.dialogRef.close(this.itemForm.value)
   }
-  onContentChanged() { }
-  onSelectionChanged() { }
-  public fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
+  displayFn(cuenta?): string | undefined {
+    return cuenta ? cuenta.cuenta : undefined;
+  }
+
+  filtrar(val: string) {
+    console.log(this.cuenta);
+    return val ? this.Cuentas.filter(s => new RegExp(`^${val}`).test(s))
+      : this.Cuentas;
+  }
+  async CargarAuto() {
+    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Modelo: 6 });
+    console.log(this.Cuentas);
   }
 
 }

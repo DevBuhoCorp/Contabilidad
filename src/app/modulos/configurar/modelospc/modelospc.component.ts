@@ -29,7 +29,6 @@ export class ModelospcComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
-    private router: Router
   ) { }
 
   ngOnInit() {
