@@ -47,7 +47,6 @@ export class CrudService {
   }
 
   Insertar(objeto, api) {
-    console.log(objeto);
     var body = objeto;
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });

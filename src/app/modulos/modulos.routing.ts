@@ -167,7 +167,7 @@ export const ModulosRoutes: Routes = [
     path: 'procesardiarios/banco', component: BancoComponent, data: {title: 'Diario de Bancos', breadcrumb: 'PROCESAR DIARIOS DE BANCOS'}
   },
   {
-    path: 'libromayor', component: LibromayorComponent, data: {title: 'Libro Mayor', breadcrumb: 'PROCESAR LIBRO MAYOR'}
+    path: 'libromayor', component: LibromayorComponent, data: {title: 'Libro Diario', breadcrumb: 'PROCESAR LIBRO DIARIO'}
   },
   {
     path: 'libromayor/nuevatransaccion', component: NuevatransComponent, data: {title: 'Nueva Transacción', breadcrumb: 'INGRESAR NUEVA TRANSACCIÓN'}

@@ -1,16 +1,10 @@
 <mat-card class="p-0">
   <mat-tab-group>
-    <mat-tab label="Datos Transacción">
+    <mat-tab label="Crear nuevo movimiento">
       <mat-card-content class="mt-1">
-        <h1 matDialogTitle>Ingresar Nuevo Movimiento</h1>
+        <h1 matDialogTitle>Crear nuevo movimiento</h1>
         <form [formGroup]="itemForm" (ngSubmit)="submitTransaccion()">
           <div fxLayout="row wrap" fxLayout.lt-sm="column">
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="NumTransaccion" placeholder="Núm. transacción" [formControl]="itemForm.controls['NumeroTrans']">
-              </mat-form-field>
-            </div>
 
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
@@ -22,12 +16,14 @@
 
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
-                <input matInput name="Estacion" placeholder="Estación" [formControl]="itemForm.controls['Estacion']">
+                <input matInput name="SerieDocumento" placeholder="Doc. contabilidad" [formControl]="itemForm.controls['SerieDocumento']">
               </mat-form-field>
             </div>
 
             <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid || creado">Crear</button>
+              <span fxFlex></span>
+              <button mat-button color="warn" type="button" routerLink="../">Cancelar</button>
             </div>
           </div>
         </form>
@@ -35,12 +31,12 @@
     </mat-tab>
 
 
-    <mat-tab label="Detalles Transacción">
+    <mat-tab label="Transacción" *ngIf="creado">
       <mat-card-content class="mt-1">
-        <h1 matDialogTitle>Ingresar Nuevo Detalle</h1>
-        <form [formGroup]="detalleForm" (ngSubmit)="submitDetalle()">
+        <h1 matDialogTitle>Modificar transacción</h1>
+        <form [formGroup]="cabeceraForm" (ngSubmit)="submitDetalle()">
           <div fxLayout="row wrap" fxLayout.lt-sm="column">
-            <div fxFlex="50" class="pr-1">
+            <!--<div fxFlex="50" class="pr-1">
               <mat-form-field>
                 <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="detalleForm.controls['Cuenta']">
               </mat-form-field>
@@ -51,39 +47,79 @@
                   {{ seleccionado }}
                 </mat-option>
               </mat-autocomplete>
-            </div>
+            </div>-->
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
-                <input matInput name="Etiqueta" placeholder="Etiqueta" [formControl]="detalleForm.controls['Etiqueta']">
+                <input matInput name="NumMovimiento" placeholder="Número de movimiento	" [formControl]="cabeceraForm.controls['NumMovimiento']">
               </mat-form-field>
             </div>
 
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
-                <input matInput name="Debe" placeholder="Debe" [formControl]="detalleForm.controls['Debe']">
+                <input matInput name="Fecha" placeholder="Fecha" [formControl]="cabeceraForm.controls['Fecha']">
               </mat-form-field>
             </div>
 
             <div fxFlex="50" class="pr-1">
               <mat-form-field class="full-width">
-                <input matInput name="Haber" placeholder="Haber" [formControl]="detalleForm.controls['Haber']">
+                <input matInput name="DocContable" placeholder="Doc. contabilidad" [formControl]="cabeceraForm.controls['DocContable']">
               </mat-form-field>
             </div>
 
-            <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Ingresar Nuevo</button>
-              <span fxFlex></span>
-              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Finalizar</button>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="FechaC" placeholder="Fecha de creación" [formControl]="cabeceraForm.controls['FechaC']">
+              </mat-form-field>
             </div>
+
           </div>
+        </form>
+        <form [formGroup]="detalleForm" (ngSubmit)="submitDetalle()">
+          <mat-list *ngIf="creado">
+            <h3 matSubheader>Listado de movimientos</h3>
+            <mat-list-item>
+              <div fxFlex="20" class="pr-1">
+                <mat-form-field>
+                  <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="detalleForm.controls['IDCuenta']">
+                </mat-form-field>
+
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado" >
+                    {{ seleccionado.cuenta }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+
+              <div fxFlex="20" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="Etiqueta" placeholder="Etiqueta operación" [formControl]="detalleForm.controls['Etiqueta']">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="20" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="Debe" placeholder="Debe" [formControl]="detalleForm.controls['Debe']">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="20" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="Haber" placeholder="Haber" [formControl]="detalleForm.controls['Haber']">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="20" class="mt-1">
+                <button mat-raised-button color="primary" [disabled]="detalleForm.invalid">Actualizar</button>
+              </div>
+
+            </mat-list-item>
+            <mat-list-item  *ngFor="let cuenta of ListaDetalle | async">{{cuenta.Etiqueta}}</mat-list-item>
+
+          </mat-list>
         </form>
       </mat-card-content>
     </mat-tab>
   </mat-tab-group>
   <mat-divider class="mb-1"></mat-divider>
-  <mat-list>
-    <h3 matSubheader>Simple List</h3>
-    <mat-list-item  *ngFor="let cuenta of Cuentas | async">{{cuenta}}</mat-list-item>
-    
-  </mat-list>
+
 </mat-card>

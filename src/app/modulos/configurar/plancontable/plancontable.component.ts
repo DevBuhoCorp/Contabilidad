@@ -93,7 +93,6 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     let title = isNew ? 'Agregar' : 'Actualizar';
     if (!isNew) {
       data.promise = await this.crudService.SeleccionarAsync("cuentacontable/" + data.data);
-      console.log(data.promise);
     }
     else if (!data.data) {
       data.promise2 = await this.crudService.SeleccionarAsync("cuentapadre");
@@ -157,14 +156,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       this.selectedFile_2 = this.selectedFile;
   }
 
-  nodeUnselect(event) {
-    console.log("unselect");
-  }
-
   async onNDrop(event) {
     this.res = {};
-    console.log(event.dragNode);//arrastrado
-    console.log(event.dropNode);//llega.
     let cuenta = await this.crudService.SeleccionarAsync("numerocuenta", { padre: event.dropNode.data, plancontable: this.selectedValue });
     this.res.Estado = "ACT";
     this.res.Etiqueta = event.dragNode.label;

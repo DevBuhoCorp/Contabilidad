@@ -120,7 +120,7 @@ export class NavigationService {
       ]
     },
     {
-      name: 'Libro Mayor',
+      name: 'Libro Diario',
       type: 'link',
       icon: 'local_library',
       state: 'modulos/libromayor',

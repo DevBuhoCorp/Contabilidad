@@ -34,7 +34,6 @@ export class DiarioscontablesComponent implements OnInit {
   async getItems(indice) {
     this.items = await this.crudService.SeleccionarAsync("diarios", { page: indice, psize: this.selPageSize });
     this.items.data = this.crudService.SetBool(this.items.data);
-    console.log(this.items.data);
   }
   async openPopUp(data: any = {}, isNew?) {
 
@@ -42,7 +41,6 @@ export class DiarioscontablesComponent implements OnInit {
     if (!isNew) {
       data = await this.crudService.SeleccionarAsync("diarios/" + data.ID);
     }
-    console.log(data);
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentDC, {
       width: '720px',
       disableClose: true,
@@ -62,7 +60,6 @@ export class DiarioscontablesComponent implements OnInit {
             this.snack.open('Agregado!', 'OK', { duration: 4000 })
           })
         } else {
-          console.log(res);
           this.crudService.Actualizar(data[0].ID, res, "diarios/").subscribe(data => {
             this.getItems(1);
             this.loader.close();
