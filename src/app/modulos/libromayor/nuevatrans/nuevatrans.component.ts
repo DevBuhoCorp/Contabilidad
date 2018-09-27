@@ -111,9 +111,8 @@ export class NuevatransComponent implements OnInit {
       : this.Cuentas;
   }
 
-  async openPopUp(data: any = {}) {
-    console.log(data);
-    const title = 'Actualizar';
+  async openPopUp(data: any = {}, isNew?) {
+    const title = isNew ? 'Agregar' : 'Actualizar'; 
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupLibroMayor, {
       width: '720px',
       disableClose: true,

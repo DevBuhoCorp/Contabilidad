@@ -22,6 +22,7 @@
 
             <div fxFlex="100" class="mt-1">
               <button mat-raised-button color="primary" [disabled]="itemForm.invalid || creado">Crear</button>
+              <a mat-raised-button color="primary" *ngIf="creado" (click)="openPopUp({}, true)">Agregar Detalle</a>
               <span fxFlex></span>
               <button mat-button color="warn" type="button" routerLink="../">Cancelar</button>
             </div>
