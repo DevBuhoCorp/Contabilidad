@@ -24,7 +24,6 @@ export class PopupComponentCB implements OnInit {
     this.bancos = this.crudService.SeleccionarAsync('banco/combo');
     this.tipoCuentas = this.crudService.SeleccionarAsync('tipocuentabancaria/combo');
 
-
     this.buildItemForm(this.data.payload)
   }
   buildItemForm(item) {
@@ -37,8 +36,9 @@ export class PopupComponentCB implements OnInit {
       IdentificacionTitular: [item.IdentificacionTitular || '', Validators.required],
       NombreTitular: [item.NombreTitular || '', Validators.required],
       DireccionTitular: [item.DireccionTitular || '', Validators.required],
-      // TipoCuenta: [item.TipoCuenta || ''],
-      Estado: [item.Estado || ''],
+      IDTipoCuenta: [ item.IDTipoCuenta || '' , Validators.required ],
+      IDBanco: [ item.IDBanco || '' , Validators.required ],
+      Estado: [ item.Estado || '' ],
     })
   }
 

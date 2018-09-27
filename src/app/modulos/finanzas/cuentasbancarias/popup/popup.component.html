@@ -4,7 +4,7 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Fecha" placeholder="Fecha Apertura" [matDatepicker]="appDatepicker">
+        <input matInput [formControl]="itemForm.controls['FechaApertura']" name="FechaApertura" placeholder="Fecha Apertura" [matDatepicker]="appDatepicker">
         <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
       </mat-form-field>
       <mat-datepicker #appDatepicker></mat-datepicker>
@@ -12,19 +12,19 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Etiqueta cuenta o caja" placeholder="Etiqueta cuenta o caja">
+        <input matInput name="Etiqueta" [formControl]="itemForm.controls['Etiqueta']" placeholder="Etiqueta cuenta o caja">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Número de cuenta" placeholder="Número de cuenta">
+        <input matInput [formControl]="itemForm.controls['NumeroCuenta']" name="NumeroCuenta" placeholder="Número de cuenta">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <mat-select name="Tipo de cuenta" placeholder="Tipo de cuenta">
+        <mat-select [formControl]="itemForm.controls['IDTipoCuenta']" name="IDTipoCuenta" placeholder="Tipo de cuenta">
           <mat-option *ngFor="let tipo of tipoCuentas | async" [value]="tipo.ID" ngDefaultControl>
             {{ tipo.Descripcion }}
           </mat-option>
@@ -34,13 +34,13 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Saldo inicial" placeholder="Saldo inicial">
+        <input matInput [formControl]="itemForm.controls['SaldoInicial']" name="SaldoInicial" placeholder="Saldo inicial">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Saldo mínimo autorizado" placeholder="Saldo mínimo autorizado">
+        <input matInput [formControl]="itemForm.controls['SaldoMinimo']" name="SaldoMinimo" placeholder="Saldo mínimo autorizado">
       </mat-form-field>
     </div>
 
@@ -48,25 +48,25 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Identificación del titular de la cuenta" placeholder="Identificación del titular de la cuenta">
+        <input matInput [formControl]="itemForm.controls['IdentificacionTitular']" name="IdentificacionTitular" placeholder="Identificación del titular de la cuenta">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Nombre del titular de la cuenta" placeholder="Nombre del titular de la cuenta">
+        <input matInput [formControl]="itemForm.controls['NombreTitular']" name="NombreTitular" placeholder="Nombre del titular de la cuenta">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Dirección del titular de la cuenta" placeholder="Dirección del titular de la cuenta">
+        <input matInput [formControl]="itemForm.controls['DireccionTitular']" name="DireccionTitular" placeholder="Dirección del titular de la cuenta">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <mat-select name="Código contable diario" placeholder="Entidad Bancaria">
+        <mat-select [formControl]="itemForm.controls['IDBanco']" name="IDBanco" placeholder="Entidad Bancaria">
           <mat-option *ngFor="let banco of bancos | async" [value]="banco.ID" ngDefaultControl>
             {{ banco.Descripcion }}
           </mat-option>
@@ -75,14 +75,14 @@
     </div>
 
     <div fxFlex="50" class="pt-1 pr-1">
-      <mat-slide-toggle>Estado</mat-slide-toggle>
+      <mat-slide-toggle [formControl]="itemForm.controls['Estado']" >Estado</mat-slide-toggle>
     </div>
 
 
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
       <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
     </div>
   </div>
 </form>

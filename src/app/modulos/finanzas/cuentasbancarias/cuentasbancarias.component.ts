@@ -12,8 +12,15 @@ import {CrudService} from '../../../shared/servicios/crud.service';
   styles: []
 })
 export class CuentasbancariasComponent implements OnInit, OnDestroy {
-  public items: any[];
-  public getItemSub: Subscription;
+  pageSize = [3, 5, 10, 20];
+  selPageSize: any = this.pageSize[0];
+  items: any = {
+    data: [],
+    page: 1,
+    total: 0,
+    per_page: 0
+  };
+
 
   constructor(
     private dialog: MatDialog,
@@ -29,13 +36,11 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.getItemSub) {
-      this.getItemSub.unsubscribe();
-    }
+
   }
 
-  getItems() {
-
+  async getItems(indice = 1) {
+    this.items = await this.crudService.SeleccionarAsync('cuentabancaria', {page: indice, psize: this.selPageSize});
   }
 
   openPopUp(data: any = {}, isNew?) {
@@ -46,26 +51,26 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
       data: {title: title, payload: data}
     });
     dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
+      .subscribe(response => {
+        if (!response) {
           return;
         }
-        console.log(res);
-        // this.loader.open();
+        console.log(response);
+        this.loader.open();
         if (isNew) {
-          // this.crudService.addItem(res)
-          //   .subscribe(data => {
-          //     this.items = data;
-          //     this.loader.close();
-          //     this.snack.open('Agregado!', 'OK', { duration: 4000 })
-          //   })
+          this.crudService.Insertar(response, 'cuentabancaria/')
+            .subscribe(data => {
+              this.getItems();
+              this.loader.close();
+              this.snack.open('Agregado!', 'OK', { duration: 4000 })
+            });
         } else {
-          // this.crudService.updateItem(data.ID, res)
-          //   .subscribe(data => {
-          //     this.items = data;
-          //     this.loader.close();
-          //     this.snack.open('Actualizado!', 'OK', { duration: 4000 })
-          //   })
+          this.crudService.Actualizar(data.ID, response, 'banco/')
+            .subscribe(data => {
+              this.getItems();
+              this.loader.close();
+              this.snack.open('Actualizado!', 'OK', { duration: 4000 })
+            });
         }
       });
   }
@@ -83,5 +88,9 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
           //   });
         }
       });
+  }
+
+  async setPage(event) {
+    this.getItems(event.offset + 1);
   }
 }
