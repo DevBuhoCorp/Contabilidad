@@ -3,7 +3,7 @@ import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.
 import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {CrudService} from '../../../shared/servicios/crud.service';
-import {PopupComponentEmpresa} from '../empresa/popup/popup.component';
+import {PopupComponentEmpresa} from '../../configurar/empresa/popup/popup.component';
 import {PopupComponentBanco} from './popup/popup.component';
 
 @Component({

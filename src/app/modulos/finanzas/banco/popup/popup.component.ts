@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {PopupComponentEmpresa} from '../../empresa/popup/popup.component';
+import {PopupComponentEmpresa} from '../../../configurar/empresa/popup/popup.component';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -19,12 +19,13 @@ export class PopupComponentBanco implements OnInit {
   }
 
   buildItemForm(item) {
+    console.log(item);
     this.itemForm = this.fb.group({
       // Codigo: [item.Codigo || ''],
       Descripcion: [ item.Descripcion || '', Validators.required ],
       Observacion: [ item.Observacion || ''],
       Estado: [ item.Estado == 'ACT' || false ],
-    })
+    });
   }
 
   submit() {

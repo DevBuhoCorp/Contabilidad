@@ -7,7 +7,7 @@ import {PlancontableComponent} from './configurar/plancontable/plancontable.comp
 import {GrupospersonalizadosComponent} from './configurar/grupospersonalizados/grupospersonalizados.component';
 import {ListaComponent} from './configurar/grupospersonalizados/lista/lista.component';
 import {CuentacontabledefectoComponent} from './configurar/cuentacontabledefecto/cuentacontabledefecto.component';
-import {CuentasbancariasComponent} from './configurar/cuentasbancarias/cuentasbancarias.component';
+import {CuentasbancariasComponent} from './finanzas/cuentasbancarias/cuentasbancarias.component';
 import {CuentasivaComponent} from './configurar/cuentasiva/cuentasiva.component';
 import {CuentasimpuestosComponent} from './configurar/cuentasimpuestos/cuentasimpuestos.component';
 import {CuentaspagosComponent} from './configurar/cuentaspagos/cuentaspagos.component';
@@ -22,7 +22,7 @@ import {ContabilizadaGComponent} from './contabilizargasto/contabilizada/contabi
 import {VentaComponent} from './procesardiarios/venta/venta.component';
 import {CompraComponent} from './procesardiarios/compra/compra.component';
 import {GastoComponent} from './procesardiarios/gasto/gasto.component';
-import {BancoComponent} from './configurar/banco/banco.component';
+import {BancoComponent} from './finanzas/banco/banco.component';
 import {LibromayorComponent} from './libromayor/libromayor.component';
 import {SaldocuentaComponent} from './saldocuenta/saldocuenta.component';
 import {GpredefinidoComponent} from './informes/resultado/gpredefinido/gpredefinido.component';
@@ -34,6 +34,7 @@ import {EmpresaComponent} from './configurar/empresa/empresa.component';
 import {AplicacionComponent} from './configurar/aplicacion/aplicacion.component';
 import {EstacionComponent} from './configurar/estacion/estacion.component';
 import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.component';
+import {TipocuentabancariaComponent} from './finanzas/tipocuentabancaria/tipocuentabancaria.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -58,9 +59,14 @@ export const ModulosRoutes: Routes = [
     data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'}
   },
   {
-    path: 'configurar/banco',
+    path: 'finanzas/banco',
     component: BancoComponent,
     data: {title: 'Banco', breadcrumb: 'CONFIGURAR BANCO'}
+  },
+  {
+    path: 'finanzas/tipocuentabancaria',
+    component: TipocuentabancariaComponent,
+    data: {title: 'Tipo Cuenta Bancaria', breadcrumb: 'CONFIGURAR T. CUENTA BANCARIA'}
   },
   {
     path: 'configurar/aplicacion/estacion/:app',
@@ -103,7 +109,7 @@ export const ModulosRoutes: Routes = [
     data: {title: 'Cuentas Contables por Defecto', breadcrumb: 'CONFIGURAR CUENTAS CONTABLES'}
   },
   {
-    path: 'configurar/cuentabancaria',
+    path: 'finanzas/cuentabancaria',
     component: CuentasbancariasComponent,
     data: {title: 'Cuentas Bancarias', breadcrumb: 'CONFIGURAR CUENTAS BANCARIAS'}
   },

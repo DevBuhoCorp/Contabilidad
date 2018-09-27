@@ -45,9 +45,8 @@ import {PopupComponentGP} from './configurar/grupospersonalizados/popup/popup.co
 import {ListaComponent} from './configurar/grupospersonalizados/lista/lista.component';
 import {CuentacontabledefectoComponent} from './configurar/cuentacontabledefecto/cuentacontabledefecto.component';
 import {CuentaDefectoService} from './configurar/cuentacontabledefecto/cuentacontabledefecto.service';
-import {CuentasbancariasComponent} from './configurar/cuentasbancarias/cuentasbancarias.component';
-import {CuentaBancariaService} from './configurar/cuentasbancarias/cuentasbancarias.service';
-import {PopupComponentCB} from './configurar/cuentasbancarias/popup/popup.component';
+import {CuentasbancariasComponent} from './finanzas/cuentasbancarias/cuentasbancarias.component';
+import {PopupComponentCB} from './finanzas/cuentasbancarias/popup/popup.component';
 import {CuentasivaComponent} from './configurar/cuentasiva/cuentasiva.component';
 import {PopupComponentIVA} from './configurar/cuentasiva/popup/popup.component';
 import {CuentaIvaService} from './configurar/cuentasiva/cuentasiva.service';
@@ -92,8 +91,10 @@ import { EstacionComponent } from './configurar/estacion/estacion.component';
 import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.component';
 import {PopupComponentEstacion} from './configurar/estacion/popup/popup.component';
 import {TokenComponent} from './configurar/estacion/token/token.component';
-import {PopupComponentBanco} from './configurar/banco/popup/popup.component';
-import { BancoComponent } from './configurar/banco/banco.component';
+import {PopupComponentBanco} from './finanzas/banco/popup/popup.component';
+import { BancoComponent } from './finanzas/banco/banco.component';
+import { TipocuentabancariaComponent } from './finanzas/tipocuentabancaria/tipocuentabancaria.component';
+import { PopupComponentTCBancaria } from './finanzas/tipocuentabancaria/popup/popup.component';
 
 
 @NgModule({
@@ -179,7 +180,9 @@ import { BancoComponent } from './configurar/banco/banco.component';
     NuevatransComponent,
     PopupComponentEstacion,
     TokenComponent,
-    PopupComponentBanco
+    PopupComponentBanco,
+    TipocuentabancariaComponent,
+    PopupComponentTCBancaria
 
   ],
   providers: [
@@ -187,7 +190,6 @@ import { BancoComponent } from './configurar/banco/banco.component';
     GeneralService,
     GPersonalizadoService,
     CuentaDefectoService,
-    CuentaBancariaService,
     CuentaIvaService,
     CuentaImpuestoService,
     CuentaPagoService,
@@ -211,7 +213,8 @@ import { BancoComponent } from './configurar/banco/banco.component';
     PopupComponentEmpresa,
     PopupComponentEstacion,
     TokenComponent,
-    PopupComponentBanco
+    PopupComponentBanco,
+    PopupComponentTCBancaria
   ]
 })
 export class ModulosModule {

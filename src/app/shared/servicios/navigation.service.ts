@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 interface IMenuItem {
   type: string,       // Possible values: link/dropDown/icon/separator/extLink
@@ -11,6 +11,7 @@ interface IMenuItem {
   sub?: IChildItem[], // Dropdown items   idpadre
   badges?: IBadge[]
 }
+
 interface IChildItem {
   type?: string,
   name: string,       // Display text
@@ -26,7 +27,8 @@ interface IBadge {
 
 @Injectable()
 export class NavigationService {
-  constructor() { }
+  constructor() {
+  }
 
 
   iconMenu: IMenuItem[] = [
@@ -55,25 +57,36 @@ export class NavigationService {
       state: 'modulos/contabilidad',
     },
     {
+      name: 'Finanzas',
+      type: 'dropDown',
+      icon: 'account_balance',
+      state: 'modulos/finanzas',
+      sub: [
+        {name: 'Banco', state: 'banco'},
+        {name: 'Tipo Cuenta Bancaria', state: 'tipocuentabancaria'},
+        {name: 'Cuentas Bancarias', state: 'cuentabancaria'},
+      ]
+    },
+    {
       name: 'Configurar',
       type: 'dropDown',
       icon: 'settings',
       state: 'modulos/configurar',
       sub: [
         //{ name: 'General', state: 'general' },
-        { name: 'Empresa', state: 'empresas' },
-        { name: 'Aplicación', state: 'aplicacion' },
-        { name: 'Banco', state: 'banco' },
-        { name: 'Diarios Contables', state: 'diarioscontables' },
-        { name: 'Modelos de Planes Contables', state: 'modelosplanescontables' },
-        { name: 'Plan Contable', state: 'plancontable' },
+        {name: 'Empresa', state: 'empresas'},
+        {name: 'Aplicación', state: 'aplicacion'},
+        {name: 'Banco', state: 'banco'},
+        {name: 'Diarios Contables', state: 'diarioscontables'},
+        {name: 'Modelos de Planes Contables', state: 'modelosplanescontables'},
+        {name: 'Plan Contable', state: 'plancontable'},
+
+        {name: 'Cuentas de Impuesto', state: 'cuentaimpuesto'},
         //{ name: 'Grupos Personalizados', state: 'grupospersonalizados' },
-       // { name: 'Cuentas Contables por Defecto', state: 'cuentacontablepordefecto' },
-        { name: 'Cuentas Bancarias', state: 'cuentabancaria' },
-       // { name: 'Cuentas de IVA', state: 'cuentaiva' },
-        { name: 'Cuentas de Impuesto', state: 'cuentaimpuesto' },
-       // { name: 'Cuentas de Informes de Pago', state: 'cuentapago' },
-       // { name: 'Cuentas Contables de Productos', state: 'cuentaproducto' },
+        // { name: 'Cuentas Contables por Defecto', state: 'cuentacontablepordefecto' },
+        // { name: 'Cuentas de IVA', state: 'cuentaiva' },
+        // { name: 'Cuentas de Informes de Pago', state: 'cuentapago' },
+        // { name: 'Cuentas Contables de Productos', state: 'cuentaproducto' },
         // { name: 'Opciones de Exportación', state: 'exportacion' },
       ]
     },
@@ -84,8 +97,8 @@ export class NavigationService {
       icon: 'account_balance_wallet',
       state: 'modulos/contabilizarcliente',
       sub: [
-        { name: 'Líneas a contabilizar', state: 'contabilizar' },
-        { name: 'Líneas contabilizadas', state: 'contabilizada' },
+        {name: 'Líneas a contabilizar', state: 'contabilizar'},
+        {name: 'Líneas contabilizadas', state: 'contabilizada'},
       ]
     },
     {
@@ -94,8 +107,8 @@ export class NavigationService {
       icon: 'directions_car',
       state: 'modulos/contabilizarproveedor/',
       sub: [
-        { name: 'Líneas a contabilizar', state: 'contabilizar' },
-        { name: 'Líneas contabilizadas', state: 'contabilizada' },
+        {name: 'Líneas a contabilizar', state: 'contabilizar'},
+        {name: 'Líneas contabilizadas', state: 'contabilizada'},
       ]
     },
     /*{
@@ -114,10 +127,10 @@ export class NavigationService {
       icon: 'library_books',
       state: 'modulos/procesardiarios',
       sub: [
-        { name: 'Ventas', state: 'venta' },
-        { name: 'Compras', state: 'compra' },
+        {name: 'Ventas', state: 'venta'},
+        {name: 'Compras', state: 'compra'},
         //{ name: 'Gastos', state: 'gasto' },
-        { name: 'Bancos', state: 'banco' },
+        {name: 'Bancos', state: 'banco'},
       ]
     },
     {
@@ -140,8 +153,8 @@ export class NavigationService {
       sub: [
         {
           name: 'Resultado/Ejercicio', type: 'dropDown', state: 'informes', sub: [
-            { name: 'Por grupos predefinidos', state: 'grupopredefinido' },
-            { name: 'Por grupos personalizados', state: 'grupopersonalizado' },
+            {name: 'Por grupos predefinidos', state: 'grupopredefinido'},
+            {name: 'Por grupos personalizados', state: 'grupopersonalizado'},
           ]
         },
         /*{
@@ -153,7 +166,7 @@ export class NavigationService {
         },*/
       ]
     },
-  ]
+  ];
 
   // Icon menu TITLE at the very top of navigation.
   // This title will appear if any icon type item is present in menu.
