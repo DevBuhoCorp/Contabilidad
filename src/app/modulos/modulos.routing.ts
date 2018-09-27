@@ -22,7 +22,7 @@ import {ContabilizadaGComponent} from './contabilizargasto/contabilizada/contabi
 import {VentaComponent} from './procesardiarios/venta/venta.component';
 import {CompraComponent} from './procesardiarios/compra/compra.component';
 import {GastoComponent} from './procesardiarios/gasto/gasto.component';
-import {BancoComponent} from './procesardiarios/banco/banco.component';
+import {BancoComponent} from './configurar/banco/banco.component';
 import {LibromayorComponent} from './libromayor/libromayor.component';
 import {SaldocuentaComponent} from './saldocuenta/saldocuenta.component';
 import {GpredefinidoComponent} from './informes/resultado/gpredefinido/gpredefinido.component';
@@ -55,10 +55,12 @@ export const ModulosRoutes: Routes = [
   {
     path: 'configurar/aplicacion',
     component: AplicacionComponent,
-    data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'},
-    children: [
-
-    ]
+    data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'}
+  },
+  {
+    path: 'configurar/banco',
+    component: BancoComponent,
+    data: {title: 'Banco', breadcrumb: 'CONFIGURAR BANCO'}
   },
   {
     path: 'configurar/aplicacion/estacion/:app',
@@ -163,9 +165,9 @@ export const ModulosRoutes: Routes = [
   {
     path: 'procesardiarios/gasto', component: GastoComponent, data: {title: 'Diario de Gastos', breadcrumb: 'PROCESAR DIARIOS DE GASTOS'}
   },
-  {
+  /*{
     path: 'procesardiarios/banco', component: BancoComponent, data: {title: 'Diario de Bancos', breadcrumb: 'PROCESAR DIARIOS DE BANCOS'}
-  },
+  },*/
   {
     path: 'libromayor', component: LibromayorComponent, data: {title: 'Libro Diario', breadcrumb: 'PROCESAR LIBRO DIARIO'}
   },

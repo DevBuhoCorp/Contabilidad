@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {
-  
+
   MatInputModule,
   MatIconModule,
   MatCardModule,
@@ -72,7 +72,6 @@ import {ContabilizarGComponent} from './contabilizargasto/contabilizar/contabili
 import {VentaComponent} from './procesardiarios/venta/venta.component';
 import {CompraComponent} from './procesardiarios/compra/compra.component';
 import {GastoComponent} from './procesardiarios/gasto/gasto.component';
-import {BancoComponent} from './procesardiarios/banco/banco.component';
 import {LibromayorComponent} from './libromayor/libromayor.component';
 import {SaldocuentaComponent} from './saldocuenta/saldocuenta.component';
 import {GpredefinidoComponent} from './informes/resultado/gpredefinido/gpredefinido.component';
@@ -93,6 +92,8 @@ import { EstacionComponent } from './configurar/estacion/estacion.component';
 import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.component';
 import {PopupComponentEstacion} from './configurar/estacion/popup/popup.component';
 import {TokenComponent} from './configurar/estacion/token/token.component';
+import {PopupComponentBanco} from './configurar/banco/popup/popup.component';
+import { BancoComponent } from './configurar/banco/banco.component';
 
 
 @NgModule({
@@ -177,7 +178,8 @@ import {TokenComponent} from './configurar/estacion/token/token.component';
     EstacionComponent,
     NuevatransComponent,
     PopupComponentEstacion,
-    TokenComponent
+    TokenComponent,
+    PopupComponentBanco
 
   ],
   providers: [
@@ -208,7 +210,8 @@ import {TokenComponent} from './configurar/estacion/token/token.component';
     PopupLibroMayor,
     PopupComponentEmpresa,
     PopupComponentEstacion,
-    TokenComponent
+    TokenComponent,
+    PopupComponentBanco
   ]
 })
 export class ModulosModule {

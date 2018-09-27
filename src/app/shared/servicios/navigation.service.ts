@@ -6,7 +6,7 @@ interface IMenuItem {
   name?: string,      // Used as display text for item and title for separator type
   state?: string,     // Router state  ruta
   icon?: string,      // Material icon name
-  tooltip?: string,   // Tooltip text 
+  tooltip?: string,   // Tooltip text
   disabled?: boolean, // If true, item will not be appeared in sidenav.  estado
   sub?: IChildItem[], // Dropdown items   idpadre
   badges?: IBadge[]
@@ -63,6 +63,7 @@ export class NavigationService {
         //{ name: 'General', state: 'general' },
         { name: 'Empresa', state: 'empresas' },
         { name: 'Aplicación', state: 'aplicacion' },
+        { name: 'Banco', state: 'banco' },
         { name: 'Diarios Contables', state: 'diarioscontables' },
         { name: 'Modelos de Planes Contables', state: 'modelosplanescontables' },
         { name: 'Plan Contable', state: 'plancontable' },
