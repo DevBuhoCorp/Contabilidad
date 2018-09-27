@@ -1,7 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CrudService } from '../../../shared/servicios/crud.service';
+import { startWith, map } from 'rxjs/operators';
+export interface Cuenta {
+  ID: number;
+  cuenta: string;
+}
 
 @Component({
   selector: 'app-popup',
@@ -22,14 +27,24 @@ export class PopupLibroMayor implements OnInit {
   ) {
     this.CargarAuto();
     this.buildItemForm(this.data.payload);
-    this.cuenta = this.itemForm.controls['IDCuenta'].valueChanges
+    /*this.cuenta = this.itemForm.controls['IDCuenta'].valueChanges
       .startWith(null)
-      .map(name =>
-        this.filtrar(name));
+      .map(cuenta =>
+        this.filtrar(cuenta));*/
+
   }
 
   ngOnInit() {
-
+    this.cuenta = this.itemForm.controls['IDCuenta'].valueChanges
+      .pipe(
+        startWith<string | Cuenta>(''),
+        map(value => typeof value === 'string' ? value : value.cuenta),
+        map(cuenta => cuenta ? this._filter(cuenta) : this.Cuentas.slice())
+      );
+  }
+  private _filter(name: string): Cuenta[] {
+    const filterValue = name.toLowerCase();
+    return this.Cuentas.filter(option => option.cuenta.toLowerCase().indexOf(filterValue) === 0);
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
@@ -37,25 +52,30 @@ export class PopupLibroMayor implements OnInit {
       Etiqueta: [item.Etiqueta, Validators.required],
       Debe: [item.Debe, Validators.required],
       Haber: [item.Haber, Validators.required],
-      Cuenta: [item.Cuenta]
+      Cuenta: [item.Cuenta],
+      ID: [item.ID]
     })
   }
 
   submit() {
+    this.itemForm.value.Cuenta = this.itemForm.value.IDCuenta.cuenta;
+    this.itemForm.value.IDCuenta = this.itemForm.value.IDCuenta.ID;
     this.dialogRef.close(this.itemForm.value)
   }
-  displayFn(cuenta?): string | undefined {
+ /* displayFn(cuenta?): string | undefined {
     return cuenta ? cuenta.cuenta : undefined;
+  }*/
+  displayFn(user?: Cuenta): string | undefined {
+    return user ? user.cuenta : undefined;
   }
 
   filtrar(val: string) {
-    console.log(this.cuenta);
     return val ? this.Cuentas.filter(s => new RegExp(`^${val}`).test(s))
       : this.Cuentas;
   }
   async CargarAuto() {
     this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Modelo: 6 });
-    console.log(this.Cuentas);
   }
+
 
 }

@@ -12,6 +12,15 @@
           {{ seleccionado.cuenta }}
         </mat-option>
       </mat-autocomplete>
+      <!--<mat-form-field>
+        <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="stateCtrl">
+      </mat-form-field>
+      
+      <mat-autocomplete #auto="matAutocomplete" >
+        <mat-option *ngFor="let state of filteredStates | async" [value]="state">
+          {{ state.cuenta }}
+        </mat-option>
+      </mat-autocomplete>-->
     </div>
 
     <div fxFlex="50" class="pr-1">
