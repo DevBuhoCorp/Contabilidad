@@ -15,6 +15,8 @@ import { CrudService } from '../../shared/servicios/crud.service';
   styles: []
 })
 export class LibromayorComponent implements OnInit {
+  pageSize = [3, 5, 10, 20];
+  checked = false;
   public ListaDetalles: any = [];
   public Transaccion: any = [{
     "Cabecera": [],
@@ -57,7 +59,6 @@ export class LibromayorComponent implements OnInit {
     this.Cabecera = this.itemForm.value;
     let hoy = new Date();
     this.Cabecera.FechaA = hoy.toDateString();
-    this.Transaccion[0].Cabecera = this.Transaccion[0].Cabecera.concat(this.Cabecera);
     this.itemForm.disable();
   }
   async openPopUp(data: any = {}, isNew?) {
@@ -113,6 +114,9 @@ export class LibromayorComponent implements OnInit {
   }
 
   Guardar() {
+    this.Cabecera.Estado = this.checked;
+    this.Transaccion[0].Cabecera = this.Transaccion[0].Cabecera.concat(this.Cabecera);
+    console.log(this.Transaccion[0].Cabecera);
     let temp = JSON.parse(JSON.stringify(this.Transaccion));
     temp[0].Detalle.map(row => delete row.Cuenta);
     temp[0].Detalle.map(row => delete row.ID);

@@ -20,7 +20,8 @@ import {
   MatNativeDateModule,
   MatTabsModule,
   MatProgressBarModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatCheckboxModule
 } from '@angular/material';
 // PrimeNG
 import {TreeModule} from 'primeng/tree';
@@ -115,6 +116,7 @@ import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.componen
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     AppConfirmModule,
     AppLoaderModule,
     MatTabsModule,
