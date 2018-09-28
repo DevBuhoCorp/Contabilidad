@@ -87,17 +87,10 @@ export class LibromayorComponent implements OnInit {
           this.ListaDetalles = this.ListaDetalles.concat(res);
           this.snack.open('Agregado!', 'OK', { duration: 4000 });
         } else {
-          console.log(res);
           this.ListaDetalles = this.ListaDetalles.map(i => {
             if (i.ID == res.ID) {
-
-              console.log(i);
-              console.log(res);
-
               this.Debe = this.Debe + (res.Debe - i.Debe);
               this.Haber = this.Haber + (res.Haber - i.Haber);
-              console.log(this.Debe);
-              console.log(this.Haber);
               Object.assign(i, res);
               this.loader.close();
               this.snack.open('Actualizado!', 'OK', { duration: 4000 });
@@ -154,6 +147,11 @@ export class LibromayorComponent implements OnInit {
       this.snack.open("La sumatoria de los asientos no cuadra", 'OK', { duration: 4000 });
     }
 
+  }
+
+  Cancelar(){
+    this.Inicializar();
+    this.creado = false;
   }
 
 
