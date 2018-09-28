@@ -47,6 +47,7 @@ export class LibromayorComponent implements OnInit {
     this.itemForm = this.fb.group({
       Fecha: ['', Validators.required],
       SerieDocumento: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
+      Etiqueta: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
     });
 
   }
@@ -57,8 +58,8 @@ export class LibromayorComponent implements OnInit {
     this.snack.open('Agregado!', 'OK', { duration: 4000 });
     this.creado = true;
     this.Cabecera = this.itemForm.value;
-    let hoy = new Date();
-    this.Cabecera.FechaA = hoy.toDateString();
+    /*let hoy = new Date();
+    this.Cabecera.FechaA = hoy.toDateString();*/
     this.itemForm.disable();
   }
   async openPopUp(data: any = {}, isNew?) {

@@ -81,7 +81,7 @@ export class NavigationService {
         {name: 'Modelos de Planes Contables', state: 'modelosplanescontables'},
         {name: 'Plan Contable', state: 'plancontable'},
 
-        {name: 'Cuentas de Impuesto', state: 'cuentaimpuesto'},
+        //{name: 'Cuentas de Impuesto', state: 'cuentaimpuesto'},
         //{ name: 'Grupos Personalizados', state: 'grupospersonalizados' },
         // { name: 'Cuentas Contables por Defecto', state: 'cuentacontablepordefecto' },
         // { name: 'Cuentas de IVA', state: 'cuentaiva' },
