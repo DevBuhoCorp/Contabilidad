@@ -20,7 +20,8 @@ import {
   MatNativeDateModule,
   MatTabsModule,
   MatProgressBarModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatCheckboxModule
 } from '@angular/material';
 // PrimeNG
 import {TreeModule} from 'primeng/tree';
@@ -119,6 +120,7 @@ import { PopupComponentTCBancaria } from './finanzas/tipocuentabancaria/popup/po
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     AppConfirmModule,
     AppLoaderModule,
     MatTabsModule,

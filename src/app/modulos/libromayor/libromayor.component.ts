@@ -15,6 +15,10 @@ import { CrudService } from '../../shared/servicios/crud.service';
   styles: []
 })
 export class LibromayorComponent implements OnInit {
+  pageSize = [3, 5, 10, 20];
+  checked = false;
+  public Debe: number = 0;
+  public Haber: number = 0;
   public ListaDetalles: any = [];
   public Transaccion: any = [{
     "Cabecera": [],
@@ -45,6 +49,7 @@ export class LibromayorComponent implements OnInit {
     this.itemForm = this.fb.group({
       Fecha: ['', Validators.required],
       SerieDocumento: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
+      Etiqueta: ['', Validators.compose([Validators.maxLength(45)])],
     });
 
   }
@@ -55,9 +60,6 @@ export class LibromayorComponent implements OnInit {
     this.snack.open('Agregado!', 'OK', { duration: 4000 });
     this.creado = true;
     this.Cabecera = this.itemForm.value;
-    let hoy = new Date();
-    this.Cabecera.FechaA = hoy.toDateString();
-    this.Transaccion[0].Cabecera = this.Transaccion[0].Cabecera.concat(this.Cabecera);
     this.itemForm.disable();
   }
   async openPopUp(data: any = {}, isNew?) {
@@ -76,20 +78,19 @@ export class LibromayorComponent implements OnInit {
           // If user press cancel
           return;
         }
-        // this.loader.open();
-        /* this.crudService.Actualizar(data.ID, res, 'modeloplancontable/').subscribe(data => {
-           this.getItems(1);
-           this.loader.close();
-           this.snack.open('Actualizado!', 'OK', { duration: 4000 });
-         });*/
         if (isNew) {
           this.Transaccion[0].Detalle = this.Transaccion[0].Detalle.concat(res);
+          this.Debe = this.Debe + res.Debe;
+          this.Haber = this.Haber + res.Haber;
+          console.log(this.Debe);
+          console.log(this.Haber);
           this.ListaDetalles = this.ListaDetalles.concat(res);
           this.snack.open('Agregado!', 'OK', { duration: 4000 });
         } else {
-          console.log(res);
           this.ListaDetalles = this.ListaDetalles.map(i => {
             if (i.ID == res.ID) {
+              this.Debe = this.Debe + (res.Debe - i.Debe);
+              this.Haber = this.Haber + (res.Haber - i.Haber);
               Object.assign(i, res);
               this.loader.close();
               this.snack.open('Actualizado!', 'OK', { duration: 4000 });
@@ -111,26 +112,7 @@ export class LibromayorComponent implements OnInit {
       })
 
   }
-
-  Guardar() {
-    let temp = JSON.parse(JSON.stringify(this.Transaccion));
-    temp[0].Detalle.map(row => delete row.Cuenta);
-    temp[0].Detalle.map(row => delete row.ID);
-    this.crudService.Insertar(temp[0], "transaccion").subscribe(async data => {
-      this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
-      this.trans = false;
-      this.Transaccion = [{
-        "Cabecera": [],
-        "Detalle": [],
-      }];
-      this.ListaDetalles = [];
-      this.Cabecera = [];
-      this.itemForm.reset();
-      this.itemForm.enable();
-    });
-  }
-
-  Cancelar() {
+  Inicializar(){
     this.trans = false;
     this.Transaccion = [{
       "Cabecera": [],
@@ -138,9 +120,39 @@ export class LibromayorComponent implements OnInit {
     }];
     this.ListaDetalles = [];
     this.Cabecera = [];
+    this.Debe = 0;
+    this.Haber = 0;
     this.itemForm.reset();
     this.itemForm.enable();
+  }
+  Guardar() {
+    if (this.Debe == this.Haber) {
+      this.Cabecera.Estado = this.checked;
+      this.Cabecera.Debe = this.Debe;
+      this.Cabecera.Haber = this.Haber;
+      this.Transaccion[0].Cabecera = this.Transaccion[0].Cabecera.concat(this.Cabecera);
+      console.log(this.Transaccion[0].Cabecera);
+      let temp = JSON.parse(JSON.stringify(this.Transaccion));
+      temp[0].Detalle.map(row => delete row.Cuenta);
+      temp[0].Detalle.map(row => delete row.ID);
+      this.crudService.Insertar(temp[0], "transaccion").subscribe(async data => {
+        this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
+        this.Inicializar();
+      }, error => {
+        console.log(error._body);
+        this.snack.open(error._body, 'OK', { duration: 4000 });
+      });
+    }
+    else{
+      this.snack.open("La sumatoria de los asientos no cuadra", 'OK', { duration: 4000 });
+    }
+
+  }
+
+  Cancelar(){
+    this.Inicializar();
     this.creado = false;
   }
+
 
 }
