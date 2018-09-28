@@ -32,9 +32,9 @@
           <mat-icon>refresh</mat-icon>
         </a>
 
-        <a mat-icon-button mat-sm-button color="warn" matTooltip="Agrupar por cuenta contable">
+        <!-- <a mat-icon-button mat-sm-button color="warn" matTooltip="Agrupar por cuenta contable">
           <mat-icon>group_work</mat-icon>
-        </a>
+        </a>-->
 
         <div class="select-group">
           <mat-form-field class="full-width">
@@ -199,6 +199,18 @@
                     </a>
                   </ng-template>
                 </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                  <ng-template ngx-datatable-footer-template>
+                    <div style="padding: 5px 10px">
+                      <div>
+                        <strong>Total Debe</strong>: {{Debe}}
+                        <strong>Total Haber</strong>: {{Haber}}
+                      </div>
+                      <hr style="width:100%" />
+                    </div>
+                  </ng-template>
+                </ngx-datatable-footer>
               </ngx-datatable>
             </mat-card-content>
           </mat-card>

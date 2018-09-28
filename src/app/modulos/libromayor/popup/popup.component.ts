@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { startWith, map } from 'rxjs/operators';
@@ -23,7 +23,8 @@ export class PopupLibroMayor implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupLibroMayor>,
     private fb: FormBuilder,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private snack: MatSnackBar,
   ) {
     this.CargarAuto();
     this.buildItemForm(this.data.payload);
@@ -41,6 +42,7 @@ export class PopupLibroMayor implements OnInit {
         map(value => typeof value === 'string' ? value : value.cuenta),
         map(cuenta => cuenta ? this._filter(cuenta) : this.Cuentas.slice())
       );
+
   }
   private _filter(name: string): Cuenta[] {
     const filterValue = name.toLowerCase();
@@ -49,7 +51,7 @@ export class PopupLibroMayor implements OnInit {
   buildItemForm(item) {
     this.itemForm = this.fb.group({
       IDCuenta: [item.IDCuenta || 0, Validators.required],
-      Etiqueta: [item.Etiqueta, Validators.required],
+      Etiqueta: [item.Etiqueta],
       Debe: [item.Debe, Validators.required],
       Haber: [item.Haber, Validators.required],
       Cuenta: [item.Cuenta],
@@ -58,13 +60,19 @@ export class PopupLibroMayor implements OnInit {
   }
 
   submit() {
-    this.itemForm.value.Cuenta = this.itemForm.value.IDCuenta.cuenta;
-    this.itemForm.value.IDCuenta = this.itemForm.value.IDCuenta.ID;
-    this.dialogRef.close(this.itemForm.value)
+    if(this.itemForm.value.IDCuenta.cuenta){
+      this.itemForm.value.Cuenta = this.itemForm.value.IDCuenta.cuenta;
+      this.itemForm.value.IDCuenta = this.itemForm.value.IDCuenta.ID;
+      this.dialogRef.close(this.itemForm.value)
+    }
+    else{
+      this.snack.open("Seleccione una Cuenta Contable", 'OK', { duration: 4000 });
+    }
+    
   }
- /* displayFn(cuenta?): string | undefined {
-    return cuenta ? cuenta.cuenta : undefined;
-  }*/
+  /* displayFn(cuenta?): string | undefined {
+     return cuenta ? cuenta.cuenta : undefined;
+   }*/
   displayFn(user?: Cuenta): string | undefined {
     return user ? user.cuenta : undefined;
   }
