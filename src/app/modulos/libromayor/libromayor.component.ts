@@ -119,10 +119,24 @@ export class LibromayorComponent implements OnInit {
       })
 
   }
-
+  Inicializar(){
+    this.trans = false;
+    this.Transaccion = [{
+      "Cabecera": [],
+      "Detalle": [],
+    }];
+    this.ListaDetalles = [];
+    this.Cabecera = [];
+    this.Debe = 0;
+    this.Haber = 0;
+    this.itemForm.reset();
+    this.itemForm.enable();
+  }
   Guardar() {
     if (this.Debe == this.Haber) {
       this.Cabecera.Estado = this.checked;
+      this.Cabecera.Debe = this.Debe;
+      this.Cabecera.Haber = this.Haber;
       this.Transaccion[0].Cabecera = this.Transaccion[0].Cabecera.concat(this.Cabecera);
       console.log(this.Transaccion[0].Cabecera);
       let temp = JSON.parse(JSON.stringify(this.Transaccion));
@@ -130,15 +144,7 @@ export class LibromayorComponent implements OnInit {
       temp[0].Detalle.map(row => delete row.ID);
       this.crudService.Insertar(temp[0], "transaccion").subscribe(async data => {
         this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
-        this.trans = false;
-        this.Transaccion = [{
-          "Cabecera": [],
-          "Detalle": [],
-        }];
-        this.ListaDetalles = [];
-        this.Cabecera = [];
-        this.itemForm.reset();
-        this.itemForm.enable();
+        this.Inicializar();
       }, error => {
         console.log(error._body);
         this.snack.open(error._body, 'OK', { duration: 4000 });
@@ -150,17 +156,5 @@ export class LibromayorComponent implements OnInit {
 
   }
 
-  Cancelar() {
-    this.trans = false;
-    this.Transaccion = [{
-      "Cabecera": [],
-      "Detalle": [],
-    }];
-    this.ListaDetalles = [];
-    this.Cabecera = [];
-    this.itemForm.reset();
-    this.itemForm.enable();
-    this.creado = false;
-  }
 
 }
