@@ -28,9 +28,9 @@ export class PopupComponentCB implements OnInit {
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
-      Etiqueta: [item.Etiqueta || '', Validators.required],
+      // Etiqueta: [item.Etiqueta || '', Validators.required],
       NumeroCuenta: [item.NumeroCuenta || '', Validators.required],
-      FechaApertura: [item.FechaApertura || '', Validators.required],
+      FechaApertura: [ item.FechaApertura || '', Validators.required],
       SaldoInicial: [item.SaldoInicial || '', Validators.required],
       SaldoMinimo: [item.SaldoMinimo || '', Validators.required],
       IdentificacionTitular: [item.IdentificacionTitular || '', Validators.required],

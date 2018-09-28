@@ -14,12 +14,14 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 export class CuentasbancariasComponent implements OnInit, OnDestroy {
   pageSize = [3, 5, 10, 20];
   selPageSize: any = this.pageSize[0];
+  selEmpresa : any;
   items: any = {
     data: [],
     page: 1,
     total: 0,
     per_page: 0
   };
+  empresas: any;
 
 
   constructor(
@@ -32,7 +34,8 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getItems();
+    this.empresas =  this.crudService.SeleccionarAsync('comboempresa');
+    //this.getItems();
   }
 
   ngOnDestroy() {
@@ -40,11 +43,12 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
   }
 
   async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('cuentabancaria', {page: indice, psize: this.selPageSize});
+    this.items = await this.crudService.SeleccionarAsync('cuentabancaria', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa });
   }
 
   openPopUp(data: any = {}, isNew?) {
     let title = isNew ? 'Agregar' : 'Actualizar';
+    console.log(data);
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentCB, {
       width: '720px',
       disableClose: true,
@@ -58,6 +62,7 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
         console.log(response);
         this.loader.open();
         if (isNew) {
+          response.IDEmpresa = this.selEmpresa;
           this.crudService.Insertar(response, 'cuentabancaria/')
             .subscribe(data => {
               this.getItems();
@@ -65,7 +70,7 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
               this.snack.open('Agregado!', 'OK', { duration: 4000 })
             });
         } else {
-          this.crudService.Actualizar(data.ID, response, 'banco/')
+          this.crudService.Actualizar(data.ID, response, 'cuentabancaria/')
             .subscribe(data => {
               this.getItems();
               this.loader.close();

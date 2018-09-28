@@ -1,4 +1,16 @@
 <div class="m-333">
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione una empresa activa:" [(ngModel)]="selEmpresa" (selectionChange)="getItems()">
+        <mat-option *ngFor="let empresa of empresas | async" [value]="empresa.ID" ngDefaultControl>
+          {{ empresa.Descripcion }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="m-333">
   <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Nueva Cuenta Financiera</button>
 </div>
 
@@ -16,32 +28,37 @@
                    (page)='setPage($event)'>
       <ngx-datatable-column name="Cuentas Bancarias" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.CuentaBancaria }}
+          {{ row?.TipoCuenta }}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+      <ngx-datatable-column name="Cuentas Bancarias" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Etiqueta }}
+          {{ row?.FechaApertura }}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Tipo" [flexGrow]="1">
+      <!--<ngx-datatable-column name="Etiqueta" [flexGrow]="1">-->
+        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+          <!--{{ row?.Etiqueta }}-->
+        <!--</ng-template>-->
+      <!--</ngx-datatable-column>-->
+      <!--<ngx-datatable-column name="Tipo" [flexGrow]="1">-->
+        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+          <!--{{ row?.Tipo }}-->
+        <!--</ng-template>-->
+      <!--</ngx-datatable-column>-->
+      <ngx-datatable-column name="Número Cuenta" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Tipo }}
+          {{ row?.NumeroCuenta }}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Número" [flexGrow]="1">
+      <ngx-datatable-column name="Nombre Titular" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Numero }}
+          {{ row?.NombreTitular }}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
+      <ngx-datatable-column name="Identificación Titular" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.CuentaContable }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Código Contable diario" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.CodigoContableDiario}}
+          {{ row?.IdentificacionTitular }}
         </ng-template>
       </ngx-datatable-column>
       
@@ -52,7 +69,22 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Saldo" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Saldo}}
+          {{ row?.SaldoInicial }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="SaldoMinimo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.SaldoMinimo }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Actions" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
