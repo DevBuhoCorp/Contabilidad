@@ -1,29 +1,34 @@
-<div class="m-333">
-  <h4 class="bc-title">Aplicación: {{ ( app.Descripcion  )  }}</h4>
-  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)" >Agregar</button>
+<div class="m-333" style="display: flex; justify-content: space-between;">
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Añadir</button>
+  <div class="select-group">
+    <mat-form-field class="full-width">
+      <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
-
-<mat-card class="p-0" >
-  <mat-card-content class="p-0" >
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
     <ngx-datatable class="material ml-0 mr-0"
-                   [rows]="estacions.data"
+                   [rows]="items.data"
                    [columnMode]="'flex'"
                    [headerHeight]="50"
                    [footerHeight]="50"
-                   [count]="estacions.total"
-                   [limit]="estacions.per_page"
                    [rowHeight]="'auto'"
                    [externalPaging]="true"
-                   (page)='setPage($event)'>
+                   [count]="items.total"
+                   [limit]="items.per_page"
+                   (page)='setPage($event)' >
       <ngx-datatable-column name="Descripcion" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Nmaquina }}
+          {{ row?.Descripcion }}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Estado" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <mat-chip mat-sm-chip [color]="'primary'" [selected]="row.Estado">
-            {{ row.Estado == 'ACT' ? 'activo' : 'inactivo' }}
+            {{ row.Estado ? 'activo' : 'inactivo' }}
           </mat-chip>
         </ng-template>
       </ngx-datatable-column>
@@ -32,11 +37,8 @@
           <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteItem(row)">
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button mat-sm-button color="gray" class="mr-1" (click)="viewToken(row)">
-            <mat-icon>vpn_key</mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>
