@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { Http, HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GestureConfig } from '@angular/material';
+import {GestureConfig, MAT_DATE_FORMATS} from '@angular/material';
 
 import { rootRouterConfig } from './app.routing';
 import { SharedModule } from './shared/shared.module';
@@ -31,7 +31,7 @@ export function createTranslateLoader(http: Http) {
   declarations: [AppComponent],
   providers: [
     // ANGULAR MATERIAL SLIDER FIX
-    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,36 +1,38 @@
 <mat-card class="p-0">
   <mat-tab-group>
-    <mat-tab label="Lista de movimientos">
-      <div class="m-333">
-        <!--<button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Nuevo Movimiento</button>-->
-        <!--<a mat-icon-button mat-sm-button color="warn" routerLink="nuevatransaccion" matTooltip="Añadir Nuevo Movimiento">-->
-        <a mat-icon-button mat-sm-button color="warn" matTooltip="Añadir Nuevo Movimiento" (click)="creado = true"
-          [disabled]="creado">
-          <mat-icon>library_add</mat-icon>
-        </a>
-      </div>
+    <mat-tab label="Lista de Transacciones">
+      <!--<div class="m-333">-->
+        <!--<button mat-raised-button class="mb-05" color="primary" (click)="creado = true">Nuevo Movimiento</button>-->
+        <!--&lt;!&ndash;<a mat-icon-button mat-sm-button color="warn" routerLink="nuevatransaccion" matTooltip="Añadir Nuevo Movimiento">&ndash;&gt;-->
+        <!--<a mat-icon-button mat-sm-button color="warn" matTooltip="Añadir Nuevo Movimiento" (click)="creado = true"-->
+          <!--[disabled]="creado">-->
+          <!--<mat-icon>library_add</mat-icon>-->
+        <!--</a>-->
+      <!--</div>-->
 
       <div class="m-333" style="display: flex; justify-content: space-between;">
-        <div fxFlex="20" class="pr-1">
-          <mat-form-field class="full-width">
-            <input matInput name="FechaInicio" placeholder="Fecha de Inicio" [matDatepicker]="DateInicio">
-            <mat-datepicker-toggle matSuffix [for]="DateInicio"></mat-datepicker-toggle>
-          </mat-form-field>
-          <mat-datepicker #DateInicio></mat-datepicker>
-        </div>
+
+        <button mat-raised-button class="mb-05" color="primary" (click)="creado = true">Nueva Transacción</button>
+        <!--<div fxFlex="20" class="pr-1">-->
+          <!--<mat-form-field class="full-width">-->
+            <!--<input matInput name="FechaInicio" placeholder="Fecha de Inicio" [matDatepicker]="DateInicio">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="DateInicio"></mat-datepicker-toggle>-->
+          <!--</mat-form-field>-->
+          <!--<mat-datepicker #DateInicio></mat-datepicker>-->
+        <!--</div>-->
 
 
-        <div fxFlex="20" class="pr-1">
-          <mat-form-field class="full-width">
-            <input matInput name="FechaFin" placeholder="Fecha de Fin" [matDatepicker]="DateFin">
-            <mat-datepicker-toggle matSuffix [for]="DateFin"></mat-datepicker-toggle>
-          </mat-form-field>
-          <mat-datepicker #DateFin></mat-datepicker>
-        </div>
+        <!--<div fxFlex="20" class="pr-1">-->
+          <!--<mat-form-field class="full-width">-->
+            <!--<input matInput name="FechaFin" placeholder="Fecha de Fin" [matDatepicker]="DateFin">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="DateFin"></mat-datepicker-toggle>-->
+          <!--</mat-form-field>-->
+          <!--<mat-datepicker #DateFin></mat-datepicker>-->
+        <!--</div>-->
 
-        <a mat-icon-button mat-sm-button color="warn" matTooltip="Refrescar período del reporte">
-          <mat-icon>refresh</mat-icon>
-        </a>
+        <!--<a mat-icon-button mat-sm-button color="warn" matTooltip="Refrescar período del reporte">-->
+          <!--<mat-icon>refresh</mat-icon>-->
+        <!--</a>-->
 
         <!-- <a mat-icon-button mat-sm-button color="warn" matTooltip="Agrupar por cuenta contable">
           <mat-icon>group_work</mat-icon>
@@ -48,8 +50,16 @@
 
 
       <mat-card-content class="p-0">
-        <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50"
-          [footerHeight]="50" [limit]="10" [rowHeight]="'auto'">
+        <ngx-datatable class="material ml-0 mr-0"
+                       [rows]="items.data"
+                       [columnMode]="'flex'"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="items.total"
+                       [limit]="items.per_page"
+                       (page)='setPage($event)'>
 
           <!--<ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
           [footerHeight]="50" [externalPaging]="true" [count]="items.total" [limit]="items.per_page" [rowHeight]="'auto'"
@@ -57,15 +67,15 @@
 
           <ngx-datatable-column name="Fecha Transacción" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Fecha }}
+              {{ row?.Fecha | date:'medium' }}
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Documento" [flexGrow]="1">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.DContable }}
-            </ng-template>
-          </ngx-datatable-column>
+          <!--<ngx-datatable-column name="Documento" [flexGrow]="1">-->
+            <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+              <!--{{ row?.DContable }}-->
+            <!--</ng-template>-->
+          <!--</ngx-datatable-column>-->
 
           <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
@@ -73,17 +83,17 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Estacion" [flexGrow]="1">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Estacion}}
-            </ng-template>
-          </ngx-datatable-column>
+          <!--<ngx-datatable-column name="Estacion" [flexGrow]="1">-->
+            <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+              <!--{{ row?.Estacion}}-->
+            <!--</ng-template>-->
+          <!--</ngx-datatable-column>-->
 
-          <ngx-datatable-column name="Aplicación" [flexGrow]="1">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Estacion}}
-            </ng-template>
-          </ngx-datatable-column>
+          <!--<ngx-datatable-column name="Aplicación" [flexGrow]="1">-->
+            <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+              <!--{{ row?.Estacion}}-->
+            <!--</ng-template>-->
+          <!--</ngx-datatable-column>-->
 
           <ngx-datatable-column name="Debe" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
