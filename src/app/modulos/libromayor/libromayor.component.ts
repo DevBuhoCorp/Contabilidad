@@ -155,6 +155,7 @@ export class LibromayorComponent implements OnInit {
       this.crudService.Insertar(temp[0], 'transaccion').subscribe(async data => {
         this.snack.open('Transacción Finalizada!', 'OK', {duration: 4000});
         this.Inicializar();
+        this.getItems();
       }, error => {
         console.log(error._body);
         this.snack.open(error._body, 'OK', {duration: 4000});

@@ -1,0 +1,38 @@
+<div class="m-333">
+  <div class="select-group">
+    <mat-form-field class="full-width">
+      <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
+      [footerHeight]="50" [count]="items.total" [limit]="items.per_page" [rowHeight]="'auto'" [externalPaging]="true"
+      (page)='setPage($event)'>
+      <ngx-datatable-column name="Cuenta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Cuenta }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Etiqueta }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Debe" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Debe }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Haber" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Haber }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
