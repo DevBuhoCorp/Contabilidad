@@ -139,6 +139,11 @@ export const ModulosRoutes: Routes = [
     data: { title: 'Contabilizar Facturas de Cliente', breadcrumb: 'CONTABILIZAR FACTURAS DE CLIENTE' }
   },
   {
+    path: 'contabilizarcliente/contabilizar/lista/:id',
+    component: ListaDetallesComponent,
+    data: { title: 'Detalles Transacción', breadcrumb: 'VISUALIZAR DETALLES DE TRANSACCIÓN' }
+  },
+  {
     path: 'contabilizarcliente/contabilizada',
     component: ContabilizadaCComponent,
     data: { title: 'Facturas Contabilizadas de Cliente', breadcrumb: 'FACTURAS CONTABILIZADAS DE CLIENTE' }
@@ -186,6 +191,7 @@ export const ModulosRoutes: Routes = [
     component: ListaDetallesComponent,
     data: { title: 'Detalles Transacción', breadcrumb: 'VISUALIZAR DETALLES DE TRANSACCIÓN' }
   },
+
   {
     path: 'saldocuenta', component: SaldocuentaComponent, data: { title: 'Saldo de la cuenta', breadcrumb: 'PROCESAR SALDOS' }
   },

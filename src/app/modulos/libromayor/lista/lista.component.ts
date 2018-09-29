@@ -31,4 +31,8 @@ export class ListaDetallesComponent implements OnInit {
     this.items = await this.crudService.SeleccionarAsync('transaccion/' + this.IDTransaccion, { page: indice, psize: this.selPageSize });
   }
 
+  async setPage(event) {
+    this.getItems(event.offset + 1);
+  }
+
 }

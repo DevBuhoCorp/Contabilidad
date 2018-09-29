@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { ContabilizarService } from './contabilizar.service';
+import { CrudService } from '../../../shared/servicios/crud.service';
 
 
 @Component({
@@ -11,33 +12,51 @@ import { ContabilizarService } from './contabilizar.service';
   templateUrl: './contabilizar.component.html',
   styleUrls: []
 })
-export class ContabilizarCComponent implements OnInit, OnDestroy {
-  public items: any[];
+export class ContabilizarCComponent implements OnInit {
+  pageSize = [3, 5, 10, 20];
+  selPageSize: any = this.pageSize[0];
+  items: any = {
+    data: [],
+    page: 1,
+    total: 0,
+    per_page: 0
+  };
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private crudService: ContabilizarService,
+    private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
   ) { }
 
   ngOnInit() {
-    this.getItems()
+    this.getItems();
+
   }
-  ngOnDestroy() {
-    if (this.getItemSub) {
-      this.getItemSub.unsubscribe()
-    }
+
+  async getItems(indice = 1) {
+    this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA' });
+    this.items.data = this.crudService.SetBool(this.items.data);
   }
-  getItems() {
-    try {
-      this.getItemSub = this.crudService.getItems()
-        .subscribe(data => {
-          this.items = data;
-        })
-    }
-    catch{ }
+
+  async setPage(event) {
+    this.getItems(event.offset + 1);
   }
-  
+
+  Guardar() {
+    console.log(this.items.data);
+    this.items.data.map(i => {
+      if (i.Estado) {
+        this.crudService.Actualizar(i.ID, i, 'transaccion/').subscribe(async data => {
+          this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
+          this.getItems();
+        }, error => {
+          this.snack.open(error._body, 'OK', { duration: 4000 });
+        });
+      }
+    });
+
+  }
+
 }
