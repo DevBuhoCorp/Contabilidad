@@ -26,14 +26,19 @@
                    [count]="items.total"
                    [limit]="items.per_page"
                    (page)='setPage($event)'>
-      <ngx-datatable-column name="Cuentas Bancarias" [flexGrow]="1">
+      <ngx-datatable-column name="Banco" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Banco }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Tipo Cuenta" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.TipoCuenta }}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Cuentas Bancarias" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.FechaApertura | date:'medium' }}
+          {{ row?.FechaApertura | date:'mediumDate' }}
         </ng-template>
       </ngx-datatable-column>
       <!--<ngx-datatable-column name="Etiqueta" [flexGrow]="1">-->
@@ -61,13 +66,13 @@
           {{ row?.IdentificacionTitular }}
         </ng-template>
       </ngx-datatable-column>
-      
+
       <ngx-datatable-column name="Estado" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <mat-chip mat-sm-chip [color]="'primary'" [selected]="row.Estado">{{row.Estado ? 'activo' : 'inactivo'}}</mat-chip>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Saldo" [flexGrow]="1">
+      <!--<ngx-datatable-column name="Saldo" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.SaldoInicial }}
         </ng-template>
@@ -76,7 +81,7 @@
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.SaldoMinimo }}
         </ng-template>
-      </ngx-datatable-column>
+      </ngx-datatable-column>-->
       <ngx-datatable-column name="Actions" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">

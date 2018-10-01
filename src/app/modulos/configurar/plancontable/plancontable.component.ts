@@ -95,7 +95,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       data.promise = await this.crudService.SeleccionarAsync("cuentacontable/" + data.data);
     }
     else if (!data.data) {
-      data.promise2 = await this.crudService.SeleccionarAsync("cuentapadre");
+      data.promise2 = await this.crudService.SeleccionarAsync("cuentapadre", { Modelo: this.selectedValue });
     }
     else {
       data.promise2 = await this.crudService.SeleccionarAsync("numerocuenta", { padre: data.data, plancontable: this.selectedValue });
@@ -113,7 +113,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          console.log(res);
+          //console.log(res);
           this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
