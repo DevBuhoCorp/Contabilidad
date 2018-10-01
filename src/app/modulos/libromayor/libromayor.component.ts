@@ -165,7 +165,7 @@ export class LibromayorComponent implements OnInit {
       });
     }
     else {
-      this.snack.open('La sumatoria de los asientos no cuadra', 'OK', { duration: 4000 });
+      this.snack.open('Los Totales de la transacción no cuadran', 'OK', { duration: 4000 });
     }
 
   }
