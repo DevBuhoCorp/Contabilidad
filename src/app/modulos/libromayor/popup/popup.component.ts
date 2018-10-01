@@ -28,11 +28,6 @@ export class PopupLibroMayor implements OnInit {
   ) {
     this.CargarAuto();
     this.buildItemForm(this.data.payload);
-    /*this.cuenta = this.itemForm.controls['IDCuenta'].valueChanges
-      .startWith(null)
-      .map(cuenta =>
-        this.filtrar(cuenta));*/
-
   }
 
   ngOnInit() {
@@ -46,29 +41,29 @@ export class PopupLibroMayor implements OnInit {
   }
   private _filter(name: string): Cuenta[] {
     const filterValue = name.toLowerCase();
-    return this.Cuentas.filter(option => option.cuenta.toLowerCase().indexOf(filterValue) === 0);
+    return this.Cuentas.filter(option => option.cuenta.toLowerCase().includes(filterValue));
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
       IDCuenta: [item.IDCuenta || 0, Validators.required],
       Etiqueta: [item.Etiqueta],
-      Debe: [item.Debe, Validators.required],
-      Haber: [item.Haber, Validators.required],
+      Debe: [item.Debe || 0, Validators.required],
+      Haber: [item.Haber || 0, Validators.required],
       Cuenta: [item.Cuenta],
       ID: [item.ID]
     })
   }
 
   submit() {
-    if(this.itemForm.value.IDCuenta.cuenta){
+    if (this.itemForm.value.IDCuenta.cuenta) {
       this.itemForm.value.Cuenta = this.itemForm.value.IDCuenta.cuenta;
       this.itemForm.value.IDCuenta = this.itemForm.value.IDCuenta.ID;
       this.dialogRef.close(this.itemForm.value)
     }
-    else{
+    else {
       this.snack.open("Seleccione una Cuenta Contable", 'OK', { duration: 4000 });
     }
-    
+
   }
   /* displayFn(cuenta?): string | undefined {
      return cuenta ? cuenta.cuenta : undefined;
