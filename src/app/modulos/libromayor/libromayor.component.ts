@@ -1,11 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {MatDialog, MatSnackBar, MatDialogRef} from '@angular/material';
-import {AppLoaderService} from '../../shared/servicios/app-loader/app-loader.service';
-import {AppConfirmService} from '../../shared/servicios/app-confirm/app-confirm.service';
-import {PopupLibroMayor} from './popup/popup.component';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
-import {CrudService} from '../../shared/servicios/crud.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
+import { AppLoaderService } from '../../shared/servicios/app-loader/app-loader.service';
+import { AppConfirmService } from '../../shared/servicios/app-confirm/app-confirm.service';
+import { PopupLibroMayor } from './popup/popup.component';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { CrudService } from '../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-libromayor',
@@ -29,6 +29,7 @@ export class LibromayorComponent implements OnInit {
   checked = false;
   public Debe: number = 0;
   public Haber: number = 0;
+  public Totales: any = [];
   public ListaDetalles: any = [];
   public Transaccion: any = [{
     'Cabecera': [],
@@ -52,10 +53,12 @@ export class LibromayorComponent implements OnInit {
 
   ngOnInit() {
     this.getItems();
+
   }
 
   async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('transaccion', {page: indice, psize: this.selPageSize, empresa: this.selEmpresa});
+    this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa, Estado: 'ACT' });
+    this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
   }
 
   buildItemForm() {
@@ -70,7 +73,7 @@ export class LibromayorComponent implements OnInit {
   submitTransaccion() {
     this.trans = true;
     this.itemForm.value.Fecha = this.itemForm.value.Fecha.toDateString();
-    this.snack.open('Agregado!', 'OK', {duration: 4000});
+    this.snack.open('Agregado!', 'OK', { duration: 4000 });
     this.creado = true;
     this.Cabecera = this.itemForm.value;
     this.itemForm.disable();
@@ -84,7 +87,7 @@ export class LibromayorComponent implements OnInit {
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupLibroMayor, {
       width: '720px',
       disableClose: true,
-      data: {title: title, payload: data}
+      data: { title: title, payload: data }
     });
     dialogRef.afterClosed()
       .subscribe(res => {
@@ -99,7 +102,7 @@ export class LibromayorComponent implements OnInit {
           console.log(this.Debe);
           console.log(this.Haber);
           this.ListaDetalles = this.ListaDetalles.concat(res);
-          this.snack.open('Agregado!', 'OK', {duration: 4000});
+          this.snack.open('Agregado!', 'OK', { duration: 4000 });
         } else {
           this.ListaDetalles = this.ListaDetalles.map(i => {
             if (i.ID == res.ID) {
@@ -107,7 +110,7 @@ export class LibromayorComponent implements OnInit {
               this.Haber = this.Haber + (res.Haber - i.Haber);
               Object.assign(i, res);
               this.loader.close();
-              this.snack.open('Actualizado!', 'OK', {duration: 4000});
+              this.snack.open('Actualizado!', 'OK', { duration: 4000 });
             }
             return i;
           });
@@ -118,7 +121,7 @@ export class LibromayorComponent implements OnInit {
   }
 
   deleteItem(row) {
-    this.confirmService.confirm({message: `Eliminar ${row.Etiqueta}?`})
+    this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
       .subscribe(res => {
         if (res) {
           let i = this.ListaDetalles.indexOf(row.ID);
@@ -153,15 +156,16 @@ export class LibromayorComponent implements OnInit {
       temp[0].Detalle.map(row => delete row.Cuenta);
       temp[0].Detalle.map(row => delete row.ID);
       this.crudService.Insertar(temp[0], 'transaccion').subscribe(async data => {
-        this.snack.open('Transacción Finalizada!', 'OK', {duration: 4000});
+        this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
         this.Inicializar();
+        this.getItems();
       }, error => {
         console.log(error._body);
-        this.snack.open(error._body, 'OK', {duration: 4000});
+        this.snack.open(error._body, 'OK', { duration: 4000 });
       });
     }
     else {
-      this.snack.open('La sumatoria de los asientos no cuadra', 'OK', {duration: 4000});
+      this.snack.open('La sumatoria de los asientos no cuadra', 'OK', { duration: 4000 });
     }
 
   }

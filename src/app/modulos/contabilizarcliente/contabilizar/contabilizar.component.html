@@ -1,51 +1,75 @@
-
-<div class="m-333">
-  <button mat-raised-button class="mb-05" color="primary" >Contabilizar</button>
-</div>
-
 <mat-card class="p-0">
+
+  <div class="m-333" style="display: flex; justify-content: space-between;">
+
+    <div class="m-333">
+      <a mat-icon-button mat-sm-button color="warn" matTooltip="Guardar" (click)="Guardar()">
+        <mat-icon>save</mat-icon>
+      </a>
+    </div>
+
+    <div class="select-group">
+      <mat-form-field class="full-width">
+        <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+          <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+  </div>
+
+
+
   <mat-card-content class="p-0">
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [limit]="10"
-      [rowHeight]="'auto'">
-      <ngx-datatable-column name="Id línea" [flexGrow]="1">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
+      (page)='setPage($event)'>
+
+      <ngx-datatable-column name="Fecha Transacción" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.IdLinea }}
+          {{ row?.Fecha | date:'medium' }}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Factura" [flexGrow]="1">
+      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Factura }}
+          {{ row?.Etiqueta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Debe" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Debe }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Haber" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Haber }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Contabilizar Transacción" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <mat-checkbox [(ngModel)]="row.Estado"></mat-checkbox>
+        </ng-template>
+
+
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Lista de Detalles" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID]">
+            <mat-icon>list</mat-icon>
+          </button>
         </ng-template>
       </ngx-datatable-column>
 
 
-      <ngx-datatable-column name="Fecha" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Fecha }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Referencia" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.RefProducto }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.CuentaContable }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Contabilizar línea" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.CuentaContable }}
-        </ng-template>
-      </ngx-datatable-column>
 
 
 
     </ngx-datatable>
   </mat-card-content>
+
 </mat-card>
