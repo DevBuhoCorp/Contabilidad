@@ -29,6 +29,7 @@ export class LibromayorComponent implements OnInit {
   checked = false;
   public Debe: number = 0;
   public Haber: number = 0;
+  public Totales: any = [];
   public ListaDetalles: any = [];
   public Transaccion: any = [{
     'Cabecera': [],
@@ -52,10 +53,12 @@ export class LibromayorComponent implements OnInit {
 
   ngOnInit() {
     this.getItems();
+
   }
 
   async getItems(indice = 1) {
     this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa, Estado: 'ACT' });
+    this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
   }
 
   buildItemForm() {

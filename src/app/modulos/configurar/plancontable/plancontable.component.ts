@@ -113,6 +113,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
+          console.log(res);
           this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
