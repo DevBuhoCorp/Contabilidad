@@ -35,8 +35,13 @@
         </div>
       </div>
 
-      <p-tree #expandingTree [style]="{'width':'100%'}" [value]="filesTree0" selectionMode="single" [(selection)]="selectedFile"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" (onNodeDrop)="onNDrop($event)" droppableNodes="true">
+      <p-tree #expandingTree [style]="{'width':'100%'}"
+              [value]="filesTree0"
+              selectionMode="single"
+              [(selection)]="selectedFile"
+              (onNodeSelect)="nodeSelect($event)"
+              (onNodeDrop)="onNDrop($event)"
+              droppableNodes="true">
       </p-tree>
 
       <div style="margin-top: 8px">
