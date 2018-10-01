@@ -35,7 +35,6 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.empresas =  this.crudService.SeleccionarAsync('comboempresa');
-    //this.getItems();
   }
 
   ngOnDestroy() {
