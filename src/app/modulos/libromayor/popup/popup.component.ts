@@ -77,7 +77,7 @@ export class PopupLibroMayor implements OnInit {
       : this.Cuentas;
   }
   async CargarAuto() {
-    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Modelo: 6 });
+    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Modelo: 7 });
   }
 
 
