@@ -95,9 +95,11 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       data.promise = await this.crudService.SeleccionarAsync("cuentacontable/" + data.data);
     }
     else if (!data.data) {
+      data.promise = null;
       data.promise2 = await this.crudService.SeleccionarAsync("cuentapadre", { Modelo: this.selectedValue });
     }
     else {
+      data.promise = null;
       data.promise2 = await this.crudService.SeleccionarAsync("numerocuenta", { padre: data.data, plancontable: this.selectedValue });
     }
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
@@ -108,7 +110,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .subscribe(res => {
         if (!res) {
-          // If user press cancel
+          data.payload = []; 
           return;
         }
         this.loader.open();

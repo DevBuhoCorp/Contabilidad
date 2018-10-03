@@ -23,6 +23,7 @@ export class PopupComponentPC implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.data.payload);
     this.CargarCombo();
     if ((this.data.payload.promise)) {
       this.buildItemForm(this.data.payload);
@@ -41,6 +42,7 @@ export class PopupComponentPC implements OnInit {
         CuentaPadre: [{ value: item.label || '', disabled: true }],
         GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
         IDDiario: [item.IDDiario || 1, Validators.required],
+        Saldo: [item.Saldo || 0, Validators.required],
         Estado: [{ value: (item.Estado || true) }],
 
       });
@@ -52,6 +54,7 @@ export class PopupComponentPC implements OnInit {
         CuentaPadre: [{ value: '', disabled: true }],
         GrupoCuenta: [{ value: 'Total' || '', disabled: true }],
         IDDiario: [item.IDDiario || 1, Validators.required],
+        Saldo: [item.Saldo || 0, Validators.required],
         Estado: [{ value: (item.Estado || true) }],
 
       });
@@ -61,14 +64,16 @@ export class PopupComponentPC implements OnInit {
 
   buildItemForm(item) {
 
-    if (item.parent) {
+
+    if (!item.children.length) {
       this.itemForm = this.fb.group({
-        NumeroCuenta: [{ value: (item.promise.numerocuenta), disabled: true }],
-        Etiqueta: [item.promise.label, Validators.compose([Validators.required, Validators.maxLength(45)])],
+        NumeroCuenta: [{ value: (item.promise.NumeroCuenta), disabled: true }],
+        Etiqueta: [item.promise.Etiqueta, Validators.compose([Validators.required, Validators.maxLength(45)])],
         CuentaPadre: [{ value: item.parent.label || '', disabled: true }],
         GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
         IDDiario: [item.promise.IDDiario || 1, Validators.required],
-        Estado: [item.Estado || true, Validators.required]
+        Saldo: [{ value: (item.promise.Saldo), disabled: true }],
+        Estado: [item.promise.Estado || true, Validators.required]
 
       });
     }
@@ -79,7 +84,8 @@ export class PopupComponentPC implements OnInit {
         CuentaPadre: [{ value: '', disabled: true }],
         GrupoCuenta: [{ value: 'Total' || '', disabled: true }],
         IDDiario: [item.promise.IDDiario || 1, Validators.required],
-        Estado: [item.Estado || true, Validators.required]
+        Saldo: [{ value: (item.promise.Saldo), disabled: true }],
+        Estado: [item.promise.Estado || true, Validators.required]
       });
     }
   }
