@@ -5,13 +5,15 @@
     <div fxFlex="50" class="pr-1">
       <mat-form-field>
         <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="itemForm.controls['IDCuenta']">
-      </mat-form-field>
-
+      
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
           {{ seleccionado.cuenta }}
         </mat-option>
       </mat-autocomplete>
+
+    </mat-form-field>
+
       <!--<mat-form-field>
         <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="stateCtrl">
       </mat-form-field>

@@ -20,7 +20,6 @@ export class PopupComponentTCBancaria implements OnInit {
   }
 
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       Descripcion: [ item.Descripcion || '', Validators.required ],
       Observacion: [ item.Observacion || ''],

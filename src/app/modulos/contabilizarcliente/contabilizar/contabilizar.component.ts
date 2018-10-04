@@ -45,7 +45,6 @@ export class ContabilizarCComponent implements OnInit {
   }
 
   Guardar() {
-    console.log(this.items.data);
     this.items.data.map(i => {
       if (i.Estado) {
         this.crudService.Actualizar(i.ID, i, 'transaccion/').subscribe(async data => {

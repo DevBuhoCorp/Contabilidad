@@ -51,7 +51,13 @@
 
 
       <mat-card-content class="p-0">
-        <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
+        <mat-card-title class="mat-bg-primary m-0">
+          <div class="card-title-text">
+            <span>Suman y Pasan: Debe {{TotalDebe  || currency}}, Haber {{TotalHaber  || currency}}</span>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-card-title>
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'force'" [headerHeight]="50"
           [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
           (page)='setPage($event)'>
 
@@ -70,6 +76,7 @@
           <!--{{ row?.DContable }}-->
           <!--</ng-template>-->
           <!--</ngx-datatable-column>-->
+
 
           <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
@@ -91,13 +98,13 @@
 
           <ngx-datatable-column name="Debe" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Debe }}
+              {{ row?.Debe | currency }}
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Haber" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Haber }}
+              {{ row?.Haber | currency }}
             </ng-template>
           </ngx-datatable-column>
 
@@ -109,17 +116,17 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-footer>
+          <!--<ngx-datatable-footer>
             <ng-template ngx-datatable-footer-template>
               <div style="padding: 5px 10px">
                 <div>
-                  <strong>Total Debe</strong>: {{Totales.Debe}}
-                  <strong>Total Haber</strong>: {{Totales.Haber}}
+                  <strong>Total Debe</strong>: {{Totales.Debe | currency}}
+                  <strong>Total Haber</strong>: {{Totales.Haber | currency }}
                 </div>
                 <hr style="width:100%" />
               </div>
             </ng-template>
-          </ngx-datatable-footer>
+          </ngx-datatable-footer>-->
 
 
 
@@ -203,13 +210,13 @@
 
                 <ngx-datatable-column name="Debe" [flexGrow]="1">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{ row?.Debe }}
+                    {{ row?.Debe | currency}}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <ngx-datatable-column name="Haber" [flexGrow]="1">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{ row?.Haber }}
+                    {{ row?.Haber | currency}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -228,8 +235,8 @@
                   <ng-template ngx-datatable-footer-template>
                     <div style="padding: 5px 10px">
                       <div>
-                        <strong>Total Debe</strong>: {{Debe}}
-                        <strong>Total Haber</strong>: {{Haber}}
+                        <strong>Total Debe</strong>: {{Debe | currency}}
+                        <strong>Total Haber</strong>: {{Haber | currency}}
                       </div>
                       <hr style="width:100%" />
                     </div>

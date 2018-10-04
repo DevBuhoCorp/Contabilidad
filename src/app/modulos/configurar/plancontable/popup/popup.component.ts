@@ -23,7 +23,6 @@ export class PopupComponentPC implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data.payload);
     this.CargarCombo();
     if ((this.data.payload.promise)) {
       this.buildItemForm(this.data.payload);
@@ -107,6 +106,7 @@ export class PopupComponentPC implements OnInit {
     else {
       this.itemForm.value.Estado = 'INA'
     }
+    this.itemForm.value.Etiqueta = this.itemForm.value.Etiqueta.trim();
     this.dialogRef.close(this.itemForm.value);
   }
 }

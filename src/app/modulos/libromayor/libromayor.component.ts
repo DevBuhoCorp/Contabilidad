@@ -29,7 +29,8 @@ export class LibromayorComponent implements OnInit {
   checked = false;
   public Debe: number = 0;
   public Haber: number = 0;
-  public Totales: any = [];
+  public TotalDebe: number = 0;
+  public TotalHaber: number = 0;
   public ListaDetalles: any = [];
   public Transaccion: any = [{
     'Cabecera': [],
@@ -58,14 +59,21 @@ export class LibromayorComponent implements OnInit {
 
   async getItems(indice = 1) {
     this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa, Estado: 'ACT' });
-    this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
+    //this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
+    console.log(this.items.data);
+    this.items.data.map(i => {
+      console.log(i);
+      this.TotalDebe = this.TotalDebe + Number(i.Debe);
+      this.TotalHaber = this.TotalHaber + Number(i.Haber);
+    })
+
   }
 
   buildItemForm() {
     this.itemForm = this.fb.group({
       Fecha: ['', Validators.required],
       SerieDocumento: ['', Validators.compose([Validators.required, Validators.maxLength(45)])],
-      Etiqueta: ['', Validators.compose([Validators.maxLength(45)])],
+      Etiqueta: [''],
     });
 
   }
@@ -99,8 +107,6 @@ export class LibromayorComponent implements OnInit {
           this.Transaccion[0].Detalle = this.Transaccion[0].Detalle.concat(res);
           this.Debe = this.Debe + res.Debe;
           this.Haber = this.Haber + res.Haber;
-          console.log(this.Debe);
-          console.log(this.Haber);
           this.ListaDetalles = this.ListaDetalles.concat(res);
           this.snack.open('Agregado!', 'OK', { duration: 4000 });
         } else {
@@ -121,11 +127,15 @@ export class LibromayorComponent implements OnInit {
   }
 
   deleteItem(row) {
-    this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
+    this.confirmService.confirm({ message: `Eliminar Detalle?` })
       .subscribe(res => {
         if (res) {
+
           let i = this.ListaDetalles.indexOf(row.ID);
+          this.Debe = this.Debe - row.Debe;
+          this.Haber = this.Haber - row.Haber;
           this.ListaDetalles.splice(i, 1);
+
         }
       });
 
@@ -151,16 +161,14 @@ export class LibromayorComponent implements OnInit {
       this.Cabecera.Debe = this.Debe;
       this.Cabecera.Haber = this.Haber;
       this.Transaccion[0].Cabecera = this.Transaccion[0].Cabecera.concat(this.Cabecera);
-      console.log(this.Transaccion[0].Cabecera);
       let temp = JSON.parse(JSON.stringify(this.Transaccion));
       temp[0].Detalle.map(row => delete row.Cuenta);
       temp[0].Detalle.map(row => delete row.ID);
       this.crudService.Insertar(temp[0], 'transaccion').subscribe(async data => {
         this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
-        this.Inicializar();
+        this.Cancelar();
         this.getItems();
       }, error => {
-        console.log(error._body);
         this.snack.open(error._body, 'OK', { duration: 4000 });
       });
     }

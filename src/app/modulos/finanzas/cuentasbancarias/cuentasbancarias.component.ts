@@ -47,7 +47,6 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
 
   openPopUp(data: any = {}, isNew?) {
     let title = isNew ? 'Agregar' : 'Actualizar';
-    console.log(data);
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentCB, {
       width: '720px',
       disableClose: true,
@@ -58,7 +57,6 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
         if (!response) {
           return;
         }
-        console.log(response);
         this.loader.open();
         if (isNew) {
           response.IDEmpresa = this.selEmpresa;

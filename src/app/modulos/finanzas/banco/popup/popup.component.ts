@@ -19,7 +19,6 @@ export class PopupComponentBanco implements OnInit {
   }
 
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       // Codigo: [item.Codigo || ''],
       Descripcion: [ item.Descripcion || '', Validators.required ],
