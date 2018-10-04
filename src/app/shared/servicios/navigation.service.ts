@@ -90,6 +90,12 @@ export class NavigationService {
       ]
     },
     {
+      name: 'Transacciones',
+      type: 'link',
+      icon: 'transform',
+      state: 'modulos/transacciones',
+    },
+    {
       name: 'Contabilizar Transacciones',
       //name: 'Contabilizar Transacciones',
       type: 'dropDown',
@@ -132,6 +138,7 @@ export class NavigationService {
          {name: 'Bancos', state: 'banco'},
        ]
      },*/
+    
     {
       name: 'Libro Diario',
       type: 'link',

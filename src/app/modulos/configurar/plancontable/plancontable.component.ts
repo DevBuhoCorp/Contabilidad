@@ -9,11 +9,10 @@ import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loade
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { CrudService } from '../../../shared/servicios/crud.service';
 
-import { ModeloPlanContable } from '../modelospc/modelopc.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-plancontable',
+  selector: 'app-plancontable', 
   encapsulation: ViewEncapsulation.None,
   templateUrl: './plancontable.component.html',
   styleUrls: [

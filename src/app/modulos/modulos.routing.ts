@@ -36,6 +36,7 @@ import { EstacionComponent } from './configurar/estacion/estacion.component';
 import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.component';
 import { TipocuentabancariaComponent } from './finanzas/tipocuentabancaria/tipocuentabancaria.component';
 import { ListaDetallesComponent } from './libromayor/lista/lista.component';
+import { TransaccionesComponent } from './transacciones/transacciones.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -180,6 +181,9 @@ export const ModulosRoutes: Routes = [
   /*{
     path: 'procesardiarios/banco', component: BancoComponent, data: {title: 'Diario de Bancos', breadcrumb: 'PROCESAR DIARIOS DE BANCOS'}
   },*/
+  {
+    path: 'transacciones', component: TransaccionesComponent, data: { title: 'Transacciones', breadcrumb: 'PROCESAR TRANSACCIONES' }
+  },
   {
     path: 'libromayor', component: LibromayorComponent, data: { title: 'Libro Diario', breadcrumb: 'PROCESAR LIBRO DIARIO' }
   },

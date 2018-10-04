@@ -97,6 +97,10 @@ import { BancoComponent } from './finanzas/banco/banco.component';
 import { TipocuentabancariaComponent } from './finanzas/tipocuentabancaria/tipocuentabancaria.component';
 import { PopupComponentTCBancaria } from './finanzas/tipocuentabancaria/popup/popup.component';
 import { ListaDetallesComponent } from './libromayor/lista/lista.component';
+import { MayorComponent } from './mayor/mayor.component';
+import { TransaccionesComponent } from './transacciones/transacciones.component';
+import { PopupTransaccion } from './transacciones/popup/popup.component';
+
 
 
 @NgModule({
@@ -186,7 +190,10 @@ import { ListaDetallesComponent } from './libromayor/lista/lista.component';
     PopupComponentBanco,
     TipocuentabancariaComponent,
     PopupComponentTCBancaria,
-    ListaDetallesComponent
+    ListaDetallesComponent,
+    MayorComponent,
+    TransaccionesComponent,
+    PopupTransaccion
 
   ],
   providers: [
@@ -218,7 +225,8 @@ import { ListaDetallesComponent } from './libromayor/lista/lista.component';
     PopupComponentEstacion,
     TokenComponent,
     PopupComponentBanco,
-    PopupComponentTCBancaria
+    PopupComponentTCBancaria,
+    PopupTransaccion
   ]
 })
 export class ModulosModule {
