@@ -31,6 +31,9 @@ export class LibromayorComponent implements OnInit {
   public Haber: number = 0;
   public TotalDebe: number = 0;
   public TotalHaber: number = 0;
+  public VienenDebe: number = 0;
+  public VienenHaber: number = 0;
+  public Totales: any = [];
   public ListaDetalles: any = [];
   public Transaccion: any = [{
     'Cabecera': [],
@@ -59,10 +62,8 @@ export class LibromayorComponent implements OnInit {
 
   async getItems(indice = 1) {
     this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa, Estado: 'ACT' });
-    //this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
-    console.log(this.items.data);
+    this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
     this.items.data.map(i => {
-      console.log(i);
       this.TotalDebe = this.TotalDebe + Number(i.Debe);
       this.TotalHaber = this.TotalHaber + Number(i.Haber);
     })
@@ -184,6 +185,17 @@ export class LibromayorComponent implements OnInit {
   }
 
   async setPage(event) {
+    if (event.offset == 0) {
+      this.VienenDebe = 0;
+      this.VienenHaber = 0;
+    }
+    else {
+      this.VienenDebe = this.TotalDebe;
+      this.VienenHaber = this.TotalHaber;
+    }
+    this.TotalDebe = 0;
+    this.TotalHaber = 0;
     this.getItems(event.offset + 1);
+
   }
 }

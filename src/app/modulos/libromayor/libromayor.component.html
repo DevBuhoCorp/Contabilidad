@@ -14,6 +14,9 @@
 
         <button mat-raised-button class="mb-05" color="primary" (click)="creado = true" [disabled]="creado">Nueva
           Transacción</button>
+
+          
+        <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
         <!--<div fxFlex="20" class="pr-1">-->
         <!--<mat-form-field class="full-width">-->
         <!--<input matInput name="FechaInicio" placeholder="Fecha de Inicio" [matDatepicker]="DateInicio">-->
@@ -53,7 +56,7 @@
       <mat-card-content class="p-0">
         <mat-card-title class="mat-bg-primary m-0">
           <div class="card-title-text">
-            <span>Suman y Pasan: Debe {{TotalDebe  || currency}}, Haber {{TotalHaber  || currency}}</span>
+            <span>Suman y Pasan: Debe {{TotalDebe | currency}}, Haber {{TotalHaber | currency}}</span>
           </div>
           <mat-divider></mat-divider>
         </mat-card-title>
@@ -133,6 +136,13 @@
 
 
         </ngx-datatable>
+
+        <div class="mat-bg-primary m-0">
+          <div class="card-title-text" *ngIf="VienenDebe != 0">
+            <span>Vienen: Debe {{VienenDebe | currency}}, Haber {{VienenHaber | currency}}</span>
+          </div>
+        </div>
+
       </mat-card-content>
     </mat-tab>
     <mat-tab label="Crear nuevo movimiento" *ngIf="creado">

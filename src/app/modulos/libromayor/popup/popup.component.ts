@@ -44,7 +44,6 @@ export class PopupLibroMayor implements OnInit {
     return this.Cuentas.filter(option => option.cuenta.toLowerCase().includes(filterValue));
   }
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       IDCuenta: [item.IDCuenta || 0, Validators.required],
       Etiqueta: [item.Etiqueta],
