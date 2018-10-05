@@ -145,7 +145,14 @@ export class NavigationService {
       icon: 'local_library',
       state: 'modulos/libromayor',
     },
+    {
+      name: 'Libro Mayor',
+      type: 'link',
+      icon: 'business_center',
+      state: 'modulos/mayor',
+    },
     /*{
+
       name: 'Saldo de la cuenta',
       type: 'link',
       icon: 'assessment',
