@@ -46,13 +46,13 @@ export class ListaMayorComponent implements OnInit {
   }
   async getItems(indice = 1) {
     this.items = await this.crudService.SeleccionarAsync('transporcuenta/' + this.IDTransaccion, { page: indice, psize: this.selPageSize });
-    
-    let saldo = 0;
+    if(indice==1){
+      this.Saldo = 0;
+    }
     this.items.detalles.data.map(i => {
-      saldo = saldo + ( Number(i.Debe) - Number(i.Haber));
-      i.saldo = saldo;
+      this.Saldo = this.Saldo + ( Number(i.Debe) - Number(i.Haber));
+      i.saldo = this.Saldo;
     })
-    console.log(this.items);
   }
 
 
