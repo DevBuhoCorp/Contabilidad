@@ -77,7 +77,7 @@ export class LibromayorComponent implements OnInit {
   ngOnInit() {
     this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
     this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
-    this.getItems();
+    // this.getItems();
   }
 
   async getItems(indice = 1) {

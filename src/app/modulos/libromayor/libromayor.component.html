@@ -13,14 +13,14 @@
         <div fxLayout="row wrap">
           <div fxFlex="20" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha Inicio" [(ngModel)]="pickerInicio">
+              <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha Inicio" >
               <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
               <mat-datepicker #pickerInicio></mat-datepicker>
             </mat-form-field>
           </div>
           <div fxFlex="20" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput [matDatepicker]="pickerFin" placeholder="Fecha Fin" [(ngModel)]="pickerFin">
+              <input matInput [matDatepicker]="pickerFin" placeholder="Fecha Fin" >
               <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
               <mat-datepicker #pickerFin></mat-datepicker>
             </mat-form-field>
