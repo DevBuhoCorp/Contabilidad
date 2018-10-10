@@ -17,7 +17,7 @@
     <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)="loadApp()">
       <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
     </mat-select>
-    </mat-form-field> 
+    </mat-form-field>
   </div>
 </div>
 
@@ -50,7 +50,7 @@
           <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
           </button>
           <button mat-icon-button mat-sm-button color="warn" [routerLink]="['estacion', row.ID]" >
