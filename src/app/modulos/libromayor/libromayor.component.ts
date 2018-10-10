@@ -24,7 +24,26 @@ export class LibromayorComponent implements OnInit {
   };
   selEmpresa: any;
   empresas: any;
+  selTCuenta: any;
+  selTTransaccion: any;
 
+  pickerInicio: any;
+  pickerFin: any;
+  tcuentas: any[] = [
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
+    {'Descripcion': 'Adeudora', 'Cod': 'ADEU'}
+  ];
+  ttransacions: any[] = [
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Manual', 'Cod': 'manual'},
+    {'Descripcion': 'Aplicación', 'Cod': 'app'}
+  ];
+
+
+
+  selApp: any;
+  aplicacions: any;
 
   checked = false;
   public Debe: number = 0;
@@ -56,8 +75,9 @@ export class LibromayorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getItems();
-
+    this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
+    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
+    // this.getItems();
   }
 
   async getItems(indice = 1) {
