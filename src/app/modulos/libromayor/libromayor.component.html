@@ -62,7 +62,6 @@
           Filtrar
         </button>
 
-<<<<<<< HEAD
           
         <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
         <!--<div fxFlex="20" class="pr-1">-->
@@ -72,8 +71,6 @@
         <!--</mat-form-field>-->
         <!--<mat-datepicker #DateInicio></mat-datepicker>-->
         <!--</div>-->
-=======
->>>>>>> origin/kbsg
 
 
         <!--<div fxFlex="20" class="pr-1">-->
@@ -104,7 +101,6 @@
 
 
       <mat-card-content class="p-0">
-<<<<<<< HEAD
         <mat-card-title class="mat-bg-primary m-0">
           <div class="card-title-text">
             <span>Suman y Pasan: Debe {{TotalDebe | currency}}, Haber {{TotalHaber | currency}}</span>
@@ -114,18 +110,6 @@
         <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'force'" [headerHeight]="50"
           [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
           (page)='setPage($event)'>
-=======
-        <ngx-datatable class="material ml-0 mr-0"
-                       [rows]="items.data"
-                       [columnMode]="'flex'"
-                       [headerHeight]="50"
-                       [footerHeight]="50"
-                       [rowHeight]="'auto'"
-                       [externalPaging]="true"
-                       [count]="items.total"
-                       [limit]="items.per_page"
-                       (page)='setPage($event)'>
->>>>>>> origin/kbsg
 
           <!--<ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
           [footerHeight]="50" [externalPaging]="true" [count]="items.total" [limit]="items.per_page" [rowHeight]="'auto'"
@@ -196,127 +180,12 @@
 
 
         </ngx-datatable>
-<<<<<<< HEAD
 
         <div class="mat-bg-primary m-0">
           <div class="card-title-text" *ngIf="VienenDebe != 0">
             <span>Vienen: Debe {{VienenDebe | currency}}, Haber {{VienenHaber | currency}}</span>
-=======
-      </mat-card-content>
-    </mat-tab>
-    <mat-tab label="Crear nuevo movimiento" *ngIf="creado">
-      <mat-card-content class="mt-1">
-        <h1 matDialogTitle>Crear nuevo movimiento</h1>
-        <form [formGroup]="itemForm" (ngSubmit)="submitTransaccion()">
-          <div fxLayout="row wrap" fxLayout.lt-sm="column">
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="Fecha" placeholder="Fecha" [matDatepicker]="DateDocContable"
-                       [formControl]="itemForm.controls['Fecha']">
-                <mat-datepicker-toggle matSuffix [for]="DateDocContable"></mat-datepicker-toggle>
-              </mat-form-field>
-              <mat-datepicker #DateDocContable></mat-datepicker>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="SerieDocumento" placeholder="Doc. contabilidad"
-                       [formControl]="itemForm.controls['SerieDocumento']">
-              </mat-form-field>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="Etiqueta" placeholder="Etiqueta operación"
-                       [formControl]="itemForm.controls['Etiqueta']">
-
-              </mat-form-field>
-            </div>
-
-            <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="primary" [disabled]="itemForm.invalid  || trans">Crear</button>
-              <div class="m-333" *ngIf="trans">
-                <a mat-icon-button mat-sm-button color="warn" matTooltip="Añadir Asiento" (click)="openPopUp({}, true)">
-                  <mat-icon>library_add</mat-icon>
-                </a>
-              </div>
-
-              <div class="m-333" *ngIf="ListaDetalles.length > 0">
-                <a mat-icon-button mat-sm-button color="warn" matTooltip="Guardar transacción" (click)="Guardar()">
-                  <mat-icon>save</mat-icon>
-                </a>
-              </div>
-
-
-              <span fxFlex></span>
-              <button mat-button color="warn" type="button" (click)="Cancelar()">Cancelar</button>
-            </div>
->>>>>>> origin/kbsg
           </div>
         </div>
-<<<<<<< HEAD
-=======
-        <mat-list *ngIf="trans">
-          <h3 matSubheader>Listado de movimientos</h3>
-
-          <mat-card class="p-0">
-            <mat-card-content class="p-0">
-              <ngx-datatable class="material ml-0 mr-0" [rows]="ListaDetalles" [columnMode]="'flex'" [headerHeight]="50"
-                             [footerHeight]="50" [rowHeight]="'auto'">
-
-                <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{ row?.Cuenta }}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{ row?.Etiqueta }}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Debe" [flexGrow]="1">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{ row?.Debe }}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Haber" [flexGrow]="1">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{ row?.Haber }}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Actions" [flexGrow]="1">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    <a mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
-                      <mat-icon>edit</mat-icon>
-                    </a>
-                    <a mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
-                      <mat-icon>delete</mat-icon>
-                    </a>
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-footer>
-                  <ng-template ngx-datatable-footer-template>
-                    <div style="padding: 5px 10px">
-                      <div>
-                        <strong>Total Debe</strong>: {{Debe}}
-                        <strong>Total Haber</strong>: {{Haber}}
-                      </div>
-                      <hr style="width:100%"/>
-                    </div>
-                  </ng-template>
-                </ngx-datatable-footer>
-              </ngx-datatable>
-            </mat-card-content>
-          </mat-card>
-
-        </mat-list>
->>>>>>> origin/kbsg
 
       </mat-card-content>
 

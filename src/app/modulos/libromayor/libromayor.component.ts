@@ -173,11 +173,8 @@ export class LibromayorComponent implements OnInit {
   }
 
   deleteItem(row) {
-<<<<<<< HEAD
     this.confirmService.confirm({ message: `Eliminar Detalle?` })
-=======
     this.confirmService.confirm({message: `Eliminar ${row.Etiqueta}?`})
->>>>>>> origin/kbsg
       .subscribe(res => {
         if (res) {
 
@@ -215,7 +212,6 @@ export class LibromayorComponent implements OnInit {
       temp[0].Detalle.map(row => delete row.Cuenta);
       temp[0].Detalle.map(row => delete row.ID);
       this.crudService.Insertar(temp[0], 'transaccion').subscribe(async data => {
-<<<<<<< HEAD
         this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
         this.Cancelar();
         this.getItems();
@@ -225,18 +221,6 @@ export class LibromayorComponent implements OnInit {
     }
     else {
       this.snack.open('Los Totales de la transacción no cuadran', 'OK', { duration: 4000 });
-=======
-        this.snack.open('Transacción Finalizada!', 'OK', {duration: 4000});
-        this.Inicializar();
-        this.getItems();
-      }, error => {
-        console.log(error._body);
-        this.snack.open(error._body, 'OK', {duration: 4000});
-      });
-    }
-    else {
-      this.snack.open('La sumatoria de los asientos no cuadra', 'OK', {duration: 4000});
->>>>>>> origin/kbsg
     }
 
   }
