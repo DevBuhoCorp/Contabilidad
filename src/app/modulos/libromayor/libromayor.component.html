@@ -10,30 +10,6 @@
 
       <div class="m-333" style="display: flex; justify-content: space-between;">
 
-<<<<<<< HEAD
-          <mat-form-field fxFlex="20" *ngIf="selTTransaccion == 'app' " style="margin-right: 5px;">
-            <mat-select placeholder="Seleccione la Aplicación" [(ngModel)]="selApp">
-              <mat-option value="ALL" ngDefaultControl>Todos</mat-option>
-              <mat-option *ngFor="let app of aplicacions | async " [value]="app.ID" ngDefaultControl>{{ app.Descripcion }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-
-
-      </div>
-      <!--<mat-divider></mat-divider>-->
-      <div class="m-333" fxLayout="row wrap" fxLayoutAlign="space-between center">
-
-        <!--<button mat-raised-button class="mb-05" color="primary" (click)="creado = true" [disabled]="creado">
-          Nueva Transacción
-        </button>-->
-        <button mat-raised-button class="mb-05" color="primary" (click)="getItems()" >
-          Filtrar
-        </button>
-
-=======
->>>>>>> parent of d03fc1e... Merge remote-tracking branch 'origin/kbsg' into Ronald
           
         <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
         <!--<div fxFlex="20" class="pr-1">-->

@@ -129,10 +129,6 @@ export class LibromayorComponent implements OnInit {
 
   deleteItem(row) {
     this.confirmService.confirm({ message: `Eliminar Detalle?` })
-<<<<<<< HEAD
-    this.confirmService.confirm({message: `Eliminar ${row.Etiqueta}?`})
-=======
->>>>>>> parent of d03fc1e... Merge remote-tracking branch 'origin/kbsg' into Ronald
       .subscribe(res => {
         if (res) {
 
