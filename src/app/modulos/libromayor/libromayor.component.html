@@ -7,40 +7,10 @@
       <!--<mat-icon>library_add</mat-icon>-->
       <!--</a>-->
       <!--</div>-->
-      <div class="m-333">
-        <div fxLayout="row wrap">
-          <div fxFlex="20" class="pr-1">
-            <mat-form-field class="full-width">
-              <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha Inicio" [(ngModel)]="pickerInicio">
-              <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-              <mat-datepicker #pickerInicio></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div fxFlex="20" class="pr-1">
-            <mat-form-field class="full-width">
-              <input matInput [matDatepicker]="pickerFin" placeholder="Fecha Fin" [(ngModel)]="pickerFin">
-              <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
-              <mat-datepicker #pickerFin></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
 
-        <div fxLayout="row wrap" fxLayoutAlign="right center">
+      <div class="m-333" style="display: flex; justify-content: space-between;">
 
-          <mat-form-field fxFlex="20" class="pr-1">
-            <mat-select placeholder="Tipo de cuenta" [(ngModel)]="selTCuenta">
-              <mat-option *ngFor="let tcuenta of tcuentas" [value]="tcuenta.Cod" ngDefaultControl>{{ tcuenta.Descripcion }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-
-          <mat-form-field fxFlex="20" class="pr-1">
-            <mat-select placeholder="Tipo de Transaccion" [(ngModel)]="selTTransaccion">
-              <mat-option *ngFor="let ttransacion of ttransacions" [value]="ttransacion.Cod" ngDefaultControl>{{ ttransacion.Descripcion }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-
+<<<<<<< HEAD
           <mat-form-field fxFlex="20" *ngIf="selTTransaccion == 'app' " style="margin-right: 5px;">
             <mat-select placeholder="Seleccione la Aplicación" [(ngModel)]="selApp">
               <mat-option value="ALL" ngDefaultControl>Todos</mat-option>
@@ -62,6 +32,8 @@
           Filtrar
         </button>
 
+=======
+>>>>>>> parent of d03fc1e... Merge remote-tracking branch 'origin/kbsg' into Ronald
           
         <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
         <!--<div fxFlex="20" class="pr-1">-->
@@ -91,13 +63,13 @@
 
         <div class="select-group">
           <mat-form-field class="full-width">
-            <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize"
-                        (selectionChange)=" getItems()">
+            <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
               <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
+
 
 
       <mat-card-content class="p-0">
@@ -173,10 +145,13 @@
                   <strong>Total Debe</strong>: {{Totales.Debe | currency}}
                   <strong>Total Haber</strong>: {{Totales.Haber | currency }}
                 </div>
-                <hr style="width:100%"/>
+                <hr style="width:100%" />
               </div>
             </ng-template>
           </ngx-datatable-footer>-->
+
+
+
 
 
         </ngx-datatable>

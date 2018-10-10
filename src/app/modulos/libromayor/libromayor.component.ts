@@ -1,16 +1,16 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {MatDialog, MatSnackBar, MatDialogRef, MatRadioModule} from '@angular/material';
-import {AppLoaderService} from '../../shared/servicios/app-loader/app-loader.service';
-import {AppConfirmService} from '../../shared/servicios/app-confirm/app-confirm.service';
-import {PopupLibroMayor} from './popup/popup.component';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
-import {CrudService} from '../../shared/servicios/crud.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
+import { AppLoaderService } from '../../shared/servicios/app-loader/app-loader.service';
+import { AppConfirmService } from '../../shared/servicios/app-confirm/app-confirm.service';
+import { PopupLibroMayor } from './popup/popup.component';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { CrudService } from '../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-libromayor',
   templateUrl: './libromayor.component.html',
-  styles: ['.example-radio-button { margin: 3px 8px; }']
+  styles: []
 })
 
 export class LibromayorComponent implements OnInit {
@@ -22,31 +22,8 @@ export class LibromayorComponent implements OnInit {
     total: 0,
     per_page: 0
   };
-  tcuentas: any[] = [
-    {'Descripcion': 'Todos', 'Cod': 'ALL'},
-    {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
-    {'Descripcion': 'Adeudora', 'Cod': 'ADEU'}
-  ];
-  ttransacions: any[] = [
-    {'Descripcion': 'Todos', 'Cod': 'ALL'},
-    {'Descripcion': 'Manual', 'Cod': 'manual'},
-    {'Descripcion': 'Aplicación', 'Cod': 'app'}
-  ];
-
-  selTCuenta: any;
-  selTTransaccion: any;
-
-  pickerInicio: any;
-  pickerFin: any;
-
-
   selEmpresa: any;
   empresas: any;
-
-  selApp: any;
-  aplicacions: any;
-
-
 
 
   checked = false;
@@ -79,34 +56,12 @@ export class LibromayorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
-    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
     this.getItems();
+
   }
 
   async getItems(indice = 1) {
-    let params = {
-      page: indice,
-      psize: this.selPageSize,
-      //empresa: this.selEmpresa,
-      Estado: 'ACT'
-    };
-    if (this.selTTransaccion !== 'ALL') {
-        params['ttransaccion']= this.selTTransaccion;
-        if(this.selTTransaccion == 'app' && this.selApp != 'ALL')
-          params['app']= this.selApp;
-    }
-    if (this.selTCuenta !== 'ALL')
-      params['tcuenta']= this.selTCuenta;
-
-    if( this.pickerInicio )
-      params['FInicio']= this.pickerInicio;
-    if( this.pickerFin )
-      params['FFin']= this.pickerFin;
-
-
-
-    this.items = await this.crudService.SeleccionarAsync('transaccion', params);
+    this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa, Estado: 'ACT' });
     this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
     this.items.data.map(i => {
       this.TotalDebe = this.TotalDebe + Number(i.Debe);
@@ -127,7 +82,7 @@ export class LibromayorComponent implements OnInit {
   submitTransaccion() {
     this.trans = true;
     this.itemForm.value.Fecha = this.itemForm.value.Fecha.toDateString();
-    this.snack.open('Agregado!', 'OK', {duration: 4000});
+    this.snack.open('Agregado!', 'OK', { duration: 4000 });
     this.creado = true;
     this.Cabecera = this.itemForm.value;
     this.itemForm.disable();
@@ -141,7 +96,7 @@ export class LibromayorComponent implements OnInit {
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupLibroMayor, {
       width: '720px',
       disableClose: true,
-      data: {title: title, payload: data}
+      data: { title: title, payload: data }
     });
     dialogRef.afterClosed()
       .subscribe(res => {
@@ -154,7 +109,7 @@ export class LibromayorComponent implements OnInit {
           this.Debe = this.Debe + res.Debe;
           this.Haber = this.Haber + res.Haber;
           this.ListaDetalles = this.ListaDetalles.concat(res);
-          this.snack.open('Agregado!', 'OK', {duration: 4000});
+          this.snack.open('Agregado!', 'OK', { duration: 4000 });
         } else {
           this.ListaDetalles = this.ListaDetalles.map(i => {
             if (i.ID == res.ID) {
@@ -162,7 +117,7 @@ export class LibromayorComponent implements OnInit {
               this.Haber = this.Haber + (res.Haber - i.Haber);
               Object.assign(i, res);
               this.loader.close();
-              this.snack.open('Actualizado!', 'OK', {duration: 4000});
+              this.snack.open('Actualizado!', 'OK', { duration: 4000 });
             }
             return i;
           });
@@ -174,7 +129,10 @@ export class LibromayorComponent implements OnInit {
 
   deleteItem(row) {
     this.confirmService.confirm({ message: `Eliminar Detalle?` })
+<<<<<<< HEAD
     this.confirmService.confirm({message: `Eliminar ${row.Etiqueta}?`})
+=======
+>>>>>>> parent of d03fc1e... Merge remote-tracking branch 'origin/kbsg' into Ronald
       .subscribe(res => {
         if (res) {
 
