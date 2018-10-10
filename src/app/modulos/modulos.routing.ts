@@ -37,8 +37,6 @@ import { NuevatransComponent } from './libromayor/nuevatrans/nuevatrans.componen
 import { TipocuentabancariaComponent } from './finanzas/tipocuentabancaria/tipocuentabancaria.component';
 import { ListaDetallesComponent } from './libromayor/lista/lista.component';
 import { TransaccionesComponent } from './transacciones/transacciones.component';
-import { MayorComponent } from './mayor/mayor.component';
-import { ListaMayorComponent } from './mayor/lista/lista.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -185,14 +183,6 @@ export const ModulosRoutes: Routes = [
   },*/
   {
     path: 'transacciones', component: TransaccionesComponent, data: { title: 'Transacciones', breadcrumb: 'PROCESAR TRANSACCIONES' }
-  },
-  {
-    path: 'mayor', component: MayorComponent, data: { title: 'Libro Mayor', breadcrumb: 'PROCESAR LIBRO MAYOR' }
-  },
-  {
-    path: 'mayor/lista/:id',
-    component: ListaMayorComponent,
-    data: { title: 'Detalles Transacción', breadcrumb: 'VISUALIZAR DETALLES DE TRANSACCIÓN' }
   },
   {
     path: 'libromayor', component: LibromayorComponent, data: { title: 'Libro Diario', breadcrumb: 'PROCESAR LIBRO DIARIO' }

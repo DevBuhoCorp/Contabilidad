@@ -1,16 +1,75 @@
-<div class="p-0">
-  <mat-card>
-    <mat-card-title>
-      <div class="card-title-text" style="display: flex; justify-content: space-between;">
-        <span>Seleccione una cuenta para ver su Mayor</span>
-      
+<div class="m-333">
 
-     <button mat-raised-button class="mb-05" color="primary" [routerLink]="['lista', selectedFile.data]" *ngIf="selectedFile">Listar Transacciones</button>
-    </div>
-    </mat-card-title>
-    <p-tree [style]="{'width':'100%'}" [value]="filesTree0[0].data" selectionMode="single" [(selection)]="selectedFile"
-      (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
-    </p-tree>
-
-  </mat-card>
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedValue"
+        (selectionChange)="CargarPlan()">
+        <mat-option *ngFor="let modelo of Modelos" [value]="modelo.ID" ngDefaultControl>
+          {{modelo.Etiqueta}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
+
+
+<mat-card>
+  <mat-card-content>
+
+    <div class="dv" fxFlex="50">
+      <div *ngIf="!list" style="display: flex; justify-content: space-between;">
+        <div class="bnt-group">
+          <button mat-icon-button matTooltip="Añadir" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, true)"
+            [disabled]="!selectedValue">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Editar" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, false)"
+            [disabled]="!selectedValue || !selectedFile">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <div class="bnt-group">
+          <button mat-icon-button matTooltip="Listar Cuentas Sin Asignar" mat-sm-button color="primary" class="mr-1"
+            (click)="loadCuentas()" [disabled]="!selectedValue">
+            <mat-icon>list</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <p-tree #expandingTree [style]="{'width':'100%'}" [value]="filesTree0" selectionMode="single" [(selection)]="selectedFile"
+        (onNodeSelect)="nodeSelect($event)" (onNodeDrop)="onNDrop($event)" droppableNodes="true">
+      </p-tree>
+
+      <div style="margin-top: 8px">
+        <button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1"
+          [disabled]="!selectedValue" (click)="expandAll()" style="margin-right: .25em">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Contraer Plan Contable" mat-sm-button color="primary" class="mr-1"
+          [disabled]="!selectedValue" (click)="collapseAll()">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+      </div>
+
+      <p> <br> Para deseleccionar una cuenta vuelva a marcarla.
+      </p>
+    </div>
+
+
+    <div class="dv" *ngIf="list" fxFlex="50">
+
+      <p-tree [style]="{'width':'100%'}" [value]="filesDrag" selectionMode="single" [(selection)]="sNodeDrag"
+        draggableNodes="true">
+      </p-tree>
+    </div>
+    <div *ngIf="list" style="display: flex; justify-content: space-between;">
+      <div class="bnt-group">
+        <button mat-icon-button matTooltip="Cerrar Lista" mat-sm-button color="primary" class="mr-1" (click)="list=!list"
+          [disabled]="!selectedValue">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

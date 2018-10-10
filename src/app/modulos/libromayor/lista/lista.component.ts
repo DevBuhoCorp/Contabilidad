@@ -23,25 +23,16 @@ export class ListaDetallesComponent implements OnInit {
 
   ngOnInit() {
     this.router.params.subscribe(async (params) => {
-     
-        this.IDTransaccion = params['id'];
-        this.getItems();
-      
+      this.IDTransaccion = params['id'];
+      this.getItems();
     });
   }
   async getItems(indice=1){
     this.items = await this.crudService.SeleccionarAsync('transaccion/' + this.IDTransaccion, { page: indice, psize: this.selPageSize });
-
   }
-
 
   async setPage(event) {
-   
-      this.getItems(event.offset + 1);
-         
+    this.getItems(event.offset + 1);
   }
-
-  
-
 
 }
