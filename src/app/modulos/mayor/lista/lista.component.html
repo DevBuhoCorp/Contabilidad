@@ -1,4 +1,56 @@
+<div class="p-0">
+  <div class="m-333">
+    <div fxLayout="row wrap">
+      <div fxFlex="20" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha Inicio" [(ngModel)]="dtpInicio">
+          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex="20" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="pickerFin" placeholder="Fecha Fin" [(ngModel)]="dtpFin">
+          <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFin></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="right center">
+
+      <mat-form-field fxFlex="20" class="pr-1">
+        <mat-select placeholder="Tipo de cuenta" [(ngModel)]="selTCuenta">
+          <mat-option *ngFor="let tcuenta of tcuentas" [value]="tcuenta.Cod" ngDefaultControl>{{ tcuenta.Descripcion }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field fxFlex="20" class="pr-1">
+        <mat-select placeholder="Tipo de Transaccion" [(ngModel)]="selTTransaccion">
+          <mat-option *ngFor="let ttransacion of ttransacions" [value]="ttransacion.Cod" ngDefaultControl>{{
+            ttransacion.Descripcion }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20" *ngIf="selTTransaccion == 'app' " style="margin-right: 5px;">
+        <mat-select placeholder="Seleccione la Aplicación" [(ngModel)]="selApp">
+          <mat-option value="ALL" ngDefaultControl>Todos</mat-option>
+          <mat-option *ngFor="let app of aplicacions | async " [value]="app.ID" ngDefaultControl>{{ app.Descripcion }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+
 <div class="m-333" style="display: flex; justify-content: space-between;">
+
+  <button mat-raised-button class="mb-05" color="primary" (click)="getItems()">
+    Filtrar
+  </button>
+
+
   <div class="select-group">
     <mat-form-field class="full-width">
       <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)="getItems()">

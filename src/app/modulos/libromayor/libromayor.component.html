@@ -11,14 +11,14 @@
     <div fxLayout="row wrap">
       <div fxFlex="20" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha Inicio">
+          <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha Inicio" [(ngModel)]="dtpInicio">
           <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
           <mat-datepicker #pickerInicio></mat-datepicker>
         </mat-form-field>
       </div>
       <div fxFlex="20" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [matDatepicker]="pickerFin" placeholder="Fecha Fin">
+          <input matInput [matDatepicker]="pickerFin" placeholder="Fecha Fin" [(ngModel)]="dtpFin">
           <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
           <mat-datepicker #pickerFin></mat-datepicker>
         </mat-form-field>
@@ -53,7 +53,7 @@
   <div class="m-333" style="display: flex; justify-content: space-between;">
 
 
-    <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
+    <!--<span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>-->
 
     <button mat-raised-button class="mb-05" color="primary" (click)="getItems()">
       Filtrar
@@ -97,7 +97,8 @@
   <mat-card-content class="p-0">
     <mat-card-title class="mat-bg-primary m-0">
       <div class="card-title-text">
-        <span>Suman y Pasan: Debe {{TotalDebe | currency}}, Haber {{TotalHaber | currency}}</span>
+        <!--<span>Suman y Pasan: Debe {{TotalDebe | currency}}, Haber {{TotalHaber | currency}}</span>-->
+        <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
       </div>
       <mat-divider></mat-divider>
     </mat-card-title>
@@ -178,10 +179,10 @@
 
     </ngx-datatable>
 
-    <div class="mat-bg-primary m-0">
-      <div class="card-title-text" *ngIf="VienenDebe != 0">
-        <span>Vienen: Debe {{VienenDebe | currency}}, Haber {{VienenHaber | currency}}</span>
-      </div>
-    </div>
+    <!--<div class="mat-bg-primary m-0">-->
+      <!--<div class="card-title-text" *ngIf="VienenDebe != 0">-->
+        <!--<span>Vienen: Debe {{VienenDebe | currency}}, Haber {{VienenHaber | currency}}</span>-->
+      <!--</div>-->
+    <!--</div>-->
 
   </mat-card-content>

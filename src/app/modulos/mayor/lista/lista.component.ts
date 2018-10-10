@@ -28,6 +28,30 @@ export class ListaMayorComponent implements OnInit {
   IDTransaccion;
   Saldo = 0;
 
+  /*  */
+  selTCuenta: any;
+  selTTransaccion: any;
+
+  dtpInicio: any;
+  dtpFin: any;
+  tcuentas: any[] = [
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
+    {'Descripcion': 'Adeudora', 'Cod': 'ADEU'}
+  ];
+  ttransacions: any[] = [
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Manual', 'Cod': 'manual'},
+    {'Descripcion': 'Aplicación', 'Cod': 'app'}
+  ];
+
+
+
+  selApp: any;
+  aplicacions: any;
+
+
+
   public TotalDebe: number = 0;
   public TotalHaber: number = 0;
   constructor(private router: ActivatedRoute,
@@ -35,6 +59,9 @@ export class ListaMayorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
+    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
+
     this.router.params.subscribe(async (params) => {
       this.IDTransaccion = params['id'];
       this.getItems();
@@ -45,7 +72,28 @@ export class ListaMayorComponent implements OnInit {
 
   }
   async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('transporcuenta/' + this.IDTransaccion, { page: indice, psize: this.selPageSize });
+    let params = {
+      page: indice,
+      psize: this.selPageSize,
+      //empresa: this.selEmpresa,
+      Estado: 'ACT'
+    };
+    if (this.selTTransaccion !== 'ALL') {
+      params['ttransaccion']= this.selTTransaccion;
+      if(this.selTTransaccion == 'app' && this.selApp != 'ALL')
+        params['app']= this.selApp;
+    }
+    if (this.selTCuenta !== 'ALL')
+      params['tcuenta']= this.selTCuenta;
+
+    if( this.dtpInicio )
+      params['FInicio']= this.dtpInicio.toDateString();
+    if( this.dtpFin )
+      params['FFin']= this.dtpFin.toDateString();
+
+
+
+    this.items = await this.crudService.SeleccionarAsync('transporcuenta/' + this.IDTransaccion, params);
     if(indice==1){
       this.Saldo = 0;
     }

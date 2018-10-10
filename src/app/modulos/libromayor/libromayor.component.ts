@@ -27,8 +27,8 @@ export class LibromayorComponent implements OnInit {
   selTCuenta: any;
   selTTransaccion: any;
 
-  pickerInicio: any;
-  pickerFin: any;
+  dtpInicio: any;
+  dtpFin: any;
   tcuentas: any[] = [
     {'Descripcion': 'Todos', 'Cod': 'ALL'},
     {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
@@ -81,8 +81,30 @@ export class LibromayorComponent implements OnInit {
   }
 
   async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa, Estado: 'ACT' });
-    this.Totales = await this.crudService.SeleccionarAsync('totaltrans');
+    let params = {
+      page: indice,
+      psize: this.selPageSize,
+      //empresa: this.selEmpresa,
+      Estado: 'ACT'
+    };
+    if (this.selTTransaccion !== 'ALL') {
+      params['ttransaccion']= this.selTTransaccion;
+      if(this.selTTransaccion == 'app' && this.selApp != 'ALL')
+        params['app']= this.selApp;
+    }
+    if (this.selTCuenta !== 'ALL')
+      params['tcuenta']= this.selTCuenta;
+
+    if( this.dtpInicio )
+      params['FInicio']= this.dtpInicio.toDateString();
+    if( this.dtpFin )
+      params['FFin']= this.dtpFin.toDateString();
+
+
+    let data: any = await this.crudService.SeleccionarAsync('transaccion', params);
+    this.items = data.data;
+    this.Totales = null;
+    this.Totales = data.totales;
     this.items.data.map(i => {
       this.TotalDebe = this.TotalDebe + Number(i.Debe);
       this.TotalHaber = this.TotalHaber + Number(i.Haber);

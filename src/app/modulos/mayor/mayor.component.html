@@ -8,9 +8,21 @@
      <button mat-raised-button class="mb-05" color="primary" [routerLink]="['lista', selectedFile.data]" *ngIf="selectedFile">Listar Transacciones</button>
     </div>
     </mat-card-title>
-    <p-tree [style]="{'width':'100%'}" [value]="filesTree0[0].data" selectionMode="single" [(selection)]="selectedFile"
-      (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+    <p-tree #expandingTree [style]="{'width':'100%'}"
+            [value]="filesTree0[0].data"
+            selectionMode="single"
+            [(selection)]="selectedFile"
+            (onNodeSelect)="nodeSelect($event)" >
     </p-tree>
+
+    <div style="margin-top: 8px">
+      <button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1" (click)="expandAll()" style="margin-right: .25em">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Contraer Plan Contable" mat-sm-button color="primary" class="mr-1" (click)="collapseAll()">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+    </div>
 
   </mat-card>
 </div>
