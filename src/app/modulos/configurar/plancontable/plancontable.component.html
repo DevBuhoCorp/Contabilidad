@@ -1,7 +1,7 @@
 <div class="m-333">
 
-  <div fxFlex="50" class="pr-1">
-    <mat-form-field class="full-width">
+  <div fxFlex="50" class="pr-1" #Etiqueta>
+    <mat-form-field class="full-width" >
       <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedValue" (selectionChange)="CargarPlan()">
         <mat-option *ngFor="let modelo of Modelos" [value]="modelo.ID" ngDefaultControl>
           {{modelo.Etiqueta}}
@@ -45,13 +45,21 @@
       </p-tree>
 
       <div style="margin-top: 8px">
-        <button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"
-          (click)="expandAll()" style="margin-right: .25em">
+        <!--<button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"-->
+          <!--(click)="expandAll()" style="margin-right: .25em">-->
+          <!--<mat-icon>arrow_downward</mat-icon>-->
+        <!--</button>-->
+        <!--<button mat-icon-button matTooltip="Contraer Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"-->
+          <!--(click)="collapseAll()">-->
+          <!--<mat-icon>arrow_upward</mat-icon>-->
+        <!--</button>-->
+        <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()" style="margin-right: .25em" [disabled]="!selectedValue">
           <mat-icon>arrow_downward</mat-icon>
+          Expandir Plan Contable
         </button>
-        <button mat-icon-button matTooltip="Contraer Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"
-          (click)="collapseAll()">
+        <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)" [disabled]="!selectedValue">
           <mat-icon>arrow_upward</mat-icon>
+          Contraer Plan Contable
         </button>
       </div>
 
