@@ -39,6 +39,7 @@ import {ListaDetallesComponent} from './libromayor/lista/lista.component';
 import {TransaccionesComponent} from './transacciones/transacciones.component';
 import {MayorComponent} from './mayor/mayor.component';
 import {ListaMayorComponent} from './mayor/lista/lista.component';
+import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -209,7 +210,11 @@ export const ModulosRoutes: Routes = [
     component: ListaDetallesComponent,
     data: {title: 'Detalles Transacción', breadcrumb: 'VISUALIZAR DETALLES DE TRANSACCIÓN'}
   },
-
+  {
+    path: 'reportes/balancecomprobacion',
+    component: BalancecomprobacionComponent,
+    data: {title: 'Generar Balance de Comprobación', breadcrumb: 'GENERAR BALANCE DE COMPROBACIÓN'}
+  },
   {
     path: 'saldocuenta', component: SaldocuentaComponent, data: {title: 'Saldo de la cuenta', breadcrumb: 'PROCESAR SALDOS'}
   },

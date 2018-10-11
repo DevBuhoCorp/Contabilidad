@@ -151,6 +151,15 @@ export class NavigationService {
       icon: 'business_center',
       state: 'modulos/mayor',
     },
+    {
+      name: 'Reportes',
+      type: 'dropDown',
+      icon: 'list_alt',
+      state: 'modulos/reportes',
+      sub: [
+        {name: 'Balance de Comprobación', state: 'balancecomprobacion'},
+      ]
+    },
     /*{
 
       name: 'Saldo de la cuenta',

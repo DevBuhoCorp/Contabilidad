@@ -46,13 +46,7 @@
     <button mat-raised-button class="mb-05" color="primary" (click)="getItems()">
       Filtrar
     </button>
-    <div class="select-group">
-      <mat-form-field class="full-width">
-        <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
-          <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+
   </div>
 
 
@@ -60,19 +54,14 @@
   <mat-card-content class="p-0">
     <mat-card-title class="mat-bg-primary m-0">
       <div class="card-title-text">
-        <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
+        <span>Total: Debe {{TotalDebe | currency}}, Haber {{TotalHaber | currency}}, Deudor {{TotalDeudor | currency}},
+          Acreedor {{TotalAcreedor | currency}}</span>
       </div>
       <mat-divider></mat-divider>
     </mat-card-title>
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'force'" [headerHeight]="50"
-      [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
-      (page)='setPage($event)'>
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
+       [rowHeight]="'auto'">
 
-      <ngx-datatable-column name="Fecha Transacción" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Fecha | date:'medium' }}
-        </ng-template>
-      </ngx-datatable-column>
 
       <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
@@ -92,11 +81,15 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Actions" [flexGrow]="1">
+      <ngx-datatable-column name="Saldo Deudor" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID]">
-            <mat-icon>list</mat-icon>
-          </button>
+          {{ row?.Deudor | currency }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Saldo Acreedor" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Acreedor | currency }}
         </ng-template>
       </ngx-datatable-column>
 
@@ -104,3 +97,4 @@
     </ngx-datatable>
 
   </mat-card-content>
+</mat-card>

@@ -101,6 +101,7 @@ import { MayorComponent } from './mayor/mayor.component';
 import { TransaccionesComponent } from './transacciones/transacciones.component';
 import { PopupTransaccion } from './transacciones/popup/popup.component';
 import { ListaMayorComponent } from './mayor/lista/lista.component';
+import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 
 
 
@@ -195,7 +196,8 @@ import { ListaMayorComponent } from './mayor/lista/lista.component';
     MayorComponent,
     TransaccionesComponent,
     PopupTransaccion,
-    ListaMayorComponent
+    ListaMayorComponent,
+    BalancecomprobacionComponent
 
   ],
   providers: [
