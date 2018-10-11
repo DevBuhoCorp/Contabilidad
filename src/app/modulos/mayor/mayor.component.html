@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>
       <div class="card-title-text" style="display: flex; justify-content: space-between;">
-        <span>Seleccione una cuenta para ver su Mayor</span>
+        <span #Etiqueta>Seleccione una cuenta para ver su Mayor</span>
       
 
      <button mat-raised-button class="mb-05" color="primary" [routerLink]="['lista', selectedFile.data]" *ngIf="selectedFile">Listar Transacciones</button>
@@ -16,11 +16,13 @@
     </p-tree>
 
     <div style="margin-top: 8px">
-      <button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1" (click)="expandAll()" style="margin-right: .25em">
+      <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()" style="margin-right: .25em">
         <mat-icon>arrow_downward</mat-icon>
+        Expandir Plan Contable
       </button>
-      <button mat-icon-button matTooltip="Contraer Plan Contable" mat-sm-button color="primary" class="mr-1" (click)="collapseAll()">
+      <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)">
         <mat-icon>arrow_upward</mat-icon>
+        Contraer Plan Contable
       </button>
     </div>
 
