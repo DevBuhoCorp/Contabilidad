@@ -36,4 +36,18 @@
       </ngx-datatable-column>
     </ngx-datatable>
   </mat-card-content>
-</mat-card>-
+</mat-card>
+
+<div class="m-333" *ngIf="!opt">
+  <button mat-raised-button class="mb-05" color="primary" [routerLink]="['/modulos/libromayor']">
+    <mat-icon>arrow_back</mat-icon>
+    Regresar
+  </button>
+</div>
+
+<div class="m-333" *ngIf="opt">
+  <button mat-raised-button class="mb-05" color="primary" [routerLink]="['/modulos/contabilizarcliente/contabilizar']">
+    <mat-icon>arrow_back</mat-icon>
+    Regresar
+  </button>
+</div>

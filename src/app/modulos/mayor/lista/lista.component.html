@@ -21,22 +21,24 @@
 
       <mat-form-field fxFlex="20" class="pr-1">
         <mat-select placeholder="Tipo de cuenta" [(ngModel)]="selTCuenta">
-          <mat-option *ngFor="let tcuenta of tcuentas" [value]="tcuenta.Cod" ngDefaultControl>{{ tcuenta.Descripcion }}</mat-option>
+          <mat-option *ngFor="let tcuenta of tcuentas" [value]="tcuenta.Cod" ngDefaultControl>{{ tcuenta.Descripcion }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
 
       <mat-form-field fxFlex="20" class="pr-1">
         <mat-select placeholder="Tipo de Transaccion" [(ngModel)]="selTTransaccion">
-          <mat-option *ngFor="let ttransacion of ttransacions" [value]="ttransacion.Cod" ngDefaultControl>{{
-            ttransacion.Descripcion }}</mat-option>
+          <mat-option *ngFor="let ttransacion of ttransacions" [value]="ttransacion.Cod" ngDefaultControl>{{ ttransacion.Descripcion }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field fxFlex="20" *ngIf="selTTransaccion == 'app' " style="margin-right: 5px;">
         <mat-select placeholder="Seleccione la Aplicación" [(ngModel)]="selApp">
           <mat-option value="ALL" ngDefaultControl>Todos</mat-option>
-          <mat-option *ngFor="let app of aplicacions | async " [value]="app.ID" ngDefaultControl>{{ app.Descripcion }}</mat-option>
+          <mat-option *ngFor="let app of aplicacions | async " [value]="app.ID" ngDefaultControl>{{ app.Descripcion }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -44,59 +46,70 @@
   </div>
 
 
-<div class="m-333" style="display: flex; justify-content: space-between;">
+  <div class="m-333" style="display: flex; justify-content: space-between;">
 
-  <button mat-raised-button class="mb-05" color="primary" (click)="getItems()">
-    Filtrar
-  </button>
+    <button mat-raised-button class="mb-05" color="primary" (click)="getItems()">
+      Filtrar
+    </button>
 
 
-  <div class="select-group">
-    <mat-form-field class="full-width">
-      <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)="getItems()">
-        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="select-group">
+      <mat-form-field class="full-width">
+        <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)="getItems()">
+          <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </div>
 
-</div>
+  <mat-card class="p-0">
+    <mat-card-title class="mat-bg-primary m-0">
+      <div class="card-title-text">
+        <span>Suman: Debe {{items.Debe | currency}}, Haber {{items.Haber | currency}}, Saldo {{items.Saldo | currency}}</span>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="p-0">
+      <ngx-datatable class="material ml-0 mr-0" [rows]="items.detalles.data" [columnMode]="'flex'" [headerHeight]="50"
+                     [footerHeight]="50" [count]="items.detalles.total" [limit]="items.detalles.per_page"
+                     [rowHeight]="'auto'"
+                     [externalPaging]="true" (page)='setPage($event)'>
+        <ngx-datatable-column name="Fecha" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Fecha }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Transaccion }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Debe" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Debe | currency}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Haber" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Haber | currency }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Saldo" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.saldo | currency }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card class="p-0">
-  <mat-card-title class="mat-bg-primary m-0">
-    <div class="card-title-text">
-      <span>Suman: Debe {{items.Debe | currency}}, Haber {{items.Haber | currency}}, Saldo {{items.Saldo | currency}}</span>
-    </div>
-    <mat-divider></mat-divider>
-  </mat-card-title>
-  <mat-card-content class="p-0">
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items.detalles.data" [columnMode]="'flex'" [headerHeight]="50"
-      [footerHeight]="50" [count]="items.detalles.total" [limit]="items.detalles.per_page" [rowHeight]="'auto'"
-      [externalPaging]="true" (page)='setPage($event)'>
-      <ngx-datatable-column name="Fecha" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Fecha }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Transaccion }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Debe" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Debe | currency}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Haber" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Haber | currency }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Saldo" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{  row?.saldo | currency }}
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable>
-  </mat-card-content>
-</mat-card>-
+  <div class="m-333">
+    <button mat-raised-button class="mb-05" color="primary" [routerLink]="['/modulos/mayor']">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </button>
+  </div>
+
+
+</div>

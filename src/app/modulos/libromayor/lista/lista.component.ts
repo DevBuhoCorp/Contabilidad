@@ -17,6 +17,7 @@ export class ListaDetallesComponent implements OnInit {
     per_page: 0
   };
   IDTransaccion;
+  opt;
   constructor(private router: ActivatedRoute,
     private crudService: CrudService,
   ) { }
@@ -25,6 +26,7 @@ export class ListaDetallesComponent implements OnInit {
     this.router.params.subscribe(async (params) => {
      
         this.IDTransaccion = params['id'];
+        this.opt = params['contabilizar'];
         this.getItems();
       
     });
