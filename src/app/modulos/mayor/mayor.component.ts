@@ -39,7 +39,8 @@ export class MayorComponent implements OnInit {
     });
   }
 
-  collapseAll() {
+  collapseAll($Etiqueta) {
+    $Etiqueta.scrollIntoView();
     this.filesTree0[0].data.forEach(node => {
       this.expandRecursive(node, false);
     });
