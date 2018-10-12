@@ -40,6 +40,7 @@ export class EmpresaComponent implements OnInit {
     if (!isNew) {
       data = await this.crudService.SeleccionarAsync('empresa/' + data.ID);
     }
+    console.log(data);
     let title = isNew ? 'Agregar' : 'Actualizar';
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentEmpresa, {
       width: '720px',
