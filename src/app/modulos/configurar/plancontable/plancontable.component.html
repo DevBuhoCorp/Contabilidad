@@ -16,16 +16,29 @@
   <mat-card-content>
 
     <div class="dv" fxFlex="50">
-      <div *ngIf="!list" style="display: flex; justify-content: space-between;">
+      <div *ngIf="!list" fxLayout="row" fxLayoutAlign="space-between" class="mb-05" >
+        <!--style="display: flex; justify-content: space-between;"-->
         <div class="bnt-group">
-          <button mat-icon-button matTooltip="Añadir" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, true)"
-            [disabled]="!selectedValue">
+          <!--<button mat-icon-button matTooltip="Añadir" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, true)"-->
+            <!--[disabled]="!selectedValue">-->
+            <!--<mat-icon>add</mat-icon>-->
+          <!--</button>-->
+          <!--<button mat-icon-button matTooltip="Editar" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, false)"-->
+            <!--[disabled]="!selectedValue || !selectedFile">-->
+            <!--<mat-icon>edit</mat-icon>-->
+          <!--</button>-->
+
+
+          <button mat-raised-button mat-sm-button color="primary" (click)="openPopUp(selectedFile, true)" [disabled]="!selectedValue">
             <mat-icon>add</mat-icon>
+            Agregar Cuenta Contable
           </button>
-          <button mat-icon-button matTooltip="Editar" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, false)"
-            [disabled]="!selectedValue || !selectedFile">
+          <button mat-raised-button mat-sm-button color="primary" (click)="openPopUp(selectedFile, false)" [disabled]="!selectedValue || !selectedFile">
             <mat-icon>edit</mat-icon>
+            Editar Cuenta Contable
           </button>
+
+
         </div>
         <div class="bnt-group">
           <button mat-icon-button matTooltip="Listar Cuentas Sin Asignar" mat-sm-button color="primary" class="mr-1" (click)="loadCuentas()"
