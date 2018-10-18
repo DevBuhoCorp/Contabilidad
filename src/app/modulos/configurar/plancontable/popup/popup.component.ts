@@ -12,6 +12,8 @@ export class PopupComponentPC implements OnInit {
   Cuentas = [];
   public itemForm: FormGroup;
   public Diarios: any = [];
+  public Tipos: any = [];
+  public EstadosFinancieros: any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupComponentPC>,
@@ -20,6 +22,7 @@ export class PopupComponentPC implements OnInit {
 
   async CargarCombo() {
     this.Diarios = await this.crudService.SeleccionarAsync("combodiario");
+    this.Tipos = await this.crudService.SeleccionarAsync("combotipoestado");
   }
 
   ngOnInit() {
@@ -43,7 +46,7 @@ export class PopupComponentPC implements OnInit {
         IDDiario: [item.IDDiario || 1, Validators.required],
         Saldo: [item.Saldo || 0, Validators.required],
         Estado: [{ value: (item.Estado || true) }],
-
+        IDTipoEstado: [item.IDTipoEstado || 1, Validators.required],
       });
     }
     else {
@@ -55,7 +58,7 @@ export class PopupComponentPC implements OnInit {
         IDDiario: [item.IDDiario || 1, Validators.required],
         Saldo: [item.Saldo || 0, Validators.required],
         Estado: [{ value: (item.Estado || true) }],
-
+        IDTipoEstado: [item.IDTipoEstado || 1, Validators.required],
       });
     }
   }
@@ -72,8 +75,8 @@ export class PopupComponentPC implements OnInit {
         GrupoCuenta: [{ value: 'Detalle' || '', disabled: true }],
         IDDiario: [item.promise.IDDiario || 1, Validators.required],
         Saldo: [{ value: (item.promise.Saldo), disabled: true }],
-        Estado: [item.promise.Estado || true, Validators.required]
-
+        Estado: [item.promise.Estado || true, Validators.required],
+        IDTipoEstado: [item.promise.IDTipoEstado || 1, Validators.required],
       });
     }
     else {
@@ -84,7 +87,8 @@ export class PopupComponentPC implements OnInit {
         GrupoCuenta: [{ value: 'Total' || '', disabled: true }],
         IDDiario: [item.promise.IDDiario || 1, Validators.required],
         Saldo: [{ value: (item.promise.Saldo), disabled: true }],
-        Estado: [item.promise.Estado || true, Validators.required]
+        Estado: [item.promise.Estado || true, Validators.required],
+        IDTipoEstado: [item.promise.IDTipoEstado || 1, Validators.required],
       });
     }
   }

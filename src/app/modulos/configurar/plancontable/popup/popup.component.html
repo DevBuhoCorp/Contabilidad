@@ -43,6 +43,16 @@
       </mat-form-field>
     </div>
 
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="TipoEstado" placeholder="Tipo de Estado" [formControl]="itemForm.controls['IDTipoEstado']">
+          <mat-option *ngFor="let tipo of Tipos" [value]="tipo.ID" ngDefaultControl>
+            {{tipo.Etiqueta}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div fxFlex="50" class="pt-1 pr-1">
       <mat-slide-toggle [formControl]="itemForm.controls['Estado']">Estado</mat-slide-toggle>
     </div>

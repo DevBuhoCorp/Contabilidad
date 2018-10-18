@@ -39,7 +39,6 @@ export class ContabilizarCComponent implements OnInit {
     //this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA' });
     let data: any = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA' });
     this.items = data.data;
-    console.log(this.items);
     this.items.data = this.crudService.SetBool(this.items.data);
   }
 

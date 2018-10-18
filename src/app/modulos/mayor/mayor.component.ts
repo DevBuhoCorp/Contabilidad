@@ -30,7 +30,7 @@ export class MayorComponent implements OnInit {
   }
 
   nodeSelect(event) {
-    console.log(this.selectedFile);
+   // console.log(this.selectedFile);
   }
 
   expandAll() {
