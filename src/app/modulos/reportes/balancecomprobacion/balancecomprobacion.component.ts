@@ -48,8 +48,8 @@ export class BalancecomprobacionComponent implements OnInit {
 
   ngOnInit() {
     this.getItems();
-    this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
-    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
+    //this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
+    //this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
     // this.getItems();
   }
 

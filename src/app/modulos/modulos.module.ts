@@ -102,6 +102,7 @@ import { TransaccionesComponent } from './transacciones/transacciones.component'
 import { PopupTransaccion } from './transacciones/popup/popup.component';
 import { ListaMayorComponent } from './mayor/lista/lista.component';
 import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
+import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
 
 
 
@@ -197,7 +198,8 @@ import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/bal
     TransaccionesComponent,
     PopupTransaccion,
     ListaMayorComponent,
-    BalancecomprobacionComponent
+    BalancecomprobacionComponent,
+    EstadoresultadoComponent
 
   ],
   providers: [

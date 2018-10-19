@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 interface IMenuItem {
   type: string,       // Possible values: link/dropDown/icon/separator/extLink
@@ -62,9 +62,9 @@ export class NavigationService {
       icon: 'account_balance',
       state: 'modulos/finanzas',
       sub: [
-        {name: 'Banco', state: 'banco'},
-        {name: 'Tipo Cuenta Bancaria', state: 'tipocuentabancaria'},
-        {name: 'Cuentas Bancarias', state: 'cuentabancaria'},
+        { name: 'Banco', state: 'banco' },
+        { name: 'Tipo Cuenta Bancaria', state: 'tipocuentabancaria' },
+        { name: 'Cuentas Bancarias', state: 'cuentabancaria' },
       ]
     },
     {
@@ -74,11 +74,11 @@ export class NavigationService {
       state: 'modulos/configurar',
       sub: [
         //{ name: 'General', state: 'general' },
-        {name: 'Empresa', state: 'empresas'},
-        {name: 'Aplicación', state: 'aplicacion'},
-        {name: 'Diarios Contables', state: 'diarioscontables'},
-        {name: 'Modelos de Planes Contables', state: 'modelosplanescontables'},
-        {name: 'Plan Contable', state: 'plancontable'},
+        { name: 'Empresa', state: 'empresas' },
+        { name: 'Aplicación', state: 'aplicacion' },
+        { name: 'Diarios Contables', state: 'diarioscontables' },
+        { name: 'Modelos de Planes Contables', state: 'modelosplanescontables' },
+        { name: 'Plan Contable', state: 'plancontable' },
 
         //{name: 'Cuentas de Impuesto', state: 'cuentaimpuesto'},
         //{ name: 'Grupos Personalizados', state: 'grupospersonalizados' },
@@ -102,7 +102,7 @@ export class NavigationService {
       icon: 'account_balance_wallet',
       state: 'modulos/contabilizarcliente',
       sub: [
-        {name: 'Líneas a contabilizar', state: 'contabilizar'},
+        { name: 'Líneas a contabilizar', state: 'contabilizar' },
         //{name: 'Líneas contabilizadas', state: 'contabilizada'},
       ]
     },
@@ -155,9 +155,24 @@ export class NavigationService {
       name: 'Reportes',
       type: 'dropDown',
       icon: 'list_alt',
-      state: 'modulos/reportes',
+      state: 'modulos',
       sub: [
-        {name: 'Balance de Comprobación', state: 'balancecomprobacion'},
+        {
+          name: 'Balances',
+          type: 'dropDown',
+          state: 'reportes',
+          sub: [
+            { name: 'Balance de Comprobación', state: 'balancecomprobacion' },
+          ]
+        },
+        {
+          name: 'Estados',
+          type: 'dropDown',
+          state: 'reportes',
+          sub: [
+            { name: 'Estado de Resultados', state: 'estadoresultado' },
+          ]
+        },
       ]
     },
     /*{
