@@ -17,7 +17,8 @@ export class EstadoresultadoComponent implements OnInit {
   }
 
   async getItems() {
-    this.items = await this.crudService.SeleccionarAsync('estadoresultado/' + 11);
+    //this.items = await this.crudService.SeleccionarAsync('estadoresultado/' + 11);
+    this.items = await this.crudService.SeleccionarAsync('report_estadoresultado/' + 11);
   }
 
 
