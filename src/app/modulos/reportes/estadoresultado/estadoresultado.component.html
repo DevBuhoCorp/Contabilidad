@@ -1,5 +1,4 @@
-<mat-card class="p-0">
-
+<!--<mat-card class="p-0">
   <mat-card-content class="p-0">
     <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
        [rowHeight]="'auto'">
@@ -19,5 +18,51 @@
 
     </ngx-datatable>
 
+  </mat-card-content>
+</mat-card>-->
+<mat-card class="p-0">
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Cuentas">
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.resultado" [columnMode]="'flex'" [headerHeight]="50"
+          [footerHeight]="50" [rowHeight]="'auto'">
+
+
+          <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Etiqueta }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Saldo" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Saldo | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+        </ngx-datatable>
+      </mat-tab>
+      <mat-tab label="Utilidades - Impuestos">
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.resultado2" [columnMode]="'flex'" [headerHeight]="50"
+          [footerHeight]="50" [rowHeight]="'auto'">
+
+
+          <ngx-datatable-column name="Utilidades" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Etiqueta }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="valor" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.valor | currency  }}
+              </ng-template>
+            </ngx-datatable-column>
+
+         
+
+        </ngx-datatable>
+      </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>

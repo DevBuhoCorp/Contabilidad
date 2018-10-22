@@ -219,7 +219,7 @@ export const ModulosRoutes: Routes = [
   {
     path: 'reportes/estadoresultado',
     component: EstadoresultadoComponent,
-    data: {title: 'Generar Estado de Resultados', breadcrumb: 'GENERAR ESTADO DE RESULTADOS'}
+    data: {title: 'Estado de Resultados', breadcrumb: 'ESTADO DE RESULTADOS'}
   },
   {
     path: 'saldocuenta', component: SaldocuentaComponent, data: {title: 'Saldo de la cuenta', breadcrumb: 'PROCESAR SALDOS'}
