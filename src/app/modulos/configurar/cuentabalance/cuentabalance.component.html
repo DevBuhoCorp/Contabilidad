@@ -1,0 +1,66 @@
+<div class="m-333">
+
+  <div fxFlex="30" class="pr-1" #Etiqueta >
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedModelo"
+                  (selectionChange)="CargarPlan()">
+        <mat-option *ngFor="let modelo of Modelos | async " [value]="modelo.ID" ngDefaultControl>
+          {{modelo.Etiqueta}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="30" class="pr-1" *ngIf="selectedModelo" >
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione un tipo de balance :" [(ngModel)]="selectedBalance"
+                  (selectionChange)="CargarCuentaBalance()">
+        <mat-option *ngFor="let balance of Balances | async " [value]="balance.ID" ngDefaultControl>
+          {{ balance.Etiqueta }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="30" class="pr-1" *ngIf="selectedBalance">
+    <button mat-raised-button class="mb-05" mat-sm-button color="danger" (click)="reset()"
+            style="margin-left: .25em" >
+      <mat-icon>cancel</mat-icon>
+      Cancelar
+    </button>
+    <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="save()"
+            style="margin-left: .25em" >
+      <mat-icon>save</mat-icon>
+      Guardar
+    </button>
+  </div>
+
+</div>
+
+<mat-card>
+  <mat-card-content>
+
+    <div class="dv" fxFlex="50">
+
+      <p-tree #expandingTree [style]="{'width':'100%'}"
+              [value]="filesTree0"
+              selectionMode="checkbox"
+              [(selection)]="selectedFiles"
+              (onNodeSelect)="nodeSelect($event)">
+      </p-tree>
+
+      <div style="margin-top: 8px">
+        <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()"
+                style="margin-right: .25em" [disabled]="!selectedModelo">
+          <mat-icon>arrow_downward</mat-icon>
+          Expandir Plan Contable
+        </button>
+        <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)"
+                [disabled]="!selectedModelo">
+          <mat-icon>arrow_upward</mat-icon>
+          Contraer Plan Contable
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

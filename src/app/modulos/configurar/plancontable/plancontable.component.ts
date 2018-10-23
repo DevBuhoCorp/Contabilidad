@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
-import { TreeNode } from 'primeng/components/common/api';
+import { Subscription } from 'rxjs/Subscription';import { TreeNode } from 'primeng/components/common/api';
+
 import { TreeDragDropService } from 'primeng/api';
 
 import { PopupComponentPC } from './popup/popup.component';

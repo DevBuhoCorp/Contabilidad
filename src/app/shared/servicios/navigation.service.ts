@@ -79,6 +79,7 @@ export class NavigationService {
         { name: 'Diarios Contables', state: 'diarioscontables' },
         { name: 'Modelos de Planes Contables', state: 'modelosplanescontables' },
         { name: 'Plan Contable', state: 'plancontable' },
+        { name: 'Cuenta Balance', state: 'cuentabalance' },
 
         //{name: 'Cuentas de Impuesto', state: 'cuentaimpuesto'},
         //{ name: 'Grupos Personalizados', state: 'grupospersonalizados' },

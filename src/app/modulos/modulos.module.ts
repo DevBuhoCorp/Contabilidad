@@ -103,7 +103,11 @@ import { PopupTransaccion } from './transacciones/popup/popup.component';
 import { ListaMayorComponent } from './mayor/lista/lista.component';
 import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
+<<<<<<< HEAD
 import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
+=======
+import { CuentabalanceComponent } from './configurar/cuentabalance/cuentabalance.component';
+>>>>>>> origin/kbsg
 
 
 
@@ -201,7 +205,11 @@ import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.comp
     ListaMayorComponent,
     BalancecomprobacionComponent,
     EstadoresultadoComponent,
+<<<<<<< HEAD
     BalancefinalComponent
+=======
+    CuentabalanceComponent
+>>>>>>> origin/kbsg
 
   ],
   providers: [
