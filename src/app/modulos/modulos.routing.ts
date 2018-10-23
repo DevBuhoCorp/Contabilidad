@@ -41,6 +41,7 @@ import {MayorComponent} from './mayor/mayor.component';
 import {ListaMayorComponent} from './mayor/lista/lista.component';
 import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
+import {CuentabalanceComponent} from './configurar/cuentabalance/cuentabalance.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -63,6 +64,11 @@ export const ModulosRoutes: Routes = [
     path: 'configurar/aplicacion',
     component: AplicacionComponent,
     data: {title: 'Aplicación', breadcrumb: 'CONFIGURAR APLICACIÓN'}
+  },
+  {
+    path: 'configurar/cuentabalance',
+    component: CuentabalanceComponent,
+    data: {title: 'Cuenta Balance', breadcrumb: 'CONFIGURAR BALANCE'}
   },
   {
     path: 'finanzas/banco',
