@@ -103,6 +103,7 @@ import { PopupTransaccion } from './transacciones/popup/popup.component';
 import { ListaMayorComponent } from './mayor/lista/lista.component';
 import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
+import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
 
 
 
@@ -199,7 +200,8 @@ import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresul
     PopupTransaccion,
     ListaMayorComponent,
     BalancecomprobacionComponent,
-    EstadoresultadoComponent
+    EstadoresultadoComponent,
+    BalancefinalComponent
 
   ],
   providers: [

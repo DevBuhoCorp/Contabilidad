@@ -163,6 +163,7 @@ export class NavigationService {
           state: 'reportes',
           sub: [
             { name: 'Balance de Comprobación', state: 'balancecomprobacion' },
+            { name: 'Balance Final', state: 'balancefinal' },
           ]
         },
         {

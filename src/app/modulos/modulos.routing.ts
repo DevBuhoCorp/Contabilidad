@@ -41,6 +41,7 @@ import {MayorComponent} from './mayor/mayor.component';
 import {ListaMayorComponent} from './mayor/lista/lista.component';
 import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
+import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -220,6 +221,11 @@ export const ModulosRoutes: Routes = [
     path: 'reportes/estadoresultado',
     component: EstadoresultadoComponent,
     data: {title: 'Estado de Resultados', breadcrumb: 'ESTADO DE RESULTADOS'}
+  },
+  {
+    path: 'reportes/balancefinal',
+    component: BalancefinalComponent,
+    data: {title: 'Balance Final', breadcrumb: 'BALANCE FINAL'}
   },
   {
     path: 'saldocuenta', component: SaldocuentaComponent, data: {title: 'Saldo de la cuenta', breadcrumb: 'PROCESAR SALDOS'}
