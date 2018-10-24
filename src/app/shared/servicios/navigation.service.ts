@@ -175,6 +175,14 @@ export class NavigationService {
             { name: 'Estado de Resultados', state: 'estadoresultado' },
           ]
         },
+        {
+          name: 'Hojas',
+          type: 'dropDown',
+          state: 'reportes',
+          sub: [
+            { name: 'Hoja de Trabajo', state: 'hojatrabajo' },
+          ]
+        },
       ]
     },
     /*{

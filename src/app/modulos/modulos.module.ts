@@ -105,6 +105,7 @@ import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/bal
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
 import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
 import { CuentabalanceComponent } from './configurar/cuentabalance/cuentabalance.component';
+import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.component';
 
 
 
@@ -203,7 +204,8 @@ import { CuentabalanceComponent } from './configurar/cuentabalance/cuentabalance
     BalancecomprobacionComponent,
     EstadoresultadoComponent,
     BalancefinalComponent,
-    CuentabalanceComponent
+    CuentabalanceComponent,
+    HojatrabajoComponent
 
   ],
   providers: [

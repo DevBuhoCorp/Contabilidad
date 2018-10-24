@@ -43,6 +43,7 @@ import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/bal
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
 import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
 import {CuentabalanceComponent} from './configurar/cuentabalance/cuentabalance.component';
+import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -232,6 +233,11 @@ export const ModulosRoutes: Routes = [
     path: 'reportes/balancefinal',
     component: BalancefinalComponent,
     data: {title: 'Balance Final', breadcrumb: 'BALANCE FINAL'}
+  },
+  {
+    path: 'reportes/hojatrabajo',
+    component: HojatrabajoComponent,
+    data: {title: 'Hoja de Trabajo', breadcrumb: 'HOJA DE TRABAJO'}
   },
   {
     path: 'saldocuenta', component: SaldocuentaComponent, data: {title: 'Saldo de la cuenta', breadcrumb: 'PROCESAR SALDOS'}

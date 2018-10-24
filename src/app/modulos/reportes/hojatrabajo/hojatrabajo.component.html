@@ -1,0 +1,113 @@
+<mat-card class="p-0">
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Balance de Comprobación">
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.comprobacion" [columnMode]="'flex'"
+          [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'">
+
+
+          <ngx-datatable-column name="Cuentas" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Etiqueta }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Debe" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Deudor | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Haber" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Acreedor | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+
+        </ngx-datatable>
+      </mat-tab>
+
+      <mat-tab label="Estado de Resultados">
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.resultado" [columnMode]="'flex'" [headerHeight]="50"
+          [footerHeight]="50" [rowHeight]="'auto'">
+
+
+          <ngx-datatable-column name="Cuentas" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Etiqueta }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Débito" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Deudor | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Crédito" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Acreedor | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+        </ngx-datatable>
+      </mat-tab>
+
+      <mat-tab label="Balance Final">
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.final" [columnMode]="'flex'" [headerHeight]="50"
+          [footerHeight]="50" [rowHeight]="'auto'">
+
+
+          <ngx-datatable-column name="Cuentas" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Etiqueta }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Deudor" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Deudor | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Acreedor" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Acreedor | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+        </ngx-datatable>
+      </mat-tab>
+
+      <mat-tab label="Suman">
+
+        <ngx-datatable class="material ml-0 mr-0" [rows]="items.suman" [columnMode]="'flex'" [headerHeight]="50"
+          [footerHeight]="50" [rowHeight]="'auto'">
+
+
+          <ngx-datatable-column name="Cuentas" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Etiqueta }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Debe" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Debe | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Haber" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.Haber | currency }}
+            </ng-template>
+          </ngx-datatable-column>
+
+        </ngx-datatable>
+
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

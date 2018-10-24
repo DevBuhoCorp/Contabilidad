@@ -75,7 +75,7 @@ export class BalancecomprobacionComponent implements OnInit {
 
 
     let data: any = await this.crudService.SeleccionarAsync('transaccion', params);*/
-    this.items = await this.crudService.SeleccionarAsync('balance_comprobacion/' + 11);
+    this.items = await this.crudService.SeleccionarAsync('balance_comprobacion/' + 11); 
     this.items.map(i => {
       this.TotalDebe = this.TotalDebe + Number(i.Debe);
       this.TotalHaber = this.TotalHaber + Number(i.Haber);
