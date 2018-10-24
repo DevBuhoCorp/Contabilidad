@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from '../../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-balancefinal',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class BalancefinalComponent implements OnInit {
+  items: any = [];
+  constructor(private crudService: CrudService) {
+  }
 
-  constructor() { }
 
   ngOnInit() {
+    this.getItems();
+
   }
+
+  async getItems() {
+    this.items = await this.crudService.SeleccionarAsync('report_balancefinal');
+  }
+
+
 
 }

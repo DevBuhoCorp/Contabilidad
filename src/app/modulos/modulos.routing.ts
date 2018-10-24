@@ -41,11 +41,8 @@ import {MayorComponent} from './mayor/mayor.component';
 import {ListaMayorComponent} from './mayor/lista/lista.component';
 import { BalancecomprobacionComponent } from './reportes/balancecomprobacion/balancecomprobacion.component';
 import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresultado.component';
-<<<<<<< HEAD
 import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
-=======
 import {CuentabalanceComponent} from './configurar/cuentabalance/cuentabalance.component';
->>>>>>> origin/kbsg
 
 
 export const ModulosRoutes: Routes = [
