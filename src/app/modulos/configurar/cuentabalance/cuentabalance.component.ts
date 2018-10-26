@@ -53,10 +53,10 @@ export class CuentabalanceComponent implements OnInit {
   }
 
   save() {
-    let nodes_filter = this.selectedFiles.filter(row => row.IDGrupoCuenta == 2);
+    let nodes_filter = this.selectedFiles.filter(row => row["IDGrupoCuenta"] == 2);
     let ids = nodes_filter.map(row => {
       return {
-        IDPlanContable: row.ID,
+        IDPlanContable: row["ID"],
         IDBalance: this.selectedBalance,
         Estado: 'ACT'
       };
@@ -102,7 +102,7 @@ export class CuentabalanceComponent implements OnInit {
 
   private selectNode(node: TreeNode, isExpand: boolean) {
     node.expanded = isExpand;
-    if (this.itemsSelect.find((data) => node.ID == data.ID)) {
+    if (this.itemsSelect.find((data) => node["ID"] == data["ID"])) {
       this.selectedFiles = this.selectedFiles.concat(node);
     }
     if (node.children) {

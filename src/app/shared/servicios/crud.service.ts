@@ -20,6 +20,16 @@ export class CrudService {
     return this.httpClient.get(this.puerto + api, { params: param, headers: headerOptions }).toPromise();
   }
 
+  login(api, objeto) {
+    var body = objeto;
+    var headerOptions = new Headers();
+    headerOptions.append('Access-Control-Allow-Origin' , '*');
+    headerOptions.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+    headerOptions.append('Accept','application/json');
+    headerOptions.append('Content-type','application/json');
+    var requestOptions = new RequestOptions({ headers: headerOptions });
+    return this.http.post(this.puerto + api, body, requestOptions).map(res => res.json());
+  }
 
   SetBool(datos) {
     let index = 0;
@@ -35,6 +45,7 @@ export class CrudService {
     }
     return datos;
   }
+
   _listParams(api, params?) {
     return this.httpClient.post(this.puerto + api + '/list', params).toPromise();
   }
@@ -51,7 +62,6 @@ export class CrudService {
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
     return this.http.post(this.puerto + api, body, requestOptions).map(res => res.json());
-
   }
 
   Eliminar(ID, api) {

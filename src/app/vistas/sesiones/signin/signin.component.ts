@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatProgressBar, MatButton } from '@angular/material';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatProgressBar, MatButton} from '@angular/material';
+import {Validators, FormGroup, FormControl} from '@angular/forms';
+import {CrudService} from '../../../shared/servicios/crud.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,26 +14,38 @@ export class SigninComponent implements OnInit {
 
   signinForm: FormGroup;
 
-  constructor() { }
+  constructor(private crudService: CrudService) {
+  }
 
   ngOnInit() {
     this.signinForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       rememberMe: new FormControl(false)
-    })
+    });
   }
 
   signin() {
-    const signinData = this.signinForm.value
+    const signinData = this.signinForm.value;
     console.log(signinData);
 
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';
     //ENTRAR
+
+    this.crudService.login('oauth/token', {
+      grant_type: 'password',
+      scope: '*',
+      client_id: '2',
+      client_secret: 'bHtHIdw5dIWoVR7sx6Qm9SBgDl8BihjfO57nGDQu',
+      username: signinData.username,
+      password: signinData.password
+    }).subscribe(data => {
+      console.log(data);
+    });
     let origin = window.location.origin;
-    return window.location.href = `${origin}/dashboard/`;
-    
+    //return window.location.href = `${origin}/dashboard/`;
+
   }
 }
 
