@@ -39,13 +39,13 @@ export class NavigationService {
       icon: 'dashboard',
       state: 'dashboard'
     },
-    {
+    /*{
       name: 'PROFILE',
       type: 'icon',
       tooltip: 'Perfil',
       icon: 'person',
       state: 'profile/overview'
-    },
+    },*/
     {
       type: 'separator',
       name: 'Items Principales'
@@ -56,6 +56,16 @@ export class NavigationService {
        icon: 'account_balance',
        state: 'modulos/contabilidad',
      },*/
+    {
+      name: 'Nomina',
+      type: 'dropDown',
+      icon: 'person',
+      state: 'modulos/nomina',
+      sub: [
+        { name: 'Usuario', state: 'usuario' },
+        { name: 'Roles', state: 'roles' },
+      ]
+    },
     {
       name: 'Finanzas',
       type: 'dropDown',

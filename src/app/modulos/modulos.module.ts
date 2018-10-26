@@ -78,7 +78,7 @@ import {GpredefinidoComponent} from './informes/resultado/gpredefinido/gpredefin
 import {GpersonalizadoComponent} from './informes/resultado/gpersonalizado/gpersonalizado.component';
 import {InformeGrupoPService} from './informes/resultado/gpersonalizado/gpersonalizado.service';
 import {ClienteComponent} from './informes/ventas/cliente/cliente.component';
-import {UsuarioComponent} from './informes/ventas/usuario/usuario.component';
+import {UsuarioComponent} from './nomina/usuario/usuario.component';
 import {ProductosComponent} from './informes/ventas/productos/productos.component';
 import {PopupLibroMayor} from './libromayor/popup/popup.component';
 import {LibroMayorService} from './libromayor/libromayor.service';
@@ -106,6 +106,9 @@ import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresul
 import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
 import { CuentabalanceComponent } from './configurar/cuentabalance/cuentabalance.component';
 import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.component';
+import { RolesComponent } from './nomina/roles/roles.component';
+import { PopupComponentAplicacion } from './configurar/aplicacion/popup/popup.component';
+import { PopupComponentRoles } from './nomina/roles/popup/popup.component';
 
 
 
@@ -205,7 +208,10 @@ import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.compone
     EstadoresultadoComponent,
     BalancefinalComponent,
     CuentabalanceComponent,
-    HojatrabajoComponent
+    HojatrabajoComponent,
+    RolesComponent,
+    PopupComponentAplicacion,
+    PopupComponentRoles
 
   ],
   providers: [
@@ -238,7 +244,9 @@ import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.compone
     TokenComponent,
     PopupComponentBanco,
     PopupComponentTCBancaria,
-    PopupTransaccion
+    PopupTransaccion,
+    PopupComponentAplicacion,
+    PopupComponentRoles
   ]
 })
 export class ModulosModule {

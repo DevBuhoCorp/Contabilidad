@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CrudService} from '../../../shared/servicios/crud.service';
 import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
-import {PopupComponentEmpresa} from '../empresa/popup/popup.component';
+import { PopupComponentAplicacion } from '../aplicacion/popup/popup.component';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {Router} from '@angular/router';
@@ -61,7 +61,7 @@ export class AplicacionComponent implements OnInit {
 
   async openPopUp(data: any = {}, isNew?){
     let title = isNew ? 'Agregar' : 'Actualizar';
-    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentEmpresa, {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentAplicacion, {
       width: '720px',
       disableClose: true,
       data: { title: title, payload: data }
