@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../../../shared/servicios/crud.service';
-
+import { ExcelService } from '../../../shared/servicios/excel.service';
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-balancefinal',
   templateUrl: './balancefinal.component.html',
@@ -8,7 +9,7 @@ import { CrudService } from '../../../shared/servicios/crud.service';
 })
 export class BalancefinalComponent implements OnInit {
   items: any = [];
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private excelService: ExcelService) {
   }
 
 
@@ -19,6 +20,16 @@ export class BalancefinalComponent implements OnInit {
 
   async getItems() {
     this.items = await this.crudService.SeleccionarAsync('report_balancefinal');
+  }
+
+  exportar(): void {
+  
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.items.activos);
+    const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.items.pasivos);
+    const worksheet3: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.items.patrimonio);
+    this.excelService.exporthojas({ 'Activos': worksheet, 'Pasivos': worksheet2, 'Patrimonio': worksheet3 }, ['Activos','Pasivos', 'Patrimonio'], 'Balance Final');
+   
+
   }
 
 

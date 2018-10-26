@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudService } from '../../../shared/servicios/crud.service';
+import { ExcelService } from '../../../shared/servicios/excel.service';
 
 @Component({
   selector: 'app-lista',
@@ -27,6 +28,7 @@ export class ListaMayorComponent implements OnInit {
   };
   IDTransaccion;
   Saldo = 0;
+  Etiqueta = 0;
 
   /*  */
   selTCuenta: any;
@@ -56,6 +58,7 @@ export class ListaMayorComponent implements OnInit {
   public TotalHaber: number = 0;
   constructor(private router: ActivatedRoute,
     private crudService: CrudService,
+    private excelService: ExcelService,
   ) { }
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class ListaMayorComponent implements OnInit {
 
     this.router.params.subscribe(async (params) => {
       this.IDTransaccion = params['id'];
+      this.Etiqueta = params['etiqueta'];
       this.getItems();
 
       
@@ -108,6 +112,16 @@ export class ListaMayorComponent implements OnInit {
 
     this.getItems(event.offset + 1);
 
+  }
+
+  exportar(): void {
+    this.crudService.Seleccionar('export_libromayor/' + this.IDTransaccion).map((response) => {
+      return response.json();
+    }).toPromise().then(x => {
+      this.excelService.exportAsExcelFile(x, 'Mayor de' + this.Etiqueta);
+
+    });
+   
   }
 
 }

@@ -1,3 +1,12 @@
+<div class="m-333" style="display: flex; justify-content: space-between;">
+
+  <button mat-raised-button class="mb-05" color="primary" (click)="exportar()">
+    Exportar Archivo Excel
+  </button>
+
+</div>
+
+
 <mat-card class="p-0">
   <mat-card-content>
     <mat-tab-group>
@@ -55,7 +64,7 @@
       <mat-tab label="Patrimonio">
         <mat-card-title class="mat-bg-primary m-0">
           <div class="card-title-text">
-            <span>Total Activos: {{items.sumapatrimonio | currency}}</span>
+            <span>Total Pasivos: {{items.sumapatrimonio | currency}}</span>
           </div>
           <mat-divider></mat-divider>
         </mat-card-title>

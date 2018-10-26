@@ -10,6 +10,7 @@ import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-con
 import { CrudService } from '../../../shared/servicios/crud.service';
 
 import { HttpClient } from '@angular/common/http';
+import { ExcelService } from '../../../shared/servicios/excel.service';
 
 @Component({
   selector: 'app-plancontable', 
@@ -46,6 +47,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private excelService: ExcelService,
   ) {
     /* this.crudService.ListarDatos('combomodelo', 'All', 0).map((response) => {
        return response.json() as ModeloPlanContable[];
@@ -195,6 +197,11 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         this.expandRecursive(childNode, isExpand);
       });
     }
+  }
+
+  exportar(): void {
+    this.excelService.exportAsExcelFile(this.filesTree0, 'PlanContable');
+
   }
 
 
