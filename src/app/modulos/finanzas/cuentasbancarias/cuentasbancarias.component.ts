@@ -43,9 +43,11 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
 
   async getItems(indice = 1) {
     this.items = await this.crudService.SeleccionarAsync('cuentabancaria', { page: indice, psize: this.selPageSize, empresa: this.selEmpresa });
+    this.items.data = this.crudService.SetBool(this.items.data);
   }
 
   openPopUp(data: any = {}, isNew?) {
+
     let title = isNew ? 'Agregar' : 'Actualizar';
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentCB, {
       width: '720px',

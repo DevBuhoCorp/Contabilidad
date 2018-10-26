@@ -55,6 +55,7 @@ export class PopupComponentCB implements OnInit {
     this.buildItemForm(this.data.payload);
   }
   buildItemForm(item) {
+    console.log(item);
     this.itemForm = this.fb.group({
       // Etiqueta: [item.Etiqueta || '', Validators.required],
       NumeroCuenta: [item.NumeroCuenta || '', Validators.required],

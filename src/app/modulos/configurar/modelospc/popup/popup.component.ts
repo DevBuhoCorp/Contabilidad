@@ -26,7 +26,7 @@ export class PopupComponentMPC implements OnInit {
     this.itemForm = this.fb.group({
       Modelo: [item.Modelo || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
       Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
-      Estado: [item.Estado || false, Validators.required]
+      Estado: [ item.Estado == 'ACT' || false ],
     })
   }
 
