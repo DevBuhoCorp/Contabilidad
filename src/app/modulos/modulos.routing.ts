@@ -202,7 +202,7 @@ export const ModulosRoutes: Routes = [
     data: {title: 'Libro Mayor', breadcrumb: 'PROCESAR LIBRO MAYOR'}
   },
   {
-    path: 'mayor/lista/:id',
+    path: 'mayor/lista/:id/:etiqueta',
     component: ListaMayorComponent,
     data: {title: 'Detalles Transacción', breadcrumb: 'VISUALIZAR DETALLES DE TRANSACCIÓN'}
   },
@@ -215,7 +215,7 @@ export const ModulosRoutes: Routes = [
     data: {title: 'Nueva Transacción', breadcrumb: 'INGRESAR NUEVA TRANSACCIÓN'}
   },
   {
-    path: 'libromayor/lista/:id',
+    path: 'libromayor/lista/:id/:etiqueta',
     component: ListaDetallesComponent,
     data: {title: 'Detalles Transacción', breadcrumb: 'VISUALIZAR DETALLES DE TRANSACCIÓN'}
   },

@@ -6,6 +6,7 @@ import { AppConfirmService } from '../../shared/servicios/app-confirm/app-confir
 import { PopupLibroMayor } from './popup/popup.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CrudService } from '../../shared/servicios/crud.service';
+import { ExcelService } from '../../shared/servicios/excel.service';
 
 @Component({
   selector: 'app-libromayor',
@@ -30,20 +31,20 @@ export class LibromayorComponent implements OnInit {
   dtpInicio: any;
   dtpFin: any;
   tcuentas: any[] = [
-    {'Descripcion': 'Todos', 'Cod': 'ALL'},
-    {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
-    {'Descripcion': 'Adeudora', 'Cod': 'ADEU'}
+    { 'Descripcion': 'Todos', 'Cod': 'ALL' },
+    { 'Descripcion': 'Acredora', 'Cod': 'ACRE' },
+    { 'Descripcion': 'Adeudora', 'Cod': 'ADEU' }
   ];
   ttransacions: any[] = [
-    {'Descripcion': 'Todos', 'Cod': 'ALL'},
-    {'Descripcion': 'Manual', 'Cod': 'manual'},
-    {'Descripcion': 'Aplicación', 'Cod': 'app'}
+    { 'Descripcion': 'Todos', 'Cod': 'ALL' },
+    { 'Descripcion': 'Manual', 'Cod': 'manual' },
+    { 'Descripcion': 'Aplicación', 'Cod': 'app' }
   ];
 
 
 
   selApp: any;
-  aplicacions: any; 
+  aplicacions: any;
 
   checked = false;
   public Debe: number = 0;
@@ -65,11 +66,8 @@ export class LibromayorComponent implements OnInit {
   public getItemSub: Subscription;
 
   constructor(
-    private dialog: MatDialog,
-    private snack: MatSnackBar,
     private crudService: CrudService,
-    private loader: AppLoaderService,
-    private confirmService: AppConfirmService,
+    private excelService: ExcelService,
     private fb: FormBuilder) {
     this.buildItemForm();
   }
@@ -88,17 +86,17 @@ export class LibromayorComponent implements OnInit {
       Estado: 'ACT'
     };
     if (this.selTTransaccion !== 'ALL') {
-      params['ttransaccion']= this.selTTransaccion;
-      if(this.selTTransaccion == 'app' && this.selApp != 'ALL')
-        params['app']= this.selApp;
+      params['ttransaccion'] = this.selTTransaccion;
+      if (this.selTTransaccion == 'app' && this.selApp != 'ALL')
+        params['app'] = this.selApp;
     }
     if (this.selTCuenta !== 'ALL')
-      params['tcuenta']= this.selTCuenta;
+      params['tcuenta'] = this.selTCuenta;
 
-    if( this.dtpInicio )
-      params['FInicio']= this.dtpInicio.toDateString();
-    if( this.dtpFin )
-      params['FFin']= this.dtpFin.toDateString();
+    if (this.dtpInicio)
+      params['FInicio'] = this.dtpInicio.toDateString();
+    if (this.dtpFin)
+      params['FFin'] = this.dtpFin.toDateString();
 
 
     let data: any = await this.crudService.SeleccionarAsync('transaccion', params);
@@ -135,6 +133,18 @@ export class LibromayorComponent implements OnInit {
     this.TotalDebe = 0;
     this.TotalHaber = 0;
     this.getItems(event.offset + 1);
+
+  }
+
+  exportar(): void {
+
+    this.crudService.Seleccionar('export_librodiario').map((response) => {
+      return response.json();
+    }).toPromise().then(x => {
+      this.excelService.exportAsExcelFile(x, 'Libro Diario');
+    });
+
+    
 
   }
 }

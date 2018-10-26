@@ -54,6 +54,7 @@ import { DropdownAnchorDirective } from './directives/dropdown-anchor.directive'
 import { DropdownLinkDirective } from './directives/dropdown-link.directive';
 import { CrudService } from './servicios/crud.service';
 import { HttpClientModule } from '../../../node_modules/@angular/common/http';
+import { ExcelService } from './servicios/excel.service';
 const classesToInclude = [
   
   
@@ -105,7 +106,8 @@ const classesToInclude = [
     NavigationService,
     RoutePartsService,
     AuthGuard,
-    CrudService
+    CrudService,
+    ExcelService
   ],
   declarations: classesToInclude,
   exports: classesToInclude
