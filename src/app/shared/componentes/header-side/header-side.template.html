@@ -32,10 +32,10 @@
     </mat-grid-list>
   </mat-menu>
   <!-- Botón de alternar notificación -->
-  <button mat-icon-button matTooltip="Notifications" (click)="toggleNotific()" [style.overflow]="'visible'" class="topbar-button-right">
-    <mat-icon>notifications</mat-icon>
-    <span class="notification-number mat-bg-warn">0</span>
-  </button>
+  <!--<button mat-icon-button matTooltip="Notifications" (click)="toggleNotific()" [style.overflow]="'visible'" class="topbar-button-right">-->
+    <!--<mat-icon>notifications</mat-icon>-->
+    <!--<span class="notification-number mat-bg-warn">0</span>-->
+  <!--</button>-->
   <!--Menú de usuario superior izquierdo -->
   <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right img-button">
     <img src="assets/images/face-7.jpg" alt="">
@@ -45,14 +45,14 @@
       <mat-icon>account_box</mat-icon>
       <span>Perfil</span>
     </button>
-    <button mat-menu-item [routerLink]="['/profile/settings']">
-      <mat-icon>settings</mat-icon>
-      <span>Configuraciones de la cuenta</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Deshabilitar alertas</span>
-    </button>
+    <!--<button mat-menu-item [routerLink]="['/profile/settings']">-->
+      <!--<mat-icon>settings</mat-icon>-->
+      <!--<span>Configuraciones de la cuenta</span>-->
+    <!--</button>-->
+    <!--<button mat-menu-item>-->
+      <!--<mat-icon>notifications_off</mat-icon>-->
+      <!--<span>Deshabilitar alertas</span>-->
+    <!--</button>-->
     <button mat-menu-item [routerLink]="['/sesiones/signin']">
       <mat-icon>exit_to_app</mat-icon>
       <span>Desconectarse</span>
