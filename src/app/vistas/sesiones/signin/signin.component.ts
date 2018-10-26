@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatProgressBar, MatButton} from '@angular/material';
 import {Validators, FormGroup, FormControl} from '@angular/forms';
 import {CrudService} from '../../../shared/servicios/crud.service';
+import {AuthGuard} from '../../../shared/servicios/auth/auth.guard';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +15,8 @@ export class SigninComponent implements OnInit {
 
   signinForm: FormGroup;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private authGuard:AuthGuard) {
+    console.log(this.authGuard)
   }
 
   ngOnInit() {
@@ -31,6 +33,7 @@ export class SigninComponent implements OnInit {
 
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';
+    let origin = window.location.origin;
     //ENTRAR
 
     this.crudService.login('oauth/token', {
@@ -41,10 +44,15 @@ export class SigninComponent implements OnInit {
       username: signinData.username,
       password: signinData.password
     }).subscribe(data => {
-      console.log(data);
+
+      if(data.access_token){
+        localStorage.setItem('authToken', data.access_token);
+        localStorage.setItem('tokenType', data.token_type);
+        return window.location.href = `${origin}/dashboard/`;
+      }
     });
-    let origin = window.location.origin;
-    //return window.location.href = `${origin}/dashboard/`;
+
+
 
   }
 }
