@@ -102,11 +102,7 @@ export class CuentabalanceComponent implements OnInit {
 
   private selectNode(node: TreeNode, isExpand: boolean) {
     node.expanded = isExpand;
-<<<<<<< HEAD
-    if (this.itemsSelect.find((data:any) => node.ID == data.ID)) {
-=======
     if (this.itemsSelect.find((data) => node["ID"] == data["ID"])) {
->>>>>>> origin/kbsg
       this.selectedFiles = this.selectedFiles.concat(node);
     }
     if (node.children) {
