@@ -109,6 +109,7 @@ import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.compone
 import { RolesComponent } from './nomina/roles/roles.component';
 import { PopupComponentAplicacion } from './configurar/aplicacion/popup/popup.component';
 import { PopupComponentRoles } from './nomina/roles/popup/popup.component';
+import { PopupComponentUser } from './nomina/usuario/popup/popup.component';
 
 
 
@@ -211,7 +212,8 @@ import { PopupComponentRoles } from './nomina/roles/popup/popup.component';
     HojatrabajoComponent,
     RolesComponent,
     PopupComponentAplicacion,
-    PopupComponentRoles
+    PopupComponentRoles,
+    PopupComponentUser
 
   ],
   providers: [
@@ -246,7 +248,8 @@ import { PopupComponentRoles } from './nomina/roles/popup/popup.component';
     PopupComponentTCBancaria,
     PopupTransaccion,
     PopupComponentAplicacion,
-    PopupComponentRoles
+    PopupComponentRoles,
+    PopupComponentUser
   ]
 })
 export class ModulosModule {
