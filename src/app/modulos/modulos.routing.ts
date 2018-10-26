@@ -28,7 +28,7 @@ import {SaldocuentaComponent} from './saldocuenta/saldocuenta.component';
 import {GpredefinidoComponent} from './informes/resultado/gpredefinido/gpredefinido.component';
 import {GpersonalizadoComponent} from './informes/resultado/gpersonalizado/gpersonalizado.component';
 import {ClienteComponent} from './informes/ventas/cliente/cliente.component';
-import {UsuarioComponent} from './informes/ventas/usuario/usuario.component';
+import {UsuarioComponent} from './nomina/usuario/usuario.component';
 import {ViewmodelopcComponent} from './configurar/modelospc/viewmodelopc/viewmodelopc.component';
 import {EmpresaComponent} from './configurar/empresa/empresa.component';
 import {AplicacionComponent} from './configurar/aplicacion/aplicacion.component';
@@ -44,6 +44,7 @@ import { EstadoresultadoComponent } from './reportes/estadoresultado/estadoresul
 import { BalancefinalComponent } from './reportes/balancefinal/balancefinal.component';
 import {CuentabalanceComponent} from './configurar/cuentabalance/cuentabalance.component';
 import { HojatrabajoComponent } from './reportes/hojatrabajo/hojatrabajo.component';
+import {RolesComponent} from './nomina/roles/roles.component';
 
 
 export const ModulosRoutes: Routes = [
@@ -56,6 +57,16 @@ export const ModulosRoutes: Routes = [
     path: 'configurar/general',
     component: GeneralComponent,
     data: {title: 'Configuraciones Generales', breadcrumb: 'CONFIGURACIÓN GENERAL'}
+  },
+  {
+    path: 'nomina/usuario',
+    component: UsuarioComponent,
+    data: {title: 'Configuración Nomina', breadcrumb: 'CONFIGURACIÓN USUARIO'}
+  },
+  {
+    path: 'nomina/roles',
+    component: RolesComponent,
+    data: {title: 'Configuración Nomina', breadcrumb: 'CONFIGURACIÓN ROLES'}
   },
   {
     path: 'configurar/empresas',
@@ -256,11 +267,6 @@ export const ModulosRoutes: Routes = [
     path: 'ventas/cliente',
     component: ClienteComponent,
     data: {title: 'Volumen de Ventas', breadcrumb: 'PROCESAR VOLUMEN DE VENTAS POR CLIENTE'}
-  },
-  {
-    path: 'ventas/usuario',
-    component: UsuarioComponent,
-    data: {title: 'Volumen de Ventas', breadcrumb: 'PROCESAR VOLUMEN DE VENTAS POR USUARIO'}
   },
 
 ];

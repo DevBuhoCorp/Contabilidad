@@ -11,7 +11,7 @@
 </div>
 
 <div class="m-333">
-  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Nueva Cuenta Financiera</button>
+  <button mat-raised-button class="mb-05" color="primary" [disabled]="!selEmpresa" (click)="openPopUp({}, true)">Nueva Cuenta Financiera</button>
 </div>
 
 <mat-card class="p-0">
