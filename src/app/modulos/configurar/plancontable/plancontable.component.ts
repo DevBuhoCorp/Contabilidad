@@ -63,6 +63,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.CargarCombo();
+    
+
   }
 
   CargarPlan() {
@@ -70,6 +72,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       return response.json();
     }).toPromise().then(x => {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
+      console.log(this.filesTree0);
     });
 
   }
@@ -120,6 +123,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
+            //this.selectedFile = null;
+            this.selectedFile_2 = null;
           });
         } else {
           this.crudService.Actualizar(data.data, res, 'cuentacontable/').subscribe(data => {
