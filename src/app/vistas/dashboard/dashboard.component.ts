@@ -39,11 +39,11 @@ export class DashboardComponent implements OnInit {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
   }];
-   lineChartData: Array <any> = [{
+  lineChartData: Array<any> = [{
     data: [],
     borderWidth: 1
   }];
-  lineChartLabels:any=[];
+  lineChartLabels: any = [];
   lineChartOptions: any = Object.assign({
     animation: false,
     scales: {
@@ -109,23 +109,27 @@ export class DashboardComponent implements OnInit {
       }
     }
   }, this.sharedChartOptions);
-
+  topcuentas: any = [];
+  top:number;
   constructor(private crudService: CrudService) { }
   ngOnInit() {
-    this.getdata();
+    this.gettrans();
+    this.gettopcuentas();
 
   }
-  async getdata() {
+  async gettrans() {
     let clone = JSON.parse(JSON.stringify(this.lineChartData));
-    
-    
-    let datos:any = await this.crudService.SeleccionarAsync("transpormes");
-    this.lineChartData = datos.map(i=>{
-        clone[0].data.push(i.data);
-        //this.lineChartData[0].data.push(i.data);
-        this.lineChartLabels.push(i.label);
+    let datos: any = await this.crudService.SeleccionarAsync("transpormes/" + 1);
+    this.lineChartData = datos.map(i => {
+      clone[0].data.push(i.data);
+      this.lineChartLabels.push(i.label);
     })
     this.lineChartData = clone
+  }
+
+  async gettopcuentas() {
+    this.topcuentas = await this.crudService.SeleccionarAsync("topcuentas/" + 11);
+    this.top = this.topcuentas[0].Saldo;
     
   }
 }
