@@ -22,7 +22,7 @@ export class PopupComponentUser implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.roles = this.crudService.SeleccionarAsync('rol/combo');
+    this.roles = this.crudService.SeleccionarAsync('rol_combo');
     this.buildItemForm(this.data.payload);
   }
 
