@@ -20,6 +20,10 @@ export class CrudService {
     return this.http.get(this.puerto + api, { params: param, headers: this.header });
   }
 
+  Ejecutar(api, param?) {
+    return this.http.get(this.puerto + api, { params: param, headers: this.header });
+  }
+
   SeleccionarAsync(api, param?) {
     var headerOptions = new HttpHeaders( this.header.toJSON() )
     return this.httpClient.get(this.puerto + api, { params: param, headers: headerOptions }).toPromise();

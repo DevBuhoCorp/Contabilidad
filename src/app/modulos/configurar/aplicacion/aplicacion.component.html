@@ -50,10 +50,10 @@
           <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['estacion', row.ID]" >
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" [routerLink]="['estacion', row.ID]" >
             <mat-icon>list</mat-icon>
           </button>
         </ng-template>

@@ -41,7 +41,10 @@
           <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID]">
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="habilitarMPC(row)">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" [routerLink]="['lista', row.ID]">
             <mat-icon>list</mat-icon>
           </button>
         </ng-template>
