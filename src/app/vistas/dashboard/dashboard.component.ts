@@ -43,7 +43,14 @@ export class DashboardComponent implements OnInit {
     data: [],
     borderWidth: 1
   }];
+  
+  barChartData: any[] = [{
+    data: [],
+    borderWidth: 0
+  }];
+  
   lineChartLabels: any = [];
+  barChartLabels: any[] = [];
   lineChartOptions: any = Object.assign({
     animation: false,
     scales: {
@@ -67,6 +74,30 @@ export class DashboardComponent implements OnInit {
   }, this.sharedChartOptions);
   public lineChartLegend: boolean = false;
   public lineChartType: string = 'line';
+  public barChartType = 'bar';
+  public barChartLegend = true;
+  public barChartOptions: any = Object.assign({
+    scaleShowVerticalLines: false,
+    scales: {
+      xAxes: [{
+        gridLines: {
+          color: 'rgba(0,0,0,0.02)',
+          zeroLineColor: 'rgba(0,0,0,0.02)'
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          color: 'rgba(0,0,0,0.02)',
+          zeroLineColor: 'rgba(0,0,0,0.02)'
+        },
+        position: 'left',
+        ticks: {
+          beginAtZero: true,
+          suggestedMax: 9
+        }
+      }]
+    }
+  }, this.sharedChartOptions);
   lineChartPointsData: Array<any> = [{
     data: [6, 5, 8, 8, 5, 5, 4],
     label: 'Series A',
@@ -110,12 +141,17 @@ export class DashboardComponent implements OnInit {
     }
   }, this.sharedChartOptions);
   topcuentas: any = [];
-  top:number;
+  top: number;
+  topm: number;
+  totales: any = [];
+  porcentaje: number;
+  movimientos:any=[];
   constructor(private crudService: CrudService) { }
   ngOnInit() {
     this.gettrans();
     this.gettopcuentas();
-
+    this.getporcentaje();
+    this.getmovimiento();
   }
   async gettrans() {
     let clone = JSON.parse(JSON.stringify(this.lineChartData));
@@ -130,6 +166,18 @@ export class DashboardComponent implements OnInit {
   async gettopcuentas() {
     this.topcuentas = await this.crudService.SeleccionarAsync("topcuentas/" + 11);
     this.top = this.topcuentas[0].Saldo;
-    
+  }
+  async getporcentaje() {
+    this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + 1);
+    this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
+  }
+  async getmovimiento() {
+    let clone = JSON.parse(JSON.stringify(this.barChartData));
+    let datos: any = await this.crudService.SeleccionarAsync("movimiento/" + 11);
+    this.barChartData = datos.map(i => {
+      clone[0].data.push(i.data);
+      this.barChartLabels.push(i.label);
+    })
+    this.barChartData = clone
   }
 }
