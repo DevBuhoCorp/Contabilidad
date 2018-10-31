@@ -48,7 +48,7 @@ export class RolesComponent implements OnInit {
       disableClose: true,
       data: { title: title, payload: data }
     });
-    dialogRef.afterClosed()
+    dialogRef.afterClosed() 
       .subscribe(res => {
         if (!res) {
           // If user press cancel

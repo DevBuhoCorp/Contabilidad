@@ -33,7 +33,7 @@ export class UsuarioComponent implements OnInit {
 
   async getItems(indice) {
     this.items = await this.crudService.SeleccionarAsync("usuario", { page: indice, psize: this.selPageSize });
-    //this.items.data = this.crudService.SetBool(this.items.data);
+    this.items.data = this.crudService.SetBool(this.items.data);
   }
 
   async openPopUp(data: any = {}, isNew?) {
@@ -56,23 +56,34 @@ export class UsuarioComponent implements OnInit {
         }
         this.loader.open();
         if (isNew) {
+          console.log(res);
           this.crudService.Insertar(res, 'usuario/').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
+          },
+          error => {
+            this.loader.close();
+            this.snack.open('Correo Duplicado!', 'OK', { duration: 4000 });
           })
         } else {
-          this.crudService.Actualizar(data.ID, res, 'rol/').subscribe(data => {
+          console.log(data);
+          this.crudService.Actualizar(data[0].ID, res, 'usuario/' + data[0].IDUser + '/').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', { duration: 4000 });
-          });
+          },
+          error => {
+            this.getItems(1);
+            this.loader.close();           
+            this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+          })
         }
       });
   }
 
   deleteItem(row) {
-    this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
+    this.confirmService.confirm({ message: `Eliminar ${row.ApellidoPaterno + ' ' + row.NombrePrimer}?` })
       .subscribe(res => {
         if (res) {
           this.loader.open();
