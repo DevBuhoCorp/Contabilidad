@@ -216,7 +216,8 @@ import {UserempresafilterPipe} from '../shared/pipes/userempresafilter.pipe';
     PopupComponentRoles,
     PopupComponentUser,
     UsersempresaComponent,
-    UserempresafilterPipe
+    UserempresafilterPipe,
+
 
   ],
   providers: [

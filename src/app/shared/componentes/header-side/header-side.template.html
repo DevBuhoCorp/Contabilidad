@@ -45,15 +45,15 @@
       <mat-icon>account_box</mat-icon>
       <span>Perfil</span>
     </button>
-    <!--<button mat-menu-item [routerLink]="['/profile/settings']">-->
-      <!--<mat-icon>settings</mat-icon>-->
-      <!--<span>Configuraciones de la cuenta</span>-->
-    <!--</button>-->
+    <button mat-menu-item (click)="cambiarEmpresa()">
+      <mat-icon>explicit</mat-icon>
+      <span> {{ empresa }} </span>
+    </button>
     <!--<button mat-menu-item>-->
       <!--<mat-icon>notifications_off</mat-icon>-->
       <!--<span>Deshabilitar alertas</span>-->
     <!--</button>-->
-    <button mat-menu-item [routerLink]="['/sesiones/signin']">
+    <button mat-menu-item (click)="logout()" [routerLink]="['/sesiones/signin']">
       <mat-icon>exit_to_app</mat-icon>
       <span>Desconectarse</span>
     </button>
