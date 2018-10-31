@@ -110,7 +110,8 @@ import { RolesComponent } from './nomina/roles/roles.component';
 import { PopupComponentAplicacion } from './configurar/aplicacion/popup/popup.component';
 import { PopupComponentRoles } from './nomina/roles/popup/popup.component';
 import { PopupComponentUser } from './nomina/usuario/popup/popup.component';
-
+import { UsersempresaComponent } from './nomina/usuario/usersempresa/usersempresa.component';
+import {UserempresafilterPipe} from '../shared/pipes/userempresafilter.pipe';
 
 
 @NgModule({
@@ -213,7 +214,9 @@ import { PopupComponentUser } from './nomina/usuario/popup/popup.component';
     RolesComponent,
     PopupComponentAplicacion,
     PopupComponentRoles,
-    PopupComponentUser
+    PopupComponentUser,
+    UsersempresaComponent,
+    UserempresafilterPipe
 
   ],
   providers: [
@@ -249,7 +252,8 @@ import { PopupComponentUser } from './nomina/usuario/popup/popup.component';
     PopupTransaccion,
     PopupComponentAplicacion,
     PopupComponentRoles,
-    PopupComponentUser
+    PopupComponentUser,
+    UsersempresaComponent
   ]
 })
 export class ModulosModule {
