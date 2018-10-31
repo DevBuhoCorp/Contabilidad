@@ -93,7 +93,7 @@
         Correo inválido </small>
     </div>
 
-    <div fxFlex="50" class="pr-1" *ngIf="!itemForm.controls['password']">
+    <div fxFlex="50" class="pr-1" *ngIf="!data.payload[0]">
       <mat-form-field class="full-width">
         <input type="password" name="password" matInput [formControl]="itemForm.controls['password']" placeholder="Contraseña"
           >
