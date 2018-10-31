@@ -4,6 +4,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { PopupComponentUser } from '../usuario/popup/popup.component';
+import {UsersempresaComponent} from './usersempresa/usersempresa.component';
 
 @Component({
   selector: 'app-usuario',
@@ -95,6 +96,14 @@ export class UsuarioComponent implements OnInit {
         }
       })
 
+  }
+
+  usersEmpresa(row){
+    const dialogRef: MatDialogRef<any> = this.dialog.open(UsersempresaComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { title: 'Asignar Empresa', usuario: row.ID }
+    });
   }
 
   setPage(event) {

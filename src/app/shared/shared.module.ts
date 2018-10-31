@@ -40,6 +40,7 @@ import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.compone
 // PIPES
 import { RelativeTimePipe } from './pipes/relative-time.pipe';
 import { ExcerptPipe } from "./pipes/excerpt.pipe";
+import {UserempresafilterPipe} from './pipes/userempresafilter.pipe';
 
 // SERVICES
 import { ThemeService } from './servicios/theme.service';
@@ -55,10 +56,8 @@ import { DropdownLinkDirective } from './directives/dropdown-link.directive';
 import { CrudService } from './servicios/crud.service';
 import { HttpClientModule } from '../../../node_modules/@angular/common/http';
 import { ExcelService } from './servicios/excel.service';
-const classesToInclude = [
-  
-  
 
+const classesToInclude = [
   SidenavComponent,
   NotificationsComponent,
   SidebarSideComponent,
