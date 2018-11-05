@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { ExcelService } from '../../../shared/servicios/excel.service';
 import * as XLSX from 'xlsx';
+import {ToolsService} from '../../../shared/servicios/tools.service';
 @Component({
   selector: 'app-balancefinal',
   templateUrl: './balancefinal.component.html',
@@ -9,7 +10,7 @@ import * as XLSX from 'xlsx';
 })
 export class BalancefinalComponent implements OnInit {
   items: any = [];
-  constructor(private crudService: CrudService, private excelService: ExcelService) {
+  constructor(private crudService: CrudService, private excelService: ExcelService, private toolsService: ToolsService) {
   }
 
 
@@ -19,7 +20,7 @@ export class BalancefinalComponent implements OnInit {
   }
 
   async getItems() {
-    this.items = await this.crudService.SeleccionarAsync('report_balancefinal');
+    this.items = await this.crudService.SeleccionarAsync('report_balancefinal', { Empresa: this.toolsService.getEmpresaActive().IDEmpresa });
   }
 
   exportar(): void {

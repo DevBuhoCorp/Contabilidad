@@ -1,6 +1,16 @@
 <div class="m-333">
 
-  <div fxFlex="30" class="pr-1" #Etiqueta >
+  <div fxFlex="30" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione una empresa activa:" [(ngModel)]="selEmpresa" (selectionChange)="loadModelos()">
+        <mat-option *ngFor="let empresa of empresas | async" [value]="empresa.IDEmpresa" ngDefaultControl>
+          {{ empresa.Descripcion }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="30" class="pr-1" #Etiqueta *ngIf="selEmpresa" >
     <mat-form-field class="full-width">
       <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedModelo"
                   (selectionChange)="CargarPlan()">

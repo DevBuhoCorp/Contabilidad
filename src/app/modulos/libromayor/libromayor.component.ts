@@ -7,6 +7,7 @@ import { PopupLibroMayor } from './popup/popup.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CrudService } from '../../shared/servicios/crud.service';
 import { ExcelService } from '../../shared/servicios/excel.service';
+import {ToolsService} from '../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-libromayor',
@@ -68,13 +69,14 @@ export class LibromayorComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private excelService: ExcelService,
+    private toolsService: ToolsService,
     private fb: FormBuilder) {
     this.buildItemForm();
   }
 
   ngOnInit() {
     this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
-    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: 2 });
+    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: this.toolsService.getEmpresaActive().IDEmpresa });
     // this.getItems();
   }
 

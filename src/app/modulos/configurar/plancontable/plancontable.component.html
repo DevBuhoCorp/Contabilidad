@@ -1,6 +1,16 @@
 <div class="m-333">
 
-  <div fxFlex="50" class="pr-1" #Etiqueta>
+  <div fxFlex="30" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione una empresa activa:" [(ngModel)]="selEmpresa" (selectionChange)="loadModelos()">
+        <mat-option *ngFor="let empresa of empresas | async" [value]="empresa.IDEmpresa" ngDefaultControl>
+          {{ empresa.Descripcion }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="30" class="pr-1" #Etiqueta *ngIf="selEmpresa">
     <mat-form-field class="full-width">
       <mat-select name="Plan" placeholder=" Seleccione un plan contable activo :" [(ngModel)]="selectedValue"
         (selectionChange)="CargarPlan()">
@@ -18,17 +28,7 @@
 
     <div class="dv" fxFlex="100">
       <div *ngIf="!list" fxLayout="row" fxLayoutAlign="space-between" class="mb-05">
-        <!--style="display: flex; justify-content: space-between;"-->
         <div class="bnt-group">
-          <!--<button mat-icon-button matTooltip="Añadir" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, true)"-->
-          <!--[disabled]="!selectedValue">-->
-          <!--<mat-icon>add</mat-icon>-->
-          <!--</button>-->
-          <!--<button mat-icon-button matTooltip="Editar" mat-sm-button color="primary" class="mr-1" (click)="openPopUp(selectedFile, false)"-->
-          <!--[disabled]="!selectedValue || !selectedFile">-->
-          <!--<mat-icon>edit</mat-icon>-->
-          <!--</button>-->
-
 
           <button mat-raised-button mat-sm-button color="primary" (click)="openPopUp(selectedFile, true)" [disabled]="!selectedValue">
             <mat-icon>add</mat-icon>
@@ -39,14 +39,7 @@
             Editar Cuenta Contable
           </button>
 
-
         </div>
-        <!--  <div class="bnt-group">
-          <button mat-icon-button matTooltip="Listar Cuentas Sin Asignar" mat-sm-button color="primary" class="mr-1" (click)="loadCuentas()"
-            [disabled]="!selectedValue">
-            <mat-icon>list</mat-icon>
-          </button>
-        </div>-->
 
       </div>
 
@@ -55,14 +48,7 @@
       </p-tree>
 
       <div style="margin-top: 8px">
-        <!--<button mat-icon-button matTooltip="Expandir Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"-->
-        <!--(click)="expandAll()" style="margin-right: .25em">-->
-        <!--<mat-icon>arrow_downward</mat-icon>-->
-        <!--</button>-->
-        <!--<button mat-icon-button matTooltip="Contraer Plan Contable" mat-sm-button color="primary" class="mr-1" [disabled]="!selectedValue"-->
-        <!--(click)="collapseAll()">-->
-        <!--<mat-icon>arrow_upward</mat-icon>-->
-        <!--</button>-->
+
         <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()" style="margin-right: .25em"
           [disabled]="!selectedValue">
           <mat-icon>arrow_downward</mat-icon>

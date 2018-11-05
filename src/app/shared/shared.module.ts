@@ -57,6 +57,8 @@ import { CrudService } from './servicios/crud.service';
 import { HttpClientModule } from '../../../node_modules/@angular/common/http';
 import { ExcelService } from './servicios/excel.service';
 import {ChangeempresaComponent} from '../modulos/configurar/changeempresa/changeempresa.component';
+import {ToolsService} from './servicios/tools.service';
+import {AdminGuard} from './servicios/auth/admin.guard';
 
 const classesToInclude = [
   SidenavComponent,
@@ -108,8 +110,10 @@ const classesToInclude = [
     NavigationService,
     RoutePartsService,
     AuthGuard,
+    AdminGuard,
     CrudService,
-    ExcelService
+    ExcelService,
+    ToolsService
   ],
   declarations: classesToInclude,
   exports: classesToInclude,

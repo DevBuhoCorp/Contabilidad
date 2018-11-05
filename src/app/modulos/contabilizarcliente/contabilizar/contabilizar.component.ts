@@ -5,6 +5,7 @@ import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loade
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { ContabilizarService } from './contabilizar.service';
 import { CrudService } from '../../../shared/servicios/crud.service';
+import {ToolsService} from '../../../shared/servicios/tools.service';
 
 
 @Component({
@@ -26,8 +27,7 @@ export class ContabilizarCComponent implements OnInit {
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private crudService: CrudService,
-    private loader: AppLoaderService,
-    private confirmService: AppConfirmService,
+    private toolsService: ToolsService
   ) { }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class ContabilizarCComponent implements OnInit {
 
   async getItems(indice = 1) {
     //this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA' });
-    let data: any = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA' });
+    let data: any = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA', Empresa: this.toolsService.getEmpresaActive().IDEmpresa });
     this.items = data.data;
     this.items.data = this.crudService.SetBool(this.items.data);
   }
