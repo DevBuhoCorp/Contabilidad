@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 import {AuthLayoutComponent} from './shared/componentes/layouts/auth-layout/auth-layout.component';
 import {AuthGuard} from './shared/servicios/auth/auth.guard';
 import {AdminLayoutComponent} from './shared/componentes/layouts/admin-layout/admin-layout.component';
+import {AdminGuard} from './shared/servicios/auth/admin.guard';
 
 export const rootRouterConfig: Routes = [
   {
@@ -12,6 +13,7 @@ export const rootRouterConfig: Routes = [
   {
     path: '',
     component: AuthLayoutComponent,
+    canActivate: [AdminGuard],
     children: [
       {
         path: 'sesiones',

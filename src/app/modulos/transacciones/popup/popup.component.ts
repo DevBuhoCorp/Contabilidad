@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { startWith, map } from 'rxjs/operators';
+import {ToolsService} from '../../../shared/servicios/tools.service';
 export interface Cuenta {
   ID: number;
   cuenta: string;
@@ -24,6 +25,7 @@ export class PopupTransaccion implements OnInit {
     public dialogRef: MatDialogRef<PopupTransaccion>,
     private fb: FormBuilder,
     private crudService: CrudService,
+    private toolsService: ToolsService,
     private snack: MatSnackBar,
   ) {
     this.CargarAuto();
@@ -76,8 +78,9 @@ export class PopupTransaccion implements OnInit {
     return val ? this.Cuentas.filter(s => new RegExp(`^${val}`).test(s))
       : this.Cuentas;
   }
+
   async CargarAuto() {
-    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Modelo: 11 });
+    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Empresa: this.toolsService.getEmpresaActive().IDEmpresa });
   }
 
 

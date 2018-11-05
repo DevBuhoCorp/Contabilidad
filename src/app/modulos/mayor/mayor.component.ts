@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TreeNode } from 'primeng/components/common/api';
 import { CrudService } from '../../shared/servicios/crud.service';
 import { getMatFormFieldMissingControlError } from '@angular/material';
+import {ToolsService} from '../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-mayor',
@@ -19,13 +20,13 @@ export class MayorComponent implements OnInit {
   }];
   selectedFile: TreeNode;
 
-  constructor(private crudService: CrudService) {  }
+  constructor(private crudService: CrudService, private toolsService: ToolsService) {  }
 
   ngOnInit() {
     this.getItems();
   }
   async getItems() {
-    this.filesTree0 = await this.crudService.SeleccionarAsync('plancontable', { id: 11 });
+    this.filesTree0 = await this.crudService.SeleccionarAsync('plancontable', { Empresa: this.toolsService.getEmpresaActive().IDEmpresa });
     this.filesTree0[0].data = await JSON.parse(this.filesTree0[0].data);
   }
 

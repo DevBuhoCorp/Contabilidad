@@ -13,6 +13,9 @@ import {MatSnackBar} from '@angular/material';
 })
 export class CuentabalanceComponent implements OnInit {
 
+  selEmpresa: any;
+  empresas: any;
+
   selectedModelo: string = '';
   selectedBalance: string = '';
   Modelos: any = [];
@@ -28,13 +31,18 @@ export class CuentabalanceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.Modelos = this.crudService.SeleccionarAsync('combomodelo');
+    this.empresas = this.crudService.SeleccionarAsync(`usuario/empresa`);
+    // this.Modelos = this.crudService.SeleccionarAsync('combomodelo');
     this.Balances = this.crudService.SeleccionarAsync('combobalance');
+  }
+
+  loadModelos() {
+    this.Modelos = this.crudService.SeleccionarAsync("combomodelo", { IDEmpresa: this.selEmpresa });
+    this.selectedBalance = this.selectedModelo = this.filesTree0 = null;
   }
 
   async CargarPlan() {
     this.filesTree0 = await (this.crudService.SeleccionarAsync("plancontable/tree", { modelo: this.selectedModelo })) as TreeNode[];
-
   }
 
   async CargarCuentaBalance() {

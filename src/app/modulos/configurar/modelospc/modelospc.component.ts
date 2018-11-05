@@ -8,6 +8,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 import {ModeloPlanContable} from './modelopc.model';
 import {ViewmodelopcComponent} from './viewmodelopc/viewmodelopc.component';
 import {Router} from '@angular/router';
+import {ToolsService} from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-modelospc',
@@ -103,7 +104,8 @@ export class ModelospcComponent implements OnInit {
     this.confirmService.confirm({title: 'Confirmar', message: 'Desea definir este Modelo de Plan como predeterminado?'})
       .subscribe((result) => {
         if( result ){
-          this.crudService.Ejecutar('modeloplancontable/habilitar/' + data.ID).subscribe(data =>{
+          this.crudService.Ejecutar('modeloplancontable/habilitar/' + data.ID, { Empresa : this.selEmpresa  })
+            .subscribe(data =>{
             this.snack.open('Habilitado!', 'OK', {duration: 4000});
           });
 

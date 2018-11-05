@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { ExcelService } from '../../../shared/servicios/excel.service';
 import * as XLSX from 'xlsx';
+import {ToolsService} from '../../../shared/servicios/tools.service';
 @Component({
   selector: 'app-hojatrabajo',
   templateUrl: './hojatrabajo.component.html',
@@ -9,14 +10,14 @@ import * as XLSX from 'xlsx';
 })
 export class HojatrabajoComponent implements OnInit {
   items: any = [];
-  constructor(private crudService: CrudService, private excelService: ExcelService) { }
+  constructor(private crudService: CrudService, private excelService: ExcelService, private toolsService: ToolsService) { }
 
   ngOnInit() {
     this.getItems();
   }
 
   async getItems() {
-    this.items = await this.crudService.SeleccionarAsync('hojabalance/' + 11);
+    this.items = await this.crudService.SeleccionarAsync('hojabalance/' + this.toolsService.getEmpresaActive().IDEmpresa);
   }
 
   exportar(): void {

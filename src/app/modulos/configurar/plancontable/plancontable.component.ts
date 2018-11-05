@@ -24,6 +24,10 @@ import { ExcelService } from '../../../shared/servicios/excel.service';
   ]
 })
 export class PlancontableComponent implements OnInit, OnDestroy {
+  selEmpresa: any;
+  empresas: any;
+
+
   selectedValue: string = '';
   res: any = {};
   filesTree0: TreeNode[];
@@ -31,8 +35,6 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   selectedFile: any;
   sNodeDrag: any;
   selectedFile_2: any = undefined;
-
-
 
   list: any = false;
 
@@ -48,23 +50,15 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
     private excelService: ExcelService,
-  ) {
-    /* this.crudService.ListarDatos('combomodelo', 'All', 0).map((response) => {
-       return response.json() as ModeloPlanContable[];
-     }).toPromise().then(x => {
-       this.Modelos = x;
-     });*/
+  ) { }
 
-  }
-
-  async CargarCombo() {
-    this.Modelos = await this.crudService.SeleccionarAsync("combomodelo");
+  async loadModelos() {
+    this.Modelos = await this.crudService.SeleccionarAsync("combomodelo", { IDEmpresa: this.selEmpresa });
+    this.filesTree0 = null;
   }
 
   ngOnInit() {
-    this.CargarCombo();
-    
-
+    this.empresas = this.crudService.SeleccionarAsync(`usuario/empresa`);
   }
 
   CargarPlan() {
@@ -72,7 +66,6 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       return response.json();
     }).toPromise().then(x => {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
-      console.log(this.filesTree0);
     });
 
   }
