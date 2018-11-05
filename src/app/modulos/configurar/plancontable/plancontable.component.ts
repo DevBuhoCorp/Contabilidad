@@ -62,7 +62,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   CargarPlan() {
-    this.crudService.Seleccionar('plancontable', { id: this.selectedValue }).map((response) => {
+    this.crudService.Seleccionar('plancontable', { Modelo: this.selectedValue }).map((response) => {
       return response.json();
     }).toPromise().then(x => {
       this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
