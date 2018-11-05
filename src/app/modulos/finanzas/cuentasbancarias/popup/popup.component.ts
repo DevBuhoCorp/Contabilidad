@@ -28,12 +28,12 @@ export const MY_FORMATS = {
   selector: 'app-popup',
   templateUrl: './popup.component.html',
   styles: [],
-  providers: [
+ /* providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es'},
 
     {provide: DateAdapter, useClass: MomentDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
+  ],*/
 })
 export class PopupComponentCB implements OnInit {
   cuenta: any = {
@@ -93,7 +93,7 @@ export class PopupComponentCB implements OnInit {
 
   submit() {
     if (this.itemForm.value.IDCuentaContable.cuenta) {
-      //this.itemForm.value.FechaApertura = this.itemForm.value.FechaApertura.toDateString();
+      this.itemForm.value.FechaApertura = this.itemForm.value.FechaApertura.toDateString();
       this.itemForm.value.IDCuentaContable = this.itemForm.value.IDCuentaContable.ID;
       this.dialogRef.close(this.itemForm.value)
     }
