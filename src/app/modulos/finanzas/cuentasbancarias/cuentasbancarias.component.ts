@@ -5,6 +5,7 @@ import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {PopupComponentCB} from './popup/popup.component';
 import {CrudService} from '../../../shared/servicios/crud.service';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-cuentasbancarias',
@@ -12,7 +13,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
   styles: []
 })
 export class CuentasbancariasComponent implements OnInit, OnDestroy {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   selEmpresa : any;
   items: any = {
@@ -30,6 +31,7 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private toolsService: ToolsService
   ) {
   }
 

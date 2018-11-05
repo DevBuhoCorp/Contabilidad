@@ -19,7 +19,7 @@ export class ModelospcComponent implements OnInit {
   selEmpresa: any;
   empresas: any;
 
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -34,6 +34,7 @@ export class ModelospcComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private toolsService: ToolsService
   ) {
   }
 

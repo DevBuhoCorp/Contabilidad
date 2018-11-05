@@ -4,6 +4,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { PopupComponentRoles } from '../../nomina/roles/popup/popup.component';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-roles',
@@ -11,7 +12,7 @@ import { PopupComponentRoles } from '../../nomina/roles/popup/popup.component';
   styles: []
 })
 export class RolesComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -25,6 +26,7 @@ export class RolesComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private toolsService: ToolsService
   ) { }
 
   ngOnInit() {

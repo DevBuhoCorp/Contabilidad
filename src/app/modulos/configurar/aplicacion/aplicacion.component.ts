@@ -5,6 +5,7 @@ import { PopupComponentAplicacion } from '../aplicacion/popup/popup.component';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {Router} from '@angular/router';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-aplicacion',
@@ -13,7 +14,7 @@ import {Router} from '@angular/router';
 })
 export class AplicacionComponent implements OnInit {
  
-  pageSize = [3, 5, 10, 20]; 
+  pageSize = this.toolsService.getPaginas(); 
   empresas : any;
   selEmpresa : any;
   selPageSize : any = this.pageSize[0];
@@ -30,7 +31,8 @@ export class AplicacionComponent implements OnInit {
     private crudService : CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
-    private router:Router
+    private router:Router,
+    private toolsService: ToolsService,
   ) { }
 
   ngOnInit() {

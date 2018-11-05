@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../../shared/servicios/crud.service';
+import { ToolsService } from '../../shared/servicios/tools.service';
 
 @Component({
   selector: 'dashboard',
@@ -146,7 +147,7 @@ export class DashboardComponent implements OnInit {
   totales: any = [];
   porcentaje: number;
   movimientos:any=[];
-  constructor(private crudService: CrudService) { }
+  constructor(private crudService: CrudService, private toolsService: ToolsService) { }
   ngOnInit() {
     this.gettrans();
     this.gettopcuentas();
@@ -154,9 +155,8 @@ export class DashboardComponent implements OnInit {
     this.getmovimiento();
   }
   async gettrans() {
-    let item = JSON.parse(localStorage.getItem('Empresa'));
     let clone = JSON.parse(JSON.stringify(this.lineChartData));
-    let datos: any = await this.crudService.SeleccionarAsync("transpormes/" + item.IDEmpresa);
+    let datos: any = await this.crudService.SeleccionarAsync("transpormes/" + this.toolsService.getEmpresaActive().IDEmpresa);
     this.lineChartData = datos.map(i => {
       clone[0].data.push(i.data);
       this.lineChartLabels.push(i.label);
@@ -165,15 +165,12 @@ export class DashboardComponent implements OnInit {
   }
 
   async gettopcuentas() {
-    this.topcuentas = await this.crudService.SeleccionarAsync("topcuentas/" + 11);
+    this.topcuentas = await this.crudService.SeleccionarAsync("topcuentas/" + this.toolsService.getEmpresaActive().IDEmpresa);
     this.top = this.topcuentas[0].Saldo;
   }
   async getporcentaje() {
-    this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + 1);
     try{
-      
-    let item = JSON.parse(localStorage.getItem('Empresa'));
-    this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + item.IDEmpresa);
+    this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + this.toolsService.getEmpresaActive().IDEmpresa);
     this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
     }
     catch{}
@@ -181,7 +178,7 @@ export class DashboardComponent implements OnInit {
   }
   async getmovimiento() {
     let clone = JSON.parse(JSON.stringify(this.barChartData));
-    let datos: any = await this.crudService.SeleccionarAsync("movimiento/" + 11);
+    let datos: any = await this.crudService.SeleccionarAsync("movimiento/" + this.toolsService.getEmpresaActive().IDEmpresa);
     this.barChartData = datos.map(i => {
       clone[0].data.push(i.data);
       this.barChartLabels.push(i.label);

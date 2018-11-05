@@ -39,23 +39,10 @@ export class NavigationService {
       icon: 'dashboard',
       state: 'dashboard'
     },
-    /*{
-      name: 'PROFILE',
-      type: 'icon',
-      tooltip: 'Perfil',
-      icon: 'person',
-      state: 'profile/overview'
-    },*/
     {
       type: 'separator',
       name: 'Items Principales'
     },
-    /* {
-       name: 'Contabilidad',
-       type: 'link',
-       icon: 'account_balance',
-       state: 'modulos/contabilidad',
-     },*/
     {
       name: 'Nomina',
       type: 'dropDown',
@@ -83,21 +70,12 @@ export class NavigationService {
       icon: 'settings',
       state: 'modulos/configurar',
       sub: [
-        //{ name: 'General', state: 'general' },
         { name: 'Empresa', state: 'empresas' },
         { name: 'Aplicación', state: 'aplicacion' },
         { name: 'Diarios Contables', state: 'diarioscontables' },
         { name: 'Modelos de Planes Contables', state: 'modelosplanescontables' },
         { name: 'Plan Contable', state: 'plancontable' },
         { name: 'Cuenta Balance', state: 'cuentabalance' },
-
-        //{name: 'Cuentas de Impuesto', state: 'cuentaimpuesto'},
-        //{ name: 'Grupos Personalizados', state: 'grupospersonalizados' },
-        // { name: 'Cuentas Contables por Defecto', state: 'cuentacontablepordefecto' },
-        // { name: 'Cuentas de IVA', state: 'cuentaiva' },
-        // { name: 'Cuentas de Informes de Pago', state: 'cuentapago' },
-        // { name: 'Cuentas Contables de Productos', state: 'cuentaproducto' },
-        // { name: 'Opciones de Exportación', state: 'exportacion' },
       ]
     },
     {
@@ -108,48 +86,10 @@ export class NavigationService {
     },
     {
       name: 'Contabilizar Transacciones',
-      //name: 'Contabilizar Transacciones',
-      type: 'dropDown',
+      type: 'link',
       icon: 'account_balance_wallet',
-      state: 'modulos/contabilizarcliente',
-      sub: [
-        { name: 'Líneas a contabilizar', state: 'contabilizar' },
-        //{name: 'Líneas contabilizadas', state: 'contabilizada'},
-      ]
+      state: 'modulos/contabilizarcliente/contabilizar',
     },
-    /*{
-      name: 'Contabilizar Proveedores',
-      type: 'dropDown',
-      icon: 'directions_car',
-      state: 'modulos/contabilizarproveedor/',
-      sub: [
-        {name: 'Líneas a contabilizar', state: 'contabilizar'},
-        {name: 'Líneas contabilizadas', state: 'contabilizada'},
-      ]
-    },*/
-    /*{
-      name: 'Contabilizar Informes de Gastos',
-      type: 'dropDown',
-      icon: 'attach_money',
-      state: 'modulos/contabilizargasto/',
-      sub: [
-        { name: 'Líneas a contabilizar', state: 'contabilizar' },
-        { name: 'Líneas contabilizadas', state: 'contabilizada' },
-      ]
-    },*/
-    /* {
-       name: 'Procesar diarios',
-       type: 'dropDown',
-       icon: 'library_books',
-       state: 'modulos/procesardiarios',
-       sub: [
-         {name: 'Ventas', state: 'venta'},
-         {name: 'Compras', state: 'compra'},
-         //{ name: 'Gastos', state: 'gasto' },
-         {name: 'Bancos', state: 'banco'},
-       ]
-     },*/
-
     {
       name: 'Libro Diario',
       type: 'link',
@@ -195,34 +135,6 @@ export class NavigationService {
         },
       ]
     },
-    /*{
-
-      name: 'Saldo de la cuenta',
-      type: 'link',
-      icon: 'assessment',
-      state: 'modulos/saldocuenta',
-    },*/
-    /* {
-       name: 'Informes',
-       type: 'dropDown',
-       icon: 'description',
-       state: 'modulos',
-       sub: [
-         {
-           name: 'Resultado/Ejercicio', type: 'dropDown', state: 'informes', sub: [
-             {name: 'Por grupos predefinidos', state: 'grupopredefinido'},
-             {name: 'Por grupos personalizados', state: 'grupopersonalizado'},
-           ]
-         },
-         /*{
-           name: 'Volumen de ventas', type: 'dropDown', state: 'ventas', sub: [
-             { name: 'Por cliente', state: 'cliente' },
-             { name: 'Por Usuario', state: 'usuario' },
-             { name: 'Por productos y servicios', state: 'productos' },
-           ]
-         },
-       ]
- },*/
   ];
 
   // Icon menu TITLE at the very top of navigation.

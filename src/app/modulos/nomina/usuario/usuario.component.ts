@@ -5,6 +5,7 @@ import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import { PopupComponentUser } from '../usuario/popup/popup.component';
 import {UsersempresaComponent} from './usersempresa/usersempresa.component';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-usuario',
@@ -12,7 +13,7 @@ import {UsersempresaComponent} from './usersempresa/usersempresa.component';
   styles: []
 })
 export class UsuarioComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -26,6 +27,7 @@ export class UsuarioComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private toolsService: ToolsService
   ) { }
 
   ngOnInit() {

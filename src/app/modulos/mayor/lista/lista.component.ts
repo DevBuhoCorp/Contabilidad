@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import { ExcelService } from '../../../shared/servicios/excel.service';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-lista',
@@ -9,7 +10,7 @@ import { ExcelService } from '../../../shared/servicios/excel.service';
   styles: []
 })
 export class ListaMayorComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     detalles: {
@@ -59,6 +60,7 @@ export class ListaMayorComponent implements OnInit {
   constructor(private router: ActivatedRoute,
     private crudService: CrudService,
     private excelService: ExcelService,
+    private toolsService: ToolsService
   ) { }
 
   ngOnInit() {

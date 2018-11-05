@@ -13,7 +13,7 @@ import {ToolsService} from '../../../shared/servicios/tools.service';
   styles: []
 })
 export class BalancecomprobacionComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = [];
   selEmpresa: any;

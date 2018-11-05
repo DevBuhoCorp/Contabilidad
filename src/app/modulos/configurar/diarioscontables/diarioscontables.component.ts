@@ -3,8 +3,8 @@ import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { PopupComponentDC } from './popup/popup.component';
 import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
 import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
-import { DiarioContable } from './diarioscontables.model';
 import { CrudService } from '../../../shared/servicios/crud.service';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-diarioscontables',
@@ -12,7 +12,7 @@ import { CrudService } from '../../../shared/servicios/crud.service';
   styles: []
 })
 export class DiarioscontablesComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -26,6 +26,8 @@ export class DiarioscontablesComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
+    private toolsService: ToolsService
+
   ) { }
 
   ngOnInit() {

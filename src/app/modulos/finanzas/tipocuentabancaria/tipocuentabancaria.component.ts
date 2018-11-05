@@ -4,6 +4,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {PopupComponentTCBancaria} from './popup/popup.component';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-tipocuentabancaria',
@@ -12,7 +13,7 @@ import {PopupComponentTCBancaria} from './popup/popup.component';
 })
 export class TipocuentabancariaComponent implements OnInit {
 
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -25,7 +26,8 @@ export class TipocuentabancariaComponent implements OnInit {
               private snack: MatSnackBar,
               private crudService: CrudService,
               private loader: AppLoaderService,
-              private confirmService: AppConfirmService) { }
+              private confirmService: AppConfirmService,
+              private toolsService: ToolsService) { }
 
   ngOnInit() {
     this.getItems(1);

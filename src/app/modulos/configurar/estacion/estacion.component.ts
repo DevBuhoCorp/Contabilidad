@@ -6,6 +6,7 @@ import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.
 import {PopupComponentEstacion} from './popup/popup.component';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {TokenComponent} from './token/token.component';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-estacion',
@@ -14,7 +15,7 @@ import {TokenComponent} from './token/token.component';
 })
 export class EstacionComponent implements OnInit {
 
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   app: any;
   estacions: any = {
@@ -30,7 +31,8 @@ export class EstacionComponent implements OnInit {
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private loader: AppLoaderService,
-    private confirmService: AppConfirmService
+    private confirmService: AppConfirmService,
+    private toolsService: ToolsService
   ) {
   }
 

@@ -16,7 +16,7 @@ import {ToolsService} from '../../shared/servicios/tools.service';
 })
 
 export class LibromayorComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],

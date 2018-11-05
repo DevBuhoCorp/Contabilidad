@@ -4,6 +4,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {PopupComponentEmpresa} from './popup/popup.component';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
+import { ToolsService } from '../../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-empresa',
@@ -11,7 +12,7 @@ import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confi
   styles: []
 })
 export class EmpresaComponent implements OnInit {
-  pageSize = [3, 5, 10, 20];
+  pageSize = this.toolsService.getPaginas(); 
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -24,7 +25,8 @@ export class EmpresaComponent implements OnInit {
               private snack: MatSnackBar,
               private crudService: CrudService,
               private loader: AppLoaderService,
-              private confirmService: AppConfirmService) {
+              private confirmService: AppConfirmService,
+              private toolsService: ToolsService) {
   }
 
   ngOnInit() {
