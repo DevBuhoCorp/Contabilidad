@@ -1,24 +1,28 @@
 <h1 matDialogTitle>{{data.title}}</h1>
 <form [formGroup]="itemForm" (ngSubmit)="submit()">
-  <div fxLayout="row wrap" fxLayout.lt-sm="column" >
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="itemForm.controls['FechaApertura']" name="FechaApertura" placeholder="Fecha Apertura" [matDatepicker]="appDatepicker" disabled>
+        <input matInput [formControl]="itemForm.controls['FechaApertura']" name="FechaApertura" placeholder="Fecha Apertura"
+          [matDatepicker]="appDatepicker">
         <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
       </mat-form-field>
-      <mat-datepicker #appDatepicker disabled="false"></mat-datepicker>
+      <mat-datepicker #appDatepicker ></mat-datepicker>
     </div>
 
+    
+
     <!--<div fxFlex="50" class="pr-1">-->
-      <!--<mat-form-field class="full-width">-->
-        <!--<input matInput name="Etiqueta" [formControl]="itemForm.controls['Etiqueta']" placeholder="Etiqueta cuenta o caja">-->
-      <!--</mat-form-field>-->
+    <!--<mat-form-field class="full-width">-->
+    <!--<input matInput name="Etiqueta" [formControl]="itemForm.controls['Etiqueta']" placeholder="Etiqueta cuenta o caja">-->
+    <!--</mat-form-field>-->
     <!--</div>-->
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="itemForm.controls['NumeroCuenta']" name="NumeroCuenta" placeholder="Número de cuenta" type="number">
+        <input matInput [formControl]="itemForm.controls['NumeroCuenta']" name="NumeroCuenta" placeholder="Número de cuenta"
+          type="number">
       </mat-form-field>
     </div>
 
@@ -34,13 +38,15 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="itemForm.controls['SaldoInicial']" name="SaldoInicial" placeholder="Saldo inicial" type="number">
+        <input matInput [formControl]="itemForm.controls['SaldoInicial']" name="SaldoInicial" placeholder="Saldo inicial"
+          type="number">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="itemForm.controls['SaldoMinimo']" name="SaldoMinimo" placeholder="Saldo mínimo autorizado" type="number">
+        <input matInput [formControl]="itemForm.controls['SaldoMinimo']" name="SaldoMinimo" placeholder="Saldo mínimo autorizado"
+          type="number">
       </mat-form-field>
     </div>
 
@@ -48,7 +54,8 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="itemForm.controls['IdentificacionTitular']" name="IdentificacionTitular" placeholder="Identificación del titular de la cuenta" type="number">
+        <input matInput [formControl]="itemForm.controls['IdentificacionTitular']" name="IdentificacionTitular"
+          placeholder="Identificación del titular de la cuenta" type="number">
       </mat-form-field>
     </div>
 
@@ -74,8 +81,21 @@
       </mat-form-field>
     </div>
 
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field>
+        <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="itemForm.controls['IDCuentaContable']">
+
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
+            {{ seleccionado.cuenta }}
+          </mat-option>
+        </mat-autocomplete>
+
+      </mat-form-field>
+    </div>
+
     <div fxFlex="50" class="pt-1 pr-1">
-      <mat-slide-toggle [formControl]="itemForm.controls['Estado']" >Estado</mat-slide-toggle>
+      <mat-slide-toggle [formControl]="itemForm.controls['Estado']">Estado</mat-slide-toggle>
     </div>
 
 

@@ -169,7 +169,11 @@ export class DashboardComponent implements OnInit {
   }
   async getporcentaje() {
     this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + 1);
-    this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
+    try{
+      this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
+    }
+    catch{}
+    
   }
   async getmovimiento() {
     let clone = JSON.parse(JSON.stringify(this.barChartData));

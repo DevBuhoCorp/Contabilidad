@@ -36,7 +36,7 @@ export class PopupTransaccion implements OnInit {
         startWith<string | Cuenta>(''),
         map(value => typeof value === 'string' ? value : value.cuenta),
         map(cuenta => cuenta ? this._filter(cuenta) : this.Cuentas.slice())
-      );
+      ); 
 
   }
   private _filter(name: string): Cuenta[] {
