@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatProgressBar, MatButton, MatSnackBar } from '@angular/material';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { CrudService } from '../../../shared/servicios/crud.service';
-import { AuthGuard } from '../../../shared/servicios/auth/auth.guard';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatProgressBar, MatButton, MatSnackBar, MatDialogRef, MatDialog} from '@angular/material';
+import {Validators, FormGroup, FormControl} from '@angular/forms';
+import {CrudService} from '../../../shared/servicios/crud.service';
+import {AuthGuard} from '../../../shared/servicios/auth/auth.guard';
+import {ChangeempresaComponent} from '../../../modulos/configurar/changeempresa/changeempresa.component';
 
 @Component({
   selector: 'app-signin',
@@ -15,8 +16,12 @@ export class SigninComponent implements OnInit {
 
   signinForm: FormGroup;
 
-  constructor(private crudService: CrudService, private authGuard: AuthGuard, private snack: MatSnackBar, ) {
-    console.log(this.authGuard)
+  constructor(
+    private crudService: CrudService,
+    private authGuard: AuthGuard,
+    private dialog: MatDialog,
+    private snack: MatSnackBar,) {
+
   }
 
   ngOnInit() {
@@ -45,21 +50,29 @@ export class SigninComponent implements OnInit {
       password: signinData.password
     }).subscribe(data => {
 
-      if (data.access_token) {
-        localStorage.setItem('authToken', data.access_token);
-        localStorage.setItem('tokenType', data.token_type);
-        return window.location.href = `${origin}/dashboard/`;
-      }
-    },
+        if (data.access_token) {
+          localStorage.setItem('authToken', data.access_token);
+          localStorage.setItem('tokenType', data.token_type);
+
+          let dialogRef: MatDialogRef<any> = this.dialog.open(ChangeempresaComponent, {
+            width: '720px',
+            disableClose: true,
+            data: {title: 'Seleccionar empresa a contabilizar', payload: {}}
+          });
+          dialogRef.afterClosed().subscribe(response => {
+            if (response)
+              return window.location.href = `${ origin }/dashboard/`;
+          });
+
+
+        }
+      },
       error => {
-        this.snack.open('Credenciales Incorrectas!', 'OK', { duration: 4000 });
+        this.snack.open('Credenciales Incorrectas!', 'OK', {duration: 4000});
         this.submitButton.disabled = false;
         this.progressBar.mode = 'determinate';
       }
-    ,);
-
-
-
+      ,);
   }
 }
 

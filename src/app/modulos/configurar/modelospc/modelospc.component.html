@@ -1,3 +1,14 @@
+<div class="m-333">
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <mat-select name="Plan" placeholder=" Seleccione una empresa activa:" [(ngModel)]="selEmpresa" (selectionChange)="loadApp()">
+        <mat-option *ngFor="let empresa of empresas | async" [value]="empresa.IDEmpresa" ngDefaultControl>
+          {{ empresa.Descripcion }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
 <div class="m-333" style="display: flex; justify-content: space-between;">
   <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Añadir</button>
   <div class="select-group">

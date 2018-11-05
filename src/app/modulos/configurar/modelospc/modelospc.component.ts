@@ -15,6 +15,9 @@ import {Router} from '@angular/router';
   styles: []
 })
 export class ModelospcComponent implements OnInit {
+  selEmpresa: any;
+  empresas: any;
+
   pageSize = [3, 5, 10, 20];
   selPageSize: any = this.pageSize[0];
   items: any = {
@@ -34,11 +37,15 @@ export class ModelospcComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getItems(1);
+    this.empresas = this.crudService.SeleccionarAsync(`usuario/empresa`);
   }
 
-  async getItems(indice) {
-    this.items = await this.crudService.SeleccionarAsync('modeloplancontable', {page: indice, psize: this.selPageSize});
+  loadApp(){
+    this.getItems();
+  }
+
+  async getItems(indice = 1) {
+    this.items = await this.crudService.SeleccionarAsync('modeloplancontable', {page: indice, psize: this.selPageSize, empresa: this.selEmpresa});
     this.items.data = this.crudService.SetBool(this.items.data);
   }
 
@@ -60,6 +67,7 @@ export class ModelospcComponent implements OnInit {
           return;
         }
         this.loader.open();
+        res.IDEmpresa = this.selEmpresa;
         if (isNew) {
           this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
             this.getItems(1);
@@ -68,7 +76,7 @@ export class ModelospcComponent implements OnInit {
           });
         } else {
           this.crudService.Actualizar(data.ID, res, 'modeloplancontable/').subscribe(data => {
-            this.getItems(1);
+            this.getItems();
             this.loader.close();
             this.snack.open('Actualizado!', 'OK', {duration: 4000});
           });
@@ -82,7 +90,7 @@ export class ModelospcComponent implements OnInit {
         if (res) {
           this.loader.open();
           this.crudService.Eliminar(row.ID, 'modeloplancontable/').subscribe(data => {
-            this.getItems(1);
+            this.getItems();
             this.loader.close();
             this.snack.open('Eliminado!', 'OK', {duration: 4000});
           });

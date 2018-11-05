@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, Input, Output, Renderer2 } from '@angu
 import { ThemeService } from '../../servicios/theme.service';
 import { LayoutService } from '../../servicios/layout.service';
 import { TranslateService } from 'ng2-translate/ng2-translate';
+import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {ChangeempresaComponent} from '../../../modulos/configurar/changeempresa/changeempresa.component';
 
 @Component({
   selector: 'app-header-side',
@@ -10,6 +12,7 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 export class HeaderSideComponent implements OnInit {
   @Input() notificPanel;
   currentLang = 'en';
+  empresa: any;
   public availableLangs = [{
     name: 'English',
     code: 'en',
@@ -23,11 +26,14 @@ export class HeaderSideComponent implements OnInit {
     private themeService: ThemeService,
     private layout: LayoutService,
     public translate: TranslateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private dialog: MatDialog,
+    private snack: MatSnackBar
   ) { }
   ngOnInit() {
     this.egretThemes = this.themeService.egretThemes;
     this.layoutConf = this.layout.layoutConf;
+    this.empresa = JSON.parse(localStorage.getItem('Empresa')).Descripcion;
   }
   setLang() {
     this.translate.use(this.currentLang)
@@ -62,5 +68,20 @@ export class HeaderSideComponent implements OnInit {
       sidebarStyle: 'compact'
     }, { transitionClass: true })
 
+  }
+
+  logout(){
+    localStorage.clear();
+  }
+
+  cambiarEmpresa(){
+    let dialogRef: MatDialogRef<any> = this.dialog.open(ChangeempresaComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { title: 'Seleccionar empresa a contabilizar', payload: {} }
+    });
+    dialogRef.afterClosed().subscribe(response => {
+      location.reload();
+    });
   }
 }

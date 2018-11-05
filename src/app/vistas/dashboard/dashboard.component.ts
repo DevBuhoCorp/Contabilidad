@@ -154,8 +154,9 @@ export class DashboardComponent implements OnInit {
     this.getmovimiento();
   }
   async gettrans() {
+    let item = JSON.parse(localStorage.getItem('Empresa'));
     let clone = JSON.parse(JSON.stringify(this.lineChartData));
-    let datos: any = await this.crudService.SeleccionarAsync("transpormes/" + 1);
+    let datos: any = await this.crudService.SeleccionarAsync("transpormes/" + item.IDEmpresa);
     this.lineChartData = datos.map(i => {
       clone[0].data.push(i.data);
       this.lineChartLabels.push(i.label);
@@ -170,7 +171,10 @@ export class DashboardComponent implements OnInit {
   async getporcentaje() {
     this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + 1);
     try{
-      this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
+      
+    let item = JSON.parse(localStorage.getItem('Empresa'));
+    this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + item.IDEmpresa);
+    this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
     }
     catch{}
     

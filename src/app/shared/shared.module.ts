@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
-import { 
+import {
   MatSidenavModule,
   MatListModule,
   MatTooltipModule,
@@ -20,7 +20,7 @@ import {
   MatCheckboxModule,
   MatCardModule,
   MatProgressSpinnerModule,
-  MatRippleModule
+  MatRippleModule, MatDialogModule
 } from '@angular/material';
 
 // ONLY REQUIRED FOR **SIDE** NAVIGATION LAYOUT
@@ -56,6 +56,7 @@ import { DropdownLinkDirective } from './directives/dropdown-link.directive';
 import { CrudService } from './servicios/crud.service';
 import { HttpClientModule } from '../../../node_modules/@angular/common/http';
 import { ExcelService } from './servicios/excel.service';
+import {ChangeempresaComponent} from '../modulos/configurar/changeempresa/changeempresa.component';
 
 const classesToInclude = [
   SidenavComponent,
@@ -71,7 +72,8 @@ const classesToInclude = [
   DropdownAnchorDirective,
   DropdownLinkDirective,
   RelativeTimePipe,
-  ExcerptPipe
+  ExcerptPipe,
+  ChangeempresaComponent
 ]
 
 @NgModule({
@@ -97,7 +99,8 @@ const classesToInclude = [
     MatCardModule,
     MatProgressSpinnerModule,
     MatRippleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [
     ThemeService,
@@ -109,6 +112,9 @@ const classesToInclude = [
     ExcelService
   ],
   declarations: classesToInclude,
-  exports: classesToInclude
+  exports: classesToInclude,
+  entryComponents: [
+    ChangeempresaComponent
+  ]
 })
 export class SharedModule { }
