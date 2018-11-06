@@ -8,6 +8,7 @@ export class ToolsService {
   constructor() { }
 
   getEmpresaActive(){
+    console.log(JSON.parse( localStorage.getItem('Empresa') ));
     return JSON.parse( localStorage.getItem('Empresa') );
   }
 

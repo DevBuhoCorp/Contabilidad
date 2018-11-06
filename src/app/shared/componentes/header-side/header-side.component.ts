@@ -4,6 +4,8 @@ import { LayoutService } from '../../servicios/layout.service';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {ChangeempresaComponent} from '../../../modulos/configurar/changeempresa/changeempresa.component';
+import { CrudService } from '../../servicios/crud.service';
+import { ToolsService } from '../../servicios/tools.service';
 
 @Component({
   selector: 'app-header-side',
@@ -22,18 +24,25 @@ export class HeaderSideComponent implements OnInit {
   }]
   public egretThemes;
   public layoutConf: any;
+  DatosPersonales:any=[];
   constructor(
     private themeService: ThemeService,
     private layout: LayoutService,
     public translate: TranslateService,
     private renderer: Renderer2,
     private dialog: MatDialog,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private crudService: CrudService,
+    private toolsService: ToolsService
   ) { }
-  ngOnInit() {
+  async ngOnInit() {
     this.egretThemes = this.themeService.egretThemes;
     this.layoutConf = this.layout.layoutConf;
     this.empresa = JSON.parse(localStorage.getItem('Empresa')).Descripcion;
+    this.DatosPersonales = await this.crudService.SeleccionarAsync("usuario/" + this.toolsService.getEmpresaActive().IDUsers);
+    if (this.DatosPersonales[0].FotoPerfil !== undefined) {
+      this.DatosPersonales[0].FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
+    }
   }
   setLang() {
     this.translate.use(this.currentLang)

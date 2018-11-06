@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
-import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
-import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
-import { ContabilizarService } from './contabilizar.service';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import {ToolsService} from '../../../shared/servicios/tools.service';
 

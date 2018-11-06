@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatListModule,
     MatIconModule,
@@ -51,6 +51,7 @@ import { ProfileRoutes } from "./profile.routing";
         ChartsModule,
         FileUploadModule,
         SharedModule,
+        ReactiveFormsModule,
         RouterModule.forChild(ProfileRoutes)
     ],
     declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent]

@@ -9,6 +9,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import * as _moment from 'moment';
 import { startWith, map } from 'rxjs/operators';
 import { Cuenta } from '../../../libromayor/popup/popup.component';
+import { ToolsService } from '../../../../shared/servicios/tools.service';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -51,6 +52,7 @@ export class PopupComponentCB implements OnInit {
     private fb: FormBuilder,
     private adapter: DateAdapter<any>,
     private snack: MatSnackBar,
+    private toolsService: ToolsService
   ) { 
     this.CargarAuto();
     this.buildItemForm(this.data.payload);
@@ -102,7 +104,7 @@ export class PopupComponentCB implements OnInit {
     }
   }
   async CargarAuto() {
-    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Modelo: 11 });
+    this.Cuentas = await this.crudService.SeleccionarAsync("autocomplete", { Empresa: this.toolsService.getEmpresaActive().IDEmpresa });
   }
   displayFn(user?: Cuenta): string | undefined {
     return user ? user.cuenta : undefined;

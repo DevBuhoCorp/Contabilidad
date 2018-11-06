@@ -1,13 +1,9 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MatDialogRef, MatDialog, MatSnackBar} from '@angular/material';
-import {Subscription} from 'rxjs/Subscription';
 import {PopupComponentMPC} from './popup/popup.component';
 import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {CrudService} from '../../../shared/servicios/crud.service';
-import {ModeloPlanContable} from './modelopc.model';
-import {ViewmodelopcComponent} from './viewmodelopc/viewmodelopc.component';
-import {Router} from '@angular/router';
 import {ToolsService} from '../../../shared/servicios/tools.service';
 
 @Component({

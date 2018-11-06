@@ -58,7 +58,7 @@ export class CrudService {
   Actualizar(id, objeto, api) {
     var body = objeto;
     //var headerOptions = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-    var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: this.getHeaders() });
+    var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: this.getHeaders(),  });
     return this.http.put(this.puerto + api + id, body, requestOptions).map(res => res.json());
   }
 

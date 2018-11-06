@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CrudService } from '../../../../shared/servicios/crud.service';
-import { DiarioContable } from '../diarioscontables.model';
+
 
 @Component({
   selector: 'app-popup',
