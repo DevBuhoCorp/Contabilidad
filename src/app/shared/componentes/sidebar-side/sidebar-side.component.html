@@ -24,7 +24,7 @@
         <!--<button class="text-muted" mat-icon-button mat-xs-button matTooltip="Bandeja de entrada" routerLink="/inbox">-->
           <!--<mat-icon>email</mat-icon>-->
         <!--</button>-->
-        <button class="text-muted" mat-icon-button mat-xs-button matTooltip="Cerrar Sesión" routerLink="/sesiones/signin">
+        <button class="text-muted" mat-icon-button mat-xs-button matTooltip="Cerrar Sesión" (click)="logout()" routerLink="/sesiones/signin">
           <mat-icon>exit_to_app</mat-icon>
         </button>
         <mat-menu #appUserMenu="matMenu">
@@ -40,7 +40,7 @@
             <!--<mat-icon>date_range</mat-icon>-->
             <!--<span>Calendario</span>-->
           <!--</button>-->
-          <button mat-menu-item routerLink="/sesiones/signin">
+          <button mat-menu-item (click)="logout()" routerLink="/sesiones/signin">
             <mat-icon>exit_to_app</mat-icon>
             <span>Cerrar Sesión</span>
           </button>

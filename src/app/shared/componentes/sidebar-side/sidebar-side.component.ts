@@ -52,4 +52,8 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  logout(){
+    localStorage.clear();
+  }
+
 }
