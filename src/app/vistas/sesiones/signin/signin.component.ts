@@ -55,7 +55,7 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('tokenType', data.token_type);
 
           let dialogRef: MatDialogRef<any> = this.dialog.open(ChangeempresaComponent, {
-            width: '720px',
+            width: '460px',
             disableClose: true,
             data: {title: 'Seleccionar empresa a contabilizar', payload: {}}
           });

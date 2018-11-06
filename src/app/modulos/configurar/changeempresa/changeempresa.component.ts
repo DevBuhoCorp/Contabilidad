@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {CrudService} from '../../../shared/servicios/crud.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class ChangeempresaComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private crudService: CrudService,
+    private snack: MatSnackBar,
     public dialogRef: MatDialogRef<ChangeempresaComponent>,
   ) { }
 
@@ -21,9 +22,14 @@ export class ChangeempresaComponent implements OnInit {
   }
 
   asignar(){
-    let item = this.empresas.filter(data => data.ID == this.selectEmpresa)[0];
-    localStorage.setItem('Empresa', JSON.stringify(item));
-    this.dialogRef.close(true);
+    if(this.selectEmpresa){
+      let item = this.empresas.filter(data => data.ID == this.selectEmpresa)[0];
+      localStorage.setItem('Empresa', JSON.stringify(item));
+      this.dialogRef.close(true);
+    }else {
+      this.snack.open('Seleccione una empresa.', 'OK', { duration: 4000 });
+    }
+
   }
 
 }
