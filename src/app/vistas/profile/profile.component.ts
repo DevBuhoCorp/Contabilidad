@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
     this.activeView = this.router.snapshot.params['view']
     this.DatosPersonales = await this.crudService.SeleccionarAsync("usuario/" + this.toolsService.getEmpresaActive().IDUsers);
     this.datos = this.DatosPersonales;
-    if (this.DatosPersonales[0].FotoPerfil !== undefined) {
+    if (this.DatosPersonales[0].FotoPerfil) {
       this.DatosPersonales[0].FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
       this.FotoPerfil = this.DatosPersonales[0].FotoPerfil;
     }
