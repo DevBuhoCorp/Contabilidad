@@ -76,7 +76,6 @@ export class PopupComponentCB implements OnInit {
     return this.Cuentas.filter(option => option.cuenta.toLowerCase().includes(filterValue));
   }
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       // Etiqueta: [item.Etiqueta || '', Validators.required],
       NumeroCuenta: [item.NumeroCuenta || '', Validators.required],

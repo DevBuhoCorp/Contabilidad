@@ -24,7 +24,6 @@ export class ProfileSettingsComponent implements OnInit {
     this.buildItemForm(this.items[0]);
   }
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       Cedula: [item.Cedula || '', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       NombrePrimer: [item.NombrePrimer || '', Validators.required],
@@ -41,7 +40,6 @@ export class ProfileSettingsComponent implements OnInit {
 
   }
   submit() {
-    console.log(this.itemForm.value);
     this.crudService.Actualizar(this.items[0].ID, this.itemForm.value, 'usuario/' + this.items[0].IDUser + '/').subscribe(data => {
       this.snack.open('Actualizado!', 'OK', { duration: 4000 });
     },

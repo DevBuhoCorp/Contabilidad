@@ -57,7 +57,6 @@ export class CuentabalanceComponent implements OnInit {
   }
 
   nodeSelect(event) {
-    console.log(this.selectedFiles);
   }
 
   save() {

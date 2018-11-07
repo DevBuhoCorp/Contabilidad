@@ -66,7 +66,6 @@ export class PopupComponentPC implements OnInit {
 
   buildItemForm(item) {
 
-    console.log(item);
     if (!item.children) {
       this.itemForm = this.fb.group({
         NumeroCuenta: [{ value: (item.promise.NumeroCuenta), disabled: true }],
