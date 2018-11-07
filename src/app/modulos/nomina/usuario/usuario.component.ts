@@ -104,7 +104,7 @@ export class UsuarioComponent implements OnInit {
     const dialogRef: MatDialogRef<any> = this.dialog.open(UsersempresaComponent, {
       width: '720px',
       disableClose: true,
-      data: { title: 'Asignar Empresa', usuario: row.ID }
+      data: { title: 'Asignar Empresa', usuario: row.IDUser }
     });
   }
 
