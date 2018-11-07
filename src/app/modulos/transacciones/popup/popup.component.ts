@@ -47,7 +47,7 @@ export class PopupTransaccion implements OnInit {
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
-      IDCuenta: [item.IDCuenta || 0, Validators.required],
+      IDCuenta: [{ID:item.IDCuenta,cuenta:item.Cuenta} || 0, Validators.required],
       Etiqueta: [item.Etiqueta],
       Debe: [item.Debe || 0, Validators.required],
       Haber: [item.Haber || 0, Validators.required],
