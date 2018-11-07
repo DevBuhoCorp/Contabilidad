@@ -6,7 +6,7 @@
   
   <div class="select-group">
     <mat-form-field class="full-width">
-      <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+      <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
         <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
       </mat-select>
     </mat-form-field>

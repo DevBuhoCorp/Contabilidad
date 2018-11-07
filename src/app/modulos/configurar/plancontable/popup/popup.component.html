@@ -28,7 +28,7 @@
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input type="number" matInput name="Saldo" [formControl]="itemForm.controls['Saldo']" placeholder="Saldo">
+        <input type="number" min="0" matInput name="Saldo" [formControl]="itemForm.controls['Saldo']" placeholder="Saldo">
       </mat-form-field>
     </div>
 
@@ -60,9 +60,9 @@
 
 
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
       <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
     </div>
   </div>
 </form>

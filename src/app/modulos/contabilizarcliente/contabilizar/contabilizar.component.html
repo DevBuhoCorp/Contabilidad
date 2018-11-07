@@ -3,14 +3,12 @@
   <div class="m-333" style="display: flex; justify-content: space-between;">
 
     <div class="m-333">
-      <a mat-icon-button mat-sm-button color="warn" matTooltip="Guardar" (click)="Guardar()">
-        <mat-icon>save</mat-icon>
-      </a>
+      <button mat-raised-button class="mb-05" color="primary" (click)="Guardar()">Guardar Transacción</button>
     </div>
 
     <div class="select-group">
       <mat-form-field class="full-width">
-        <mat-select placeholder=" Seleccione número de items:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+        <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
           <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
         </mat-select>
       </mat-form-field>

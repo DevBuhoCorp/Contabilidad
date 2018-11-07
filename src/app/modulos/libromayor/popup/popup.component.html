@@ -34,22 +34,22 @@
 
     <div fxFlex="50" class="pt-1 pr-1">
       <mat-form-field class="full-width">
-        <input type="number" matInput name="Debe" placeholder="Debe" [formControl]="itemForm.controls['Debe']">
+        <input type="number" min="0" matInput name="Debe" placeholder="Debe" [formControl]="itemForm.controls['Debe']">
       </mat-form-field>
     </div>
 
     <div fxFlex="50" class="pt-1 pr-1">
       <mat-form-field class="full-width">
-        <input type="number" matInput name="Haber" placeholder="Haber" [formControl]="itemForm.controls['Haber']">
+        <input type="number" min="0" matInput name="Haber" placeholder="Haber" [formControl]="itemForm.controls['Haber']">
       </mat-form-field>
     </div>
 
 
 
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
       <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
     </div>
   </div>
 </form>

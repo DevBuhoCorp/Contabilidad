@@ -84,7 +84,7 @@ export class LibromayorComponent implements OnInit {
     let params = {
       page: indice,
       psize: this.selPageSize,
-      //empresa: this.selEmpresa,
+      Empresa: this.toolsService.getEmpresaActive().IDEmpresa,
       Estado: 'ACT'
     };
     if (this.selTTransaccion !== 'ALL') {

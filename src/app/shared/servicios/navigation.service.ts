@@ -44,7 +44,7 @@ export class NavigationService {
       name: 'Items Principales'
     },
     {
-      name: 'Nomina',
+      name: 'Nómina',
       type: 'dropDown',
       icon: 'person',
       state: 'modulos/nomina',

@@ -6,6 +6,7 @@ import { AppConfirmService } from '../../shared/servicios/app-confirm/app-confir
 import { PopupTransaccion } from './popup/popup.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CrudService } from '../../shared/servicios/crud.service';
+import { ToolsService } from '../../shared/servicios/tools.service';
 
 @Component({
   selector: 'app-transacciones',
@@ -31,7 +32,8 @@ export class TransaccionesComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private toolsService:ToolsService) {
     this.buildItemForm();
   }
 
@@ -134,7 +136,7 @@ export class TransaccionesComponent implements OnInit {
       let temp = JSON.parse(JSON.stringify(this.Transaccion));
       temp[0].Detalle.map(row => delete row.Cuenta);
       temp[0].Detalle.map(row => delete row.ID);
-      this.crudService.Insertar(temp[0], 'transaccion').subscribe(async data => {
+      this.crudService.Insertar(temp[0], 'transaccion/' + this.toolsService.getEmpresaActive().IDEmpresa).subscribe(async data => {
         this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
         this.Inicializar();
       }, error => {

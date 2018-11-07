@@ -1,9 +1,26 @@
-<div class="p-0">
+<div class="p-0" #Etiqueta>
   <mat-card>
     <!-- <h3 class="first">Basic</h3> -->
     <p-tree [style]="{'width':'100%'}" [value]="filesTree0[0].data" selectionMode="single" [(selection)]="selectedFile"
-            (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+      (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
     </p-tree>
 
   </mat-card>
+</div>
+
+<div style="margin-top: 8px">
+
+  <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()" style="margin-right: .25em">
+    <mat-icon>arrow_downward</mat-icon>
+    Expandir Plan Contable
+  </button>
+  <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)">
+    <mat-icon>arrow_upward</mat-icon>
+    Contraer Plan Contable
+  </button>
+
+  <button mat-raised-button class="mb-05" color="primary" [routerLink]="['/modulos/configurar/modelosplanescontables']">
+    <mat-icon>arrow_back</mat-icon>
+    Regresar
+  </button>
 </div>

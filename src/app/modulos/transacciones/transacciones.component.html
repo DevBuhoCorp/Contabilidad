@@ -25,23 +25,20 @@
           </mat-form-field>
         </div>
 
-        <div fxFlex="100" class="mt-1">
+        <div fxFlex="100" class="mt-1" >
           <button mat-raised-button color="primary" [disabled]="itemForm.invalid  || trans">Crear</button>
+          
           <div class="m-333" *ngIf="trans">
-            <a mat-icon-button mat-sm-button color="warn" matTooltip="Añadir Asiento" (click)="openPopUp({}, true)">
-              <mat-icon>library_add</mat-icon>
-            </a>
+            <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)"> Añadir Asiento</button>
           </div>
-
+          <span fxFlex></span>
           <div class="m-333" *ngIf="ListaDetalles.length > 0">
-            <a mat-icon-button mat-sm-button color="warn" matTooltip="Guardar transacción" (click)="Guardar()">
-              <mat-icon>save</mat-icon>
-            </a>
+            <button mat-raised-button class="mb-05" color="primary" (click)="Guardar()">Guardar transacción</button>
           </div>
-
-
 
           <span fxFlex></span>
+
+    
           <button mat-button color="warn" type="button" (click)="Inicializar()">Cancelar</button>
         </div>
       </div>
@@ -83,7 +80,7 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Actions" [flexGrow]="1">
+            <ngx-datatable-column name="Acciones" [flexGrow]="1">
               <ng-template let-row="row" ngx-datatable-cell-template>
                 <a mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
                   <mat-icon>edit</mat-icon>
