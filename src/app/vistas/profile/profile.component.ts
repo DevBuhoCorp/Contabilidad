@@ -101,14 +101,15 @@ export class ProfileComponent implements OnInit {
         }
         catch{ }
         this.crudService.Actualizar(this.datos[0].ID, this.datos[0], 'usuario/' + this.datos[0].IDUser + '/',).subscribe(data => {
-          this.snack.open('Registros Actualizadps!', 'OK', { duration: 4000 });
+          this.snack.open('Registros Actualizados!', 'OK', { duration: 4000 });
           this.FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
           this.DatosPersonales[0].FotoPerfil = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, ''));
         },
         error => {         
-          this.snack.open('Registros Actualizadps!', 'OK', { duration: 4000 });
+          this.snack.open('Registros Actualizados!', 'OK', { duration: 4000 });
           this.FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
           this.DatosPersonales[0].FotoPerfil = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, ''));
+          location.reload();
         });
       }
       reader.readAsDataURL(file);
