@@ -10,7 +10,7 @@
     <!-- Usuario de la barra lateral -->
     <div class="app-user">
       <div class="app-user-photo">
-        <img [src]="DatosPersonales[0]?.FotoPerfil" >
+        <img [src]="DatosPersonales[0]?.FotoPerfil | sinfoto" >
       </div>
       <span class="app-user-name mb-05">
         <!--<mat-icon class="icon-xs text-muted">lock</mat-icon>-->

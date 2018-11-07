@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
     this.activeView = this.router.snapshot.params['view']
     this.DatosPersonales = await this.crudService.SeleccionarAsync("usuario/" + this.toolsService.getEmpresaActive().IDUsers);
     this.datos = this.DatosPersonales;
-    if (this.DatosPersonales[0].FotoPerfil !== undefined) {
+    if (this.DatosPersonales[0].FotoPerfil) {
       this.DatosPersonales[0].FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
       this.FotoPerfil = this.DatosPersonales[0].FotoPerfil;
     }
@@ -100,14 +100,13 @@ export class ProfileComponent implements OnInit {
           this.DatosPersonales[0].FotoPerfil = this.DatosPersonales[0].FotoPerfil.replace(/data:image\/gif;base64,/g, '');
         }
         catch{ }
-        console.log(this.datos);
         this.crudService.Actualizar(this.datos[0].ID, this.datos[0], 'usuario/' + this.datos[0].IDUser + '/',).subscribe(data => {
-          this.snack.open('Registros actualizados');
+          this.snack.open('Registros Actualizadps!', 'OK', { duration: 4000 });
           this.FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
           this.DatosPersonales[0].FotoPerfil = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, ''));
         },
         error => {         
-          this.snack.open('Registros actualizados');
+          this.snack.open('Registros Actualizadps!', 'OK', { duration: 4000 });
           this.FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
           this.DatosPersonales[0].FotoPerfil = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, ''));
         });
@@ -120,7 +119,7 @@ export class ProfileComponent implements OnInit {
     // Check Number of files
     if (files.length > this.maxFiles) {
       this.errors.push("Error: En un momento puedes subir solo " + this.maxFiles + " Imagenes");
-      this.snack.open("Error: En un momento puedes subir solo " + this.maxFiles + " Imagenes");
+      this.snack.open("Error: En un momento puedes subir solo " + this.maxFiles + " Imagenes", 'OK', { duration: 4000 });
       return;
     }
     this.isValidFileExtension(files);
@@ -138,7 +137,7 @@ export class ProfileComponent implements OnInit {
       var exists = extensions.includes(ext);
       if (!exists) {
         this.errors.push("Error (Extensión): " + files[i].name);
-        this.snack.open("Error (Extensión): " + files[i].name);
+        this.snack.open("Error (Extensión): " + files[i].name, 'OK', { duration: 4000 });
       }
       // Check file size
       this.isValidFileSize(files[i]);
@@ -149,7 +148,8 @@ export class ProfileComponent implements OnInit {
     var size = Math.round(fileSizeinMB * 100) / 100; // convert upto 2 decimal place
     if (size > this.maxSize) {
       this.errors.push("Error (Tamaño del archivo): " + file.name + ": excede el límite de tamaño de archivo " + this.maxSize + "MB ( " + size + "MB )");
-      this.snack.open("Error (Tamaño del archivo): " + file.name + ": excede el límite de tamaño de archivo " + this.maxSize + "MB ( " + size + "MB )");
+      this.snack.open("Error (Tamaño del archivo): " + file.name + ": excede el límite de tamaño de archivo " + this.maxSize + "MB ( " + size + "MB )", 'OK', { duration: 4000 });
+      
     }
   }
 

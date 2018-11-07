@@ -32,7 +32,7 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
       this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
     });
     this.DatosPersonales = await this.crudService.SeleccionarAsync("usuario/" + this.toolsService.getEmpresaActive().IDUsers);
-    if (this.DatosPersonales[0].FotoPerfil !== undefined) {
+    if (this.DatosPersonales[0].FotoPerfil) {
       this.DatosPersonales[0].FotoPerfil = 'data:image/jpeg;base64,' + this.DatosPersonales[0].FotoPerfil.replace(/,/g, '');
     }
   }

@@ -59,7 +59,6 @@ export class UsuarioComponent implements OnInit {
         }
         this.loader.open();
         if (isNew) {
-          console.log(res);
           this.crudService.Insertar(res, 'usuario/').subscribe(data => {
             this.getItems(1);
             this.loader.close();
@@ -70,7 +69,6 @@ export class UsuarioComponent implements OnInit {
             this.snack.open('Correo Duplicado!', 'OK', { duration: 4000 });
           })
         } else {
-          console.log(data);
           this.crudService.Actualizar(data[0].ID, res, 'usuario/' + data[0].IDUser + '/').subscribe(data => {
             this.getItems(1);
             this.loader.close();

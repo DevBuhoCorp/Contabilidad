@@ -27,7 +27,6 @@ export class MailComposeComponent implements OnInit {
         })
     }
     sendEmail() {
-        console.log(this.mailForm.value);
     }
     closeDialog() {
 

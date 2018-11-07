@@ -2,7 +2,7 @@
   <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
     <mat-card class="profile-sidebar mb-1 pb-0">
       <div class="propic text-center">
-        <img [src]="DatosPersonales[0]?.FotoPerfil" (click)="FPerfilClick()">
+        <img [src]="DatosPersonales[0]?.FotoPerfil | sinfoto" (click)="FPerfilClick()">
       </div>
       <div class="profile-title text-center mb-1">
         <div class="main-title">{{DatosPersonales[0]?.NombrePrimer}}

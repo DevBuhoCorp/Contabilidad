@@ -59,6 +59,7 @@ import { ExcelService } from './servicios/excel.service';
 import {ChangeempresaComponent} from '../modulos/configurar/changeempresa/changeempresa.component';
 import {ToolsService} from './servicios/tools.service';
 import {AdminGuard} from './servicios/auth/admin.guard';
+import { SinfotoPipe } from './pipes/sinfoto.pipe';
 
 const classesToInclude = [
   SidenavComponent,
@@ -75,7 +76,8 @@ const classesToInclude = [
   DropdownLinkDirective,
   RelativeTimePipe,
   ExcerptPipe,
-  ChangeempresaComponent
+  ChangeempresaComponent,
+  SinfotoPipe
 ]
 
 @NgModule({

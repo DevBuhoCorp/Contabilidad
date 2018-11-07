@@ -24,7 +24,6 @@ export class PopupComponentUser implements OnInit {
 
   ngOnInit() {
     this.roles = this.crudService.SeleccionarAsync('rol_combo');
-    //console.log(this.data.payload);
     //this.buildItemForm(this.data.payload);
     if (Array.isArray(this.data.payload)) {
       this.buildItemForm(this.data.payload[0]);
@@ -34,7 +33,6 @@ export class PopupComponentUser implements OnInit {
   }
 
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       Cedula: [item.Cedula || '', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       NombrePrimer: [item.NombrePrimer || '', Validators.required],
@@ -53,7 +51,6 @@ export class PopupComponentUser implements OnInit {
   }
 
   submit() {
-     //console.log(this.itemForm.value);
     this.dialogRef.close(this.itemForm.value)
   }
 

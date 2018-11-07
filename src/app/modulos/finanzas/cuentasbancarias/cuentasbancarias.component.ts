@@ -64,7 +64,6 @@ export class CuentasbancariasComponent implements OnInit, OnDestroy {
         this.loader.open();
         if (isNew) {
           response.IDEmpresa = this.selEmpresa;
-          console.log(response);
           this.crudService.Insertar(response, 'cuentabancaria/')
             .subscribe(data => {
               this.getItems();

@@ -34,7 +34,6 @@ export class SigninComponent implements OnInit {
 
   signin() {
     const signinData = this.signinForm.value;
-    console.log(signinData);
 
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';

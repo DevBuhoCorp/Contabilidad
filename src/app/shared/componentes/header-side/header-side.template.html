@@ -38,7 +38,7 @@
   <!--</button>-->
   <!--Menú de usuario superior izquierdo -->
   <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right img-button">
-    <img [src]="DatosPersonales[0]?.FotoPerfil">
+    <img [src]="DatosPersonales[0]?.FotoPerfil | sinfoto">
   </button>
   <mat-menu #accountMenu="matMenu">
     <button mat-menu-item [routerLink]="['/profile/overview']">

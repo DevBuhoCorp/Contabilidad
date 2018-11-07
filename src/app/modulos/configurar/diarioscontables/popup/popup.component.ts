@@ -34,7 +34,6 @@ export class PopupComponentDC implements OnInit {
   }
 
   buildItemForm(item) {
-    console.log(item);
     this.itemForm = this.fb.group({
       Codigo: [item.Codigo || '', Validators.compose([Validators.required, Validators.maxLength(2)])],
       Etiqueta: [item.Etiqueta || '', Validators.compose([Validators.required, Validators.maxLength(45)])],
