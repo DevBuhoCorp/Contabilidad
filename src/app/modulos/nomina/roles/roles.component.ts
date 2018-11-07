@@ -44,6 +44,7 @@ export class RolesComponent implements OnInit {
     if (!isNew)
     {
       data = await this.crudService.SeleccionarAsync("rol/" + data.ID);
+      data =  this.crudService.SetBool(data);
     }
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentRoles, {
       width: '720px',

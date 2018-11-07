@@ -55,6 +55,7 @@ export class PopupComponentCB implements OnInit {
     private toolsService: ToolsService
   ) { 
     this.CargarAuto();
+    console.log(this.data.payload);
     this.buildItemForm(this.data.payload);
   }
 
@@ -79,9 +80,9 @@ export class PopupComponentCB implements OnInit {
     this.itemForm = this.fb.group({
       // Etiqueta: [item.Etiqueta || '', Validators.required],
       NumeroCuenta: [item.NumeroCuenta || '', Validators.required],
-      FechaApertura: [ item.FechaApertura || '', Validators.required],
-      SaldoInicial: [item.SaldoInicial || '', Validators.required],
-      SaldoMinimo: [item.SaldoMinimo || '', Validators.required],
+      FechaApertura: [ new Date(item.FechaApertura) || '', Validators.required],
+      SaldoInicial: [new Number(item.SaldoInicial) || '', Validators.required],
+      SaldoMinimo: [new Number(item.SaldoMinimo) || '', Validators.required],
       IdentificacionTitular: [item.IdentificacionTitular || '', Validators.required],
       NombreTitular: [item.NombreTitular || '', Validators.required],
       DireccionTitular: [item.DireccionTitular || '', Validators.required],

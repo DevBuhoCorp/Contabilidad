@@ -45,6 +45,7 @@ export class UsuarioComponent implements OnInit {
     if (!isNew)
     {
       data = await this.crudService.SeleccionarAsync("usuario/" + data.ID);
+      data =  this.crudService.SetBool(data);
     }
     const dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentUser, {
       width: '720px',
