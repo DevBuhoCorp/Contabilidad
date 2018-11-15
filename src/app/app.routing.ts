@@ -40,7 +40,7 @@ export const rootRouterConfig: Routes = [
       {
         path: 'profile',
         loadChildren: './vistas/profile/profile.module#ProfileModule',
-        data: {title: 'Profile', breadcrumb: 'PROFILE'}
+        data: {title: 'Profile', breadcrumb: 'Perfil'}
       },
       {
         path: 'calendar',

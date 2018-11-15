@@ -10,7 +10,7 @@
   </div>
 </div>
 <div class="m-333" style="display: flex; justify-content: space-between;">
-  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Añadir</button>
+  <button mat-raised-button class="mb-05" color="primary" [disabled]="!selEmpresa" (click)="openPopUp({}, true)">Añadir</button>
   <div class="select-group">
     <mat-form-field class="full-width">
       <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">

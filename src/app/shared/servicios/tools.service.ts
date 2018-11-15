@@ -12,7 +12,7 @@ export class ToolsService {
   }
 
   getPaginas(){
-    return [3, 5, 10, 20];
+    return [ 5, 10, 20];
   }
 
 
