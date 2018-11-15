@@ -1,8 +1,8 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router, NavigationEnd, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { RoutePartsService } from './shared/servicios/route-parts.service';
-import { ThemeService } from './shared/servicios/theme.service';
+import {Component, OnInit, AfterViewInit, Renderer2} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {Router, NavigationEnd, ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
+import {RoutePartsService} from './shared/servicios/route-parts.service';
+import {ThemeService} from './shared/servicios/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +20,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     private routePartsService: RoutePartsService,
     private themeService: ThemeService,
     private renderer: Renderer2
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     window.scrollTo(0, 0);
   }
 
   ngAfterViewInit() {
-    this.themeService.applyMatTheme(this.renderer)
+    this.themeService.applyMatTheme(this.renderer);
   }
 }

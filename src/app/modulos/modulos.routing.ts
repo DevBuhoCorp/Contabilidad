@@ -95,7 +95,7 @@ export const ModulosRoutes: Routes = [
   {
     path: 'contabilizarcliente/contabilizar',
     component: ContabilizarCComponent,
-    data: {title: 'Contabilizar Facturas de Cliente', breadcrumb: 'CONTABILIZAR FACTURAS DE CLIENTE'}
+    data: {title: 'Contabilizar Facturas de Cliente', breadcrumb: 'CONTABILIZAR TRANSACCIÓN'}
   },
   {
     path: 'contabilizarcliente/contabilizar/lista/:id/:contabilizar',

@@ -6,7 +6,8 @@
 
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="Fecha" placeholder="Fecha" [matDatepicker]="DateDocContable" [formControl]="itemForm.controls['Fecha']">
+            <input matInput name="Fecha" placeholder="Fecha" [matDatepicker]="DateDocContable"
+                   [formControl]="itemForm.controls['Fecha']">
             <mat-datepicker-toggle matSuffix [for]="DateDocContable"></mat-datepicker-toggle>
           </mat-form-field>
           <mat-datepicker #DateDocContable></mat-datepicker>
@@ -14,99 +15,124 @@
 
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="SerieDocumento" placeholder="Doc. contabilidad" [formControl]="itemForm.controls['SerieDocumento']">
+            <input matInput name="SerieDocumento" placeholder="Doc. contabilidad"
+                   [formControl]="itemForm.controls['SerieDocumento']">
           </mat-form-field>
         </div>
 
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="Etiqueta" placeholder="Etiqueta operación" [formControl]="itemForm.controls['Etiqueta']">
+            <input matInput name="Etiqueta" placeholder="Etiqueta operación"
+                   [formControl]="itemForm.controls['Etiqueta']">
 
           </mat-form-field>
         </div>
 
-        <div fxFlex="100" class="mt-1" >
-          <button mat-raised-button color="primary" [disabled]="itemForm.invalid  || trans">Crear</button>
-          
-          <div class="m-333" *ngIf="trans">
-            <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)"> Añadir Asiento</button>
-          </div>
-          <span fxFlex></span>
-          <div class="m-333" *ngIf="ListaDetalles.length > 0">
-            <button mat-raised-button class="mb-05" color="primary" (click)="Guardar()">Guardar transacción</button>
-          </div>
+        <div fxFlex="100" class="mt-1">
+          <button mat-raised-button class="mb-05" color="primary" [disabled]="itemForm.invalid  || trans">Crear</button>
 
-          <span fxFlex></span>
+          <!--<div class="m-333" *ngIf="trans">-->
+            <!--<button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)"> Añadir Asiento-->
+            <!--</button>-->
+          <!--</div>-->
+          <!--<span fxFlex></span>-->
+          <!--<div class="m-333" *ngIf="ListaDetalles.length > 0">-->
+            <!--<button mat-raised-button class="mb-05" color="primary" (click)="Guardar()">Guardar transacción</button>-->
+          <!--</div>-->
 
-    
-          <button mat-button color="warn" type="button" (click)="Inicializar()">Cancelar</button>
+          <!--<span fxFlex></span>-->
+
+          <!--<button mat-button color="warn" type="button" (click)="Inicializar()">Cancelar</button>-->
+
         </div>
+
+
       </div>
     </form>
+
+
     <div class="m-333">
       <!--<mat-checkbox matTooltip="Contabilizar Transacción" class="mail-checkbox hide-on-open" (click)="stopProp($event)"  >
           </mat-checkbox>-->
-      <mat-checkbox [(ngModel)]="checked" *ngIf="ListaDetalles.length > 0">Contabilizar Transacción</mat-checkbox>
+
+
+
     </div>
-    <mat-list *ngIf="trans">
-      <h3 matSubheader>Listado de movimientos</h3>
 
-      <mat-card class="p-0">
-        <mat-card-content class="p-0">
-          <ngx-datatable class="material ml-0 mr-0" [rows]="ListaDetalles" [columnMode]="'flex'" [headerHeight]="50"
-            [footerHeight]="50" [rowHeight]="'auto'">
-
-            <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row?.Cuenta }}
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row?.Etiqueta }}
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column name="Debe" [flexGrow]="1">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row?.Debe | currency}}
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column name="Haber" [flexGrow]="1">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row?.Haber | currency}}
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column name="Acciones" [flexGrow]="1">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                <a mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
-                  <mat-icon>edit</mat-icon>
-                </a>
-                <a mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
-                  <mat-icon>delete</mat-icon>
-                </a>
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-footer>
-              <ng-template ngx-datatable-footer-template>
-                <div style="padding: 5px 10px">
-                  <div>
-                    <strong>Total Debe</strong>: {{Debe | currency}}
-                    <strong>Total Haber</strong>: {{Haber | currency}}
-                  </div>
-                  <hr style="width:100%" />
-                </div>
-              </ng-template>
-            </ngx-datatable-footer>
-          </ngx-datatable>
-        </mat-card-content>
-      </mat-card>
-
-    </mat-list>
 
   </mat-card-content>
 </mat-card>
+<mat-card *ngIf="trans" >
+
+
+  <mat-card-content class="mt-1">
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" >
+
+      <div>
+        <button mat-raised-button class="mr-1" color="primary" (click)="openPopUp({}, true)" *ngIf="trans" > Añadir Asiento</button>
+        <mat-checkbox [(ngModel)]="checked" *ngIf="ListaDetalles.length > 0">Contabilizar Transacción</mat-checkbox>
+      </div>
+
+      <button mat-raised-button class="mr-1" color="primary" (click)="Guardar()" *ngIf="ListaDetalles.length > 0">Guardar transacción</button>
+
+    </div>
+
+    <ngx-datatable class="material"
+                   [rows]="ListaDetalles"
+                   [columnMode]="'flex'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'">
+
+      <ngx-datatable-column name="Cuenta Contable" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Cuenta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Etiqueta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Etiqueta }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Debe" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Debe | currency}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Haber" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.Haber | currency}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <a mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <a mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+            <mat-icon>delete</mat-icon>
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-footer>
+        <ng-template ngx-datatable-footer-template>
+          <div style="padding: 5px 10px">
+            <div>
+              <strong>Total Debe</strong>: {{ Debe | currency}}
+              <strong>Total Haber</strong>: {{ Haber | currency}}
+            </div>
+            <hr style="width:100%"/>
+          </div>
+        </ng-template>
+      </ngx-datatable-footer>
+    </ngx-datatable>
+
+  </mat-card-content>
+</mat-card>
+

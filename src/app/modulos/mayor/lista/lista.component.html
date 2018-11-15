@@ -47,15 +47,18 @@
   </div>
 
 
-  <div class="m-333" style="display: flex; justify-content: space-between;">
+  <div class="m-333" fxLayout="row wrap" fxLayoutAlign="space-between center">
 
-    <button mat-raised-button class="mb-05" color="primary" (click)="getItems()">
-      Filtrar
-    </button>
+    <div>
+      <button mat-raised-button class="mr-1" color="primary" (click)="getItems()">
+        Filtrar
+      </button>
 
-    <button mat-raised-button class="mb-05" color="primary" (click)="exportar()">
-      Exportar Archivo Excel
-    </button>
+      <button mat-raised-button class="mr-1" color="primary" (click)="exportar()">
+        Exportar Archivo Excel
+      </button>
+    </div>
+
 
     <div class="select-group">
       <mat-form-field class="full-width">

@@ -80,15 +80,13 @@ export class NavigationService {
     },
     {
       name: 'Transacciones',
-      type: 'link',
+      type: 'dropDown',
       icon: 'transform',
-      state: 'modulos/transacciones',
-    },
-    {
-      name: 'Contabilizar Transacciones',
-      type: 'link',
-      icon: 'account_balance_wallet',
-      state: 'modulos/contabilizarcliente/contabilizar',
+      state: 'modulos',
+      sub: [
+        { name: 'Nueva', state: 'transacciones' },
+        { name: 'Contabilizar Transacciones', icon: 'account_balance_wallet', state: 'contabilizarcliente/contabilizar' },
+      ]
     },
     {
       name: 'Libro Diario',
