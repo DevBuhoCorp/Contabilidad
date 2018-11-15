@@ -28,6 +28,7 @@ import { ProfileOverviewComponent } from './profile-overview/profile-overview.co
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { ProfileBlankComponent } from './profile-blank/profile-blank.component';
 import { ProfileRoutes } from "./profile.routing";
+import { AppLoaderService } from '../../shared/servicios/app-loader/app-loader.service';
 
 @NgModule({
     imports: [
@@ -54,6 +55,9 @@ import { ProfileRoutes } from "./profile.routing";
         ReactiveFormsModule,
         RouterModule.forChild(ProfileRoutes)
     ],
-    declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent]
+    declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent],
+    providers: [AppLoaderService],
+    entryComponents: [ProfileBlankComponent]
+
 })
 export class ProfileModule { }

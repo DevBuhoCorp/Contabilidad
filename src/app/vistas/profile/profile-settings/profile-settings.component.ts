@@ -4,7 +4,9 @@ import { CrudService } from '../../../shared/servicios/crud.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { ToolsService } from '../../../shared/servicios/tools.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
+import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
+import { ProfileBlankComponent } from '../profile-blank/profile-blank.component';
 
 @Component({
   selector: 'app-profile-settings',
@@ -15,9 +17,11 @@ export class ProfileSettingsComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
   public hasBaseDropZoneOver: boolean = false;
   DatosUsuario: any = [];
-  items:any = [];
+  items: any = [];
   public itemForm: FormGroup;
-  constructor(private crudService: CrudService, private fb: FormBuilder, private toolService: ToolsService, private snack:MatSnackBar) { }
+  constructor(private crudService: CrudService, private fb: FormBuilder, private toolService: ToolsService, private snack: MatSnackBar,
+    private dialog: MatDialog,
+    private loader: AppLoaderService, ) { }
 
   async ngOnInit() {
     this.items = await this.crudService.SeleccionarAsync("usuario/" + this.toolService.getEmpresaActive().IDUsers);
@@ -43,12 +47,38 @@ export class ProfileSettingsComponent implements OnInit {
     this.crudService.Actualizar(this.items[0].ID, this.itemForm.value, 'usuario/' + this.items[0].IDUser + '/').subscribe(data => {
       this.snack.open('Actualizado!', 'OK', { duration: 4000 });
     },
-    error => {         
-      this.snack.open('Actualizado!', 'OK', { duration: 4000 });
-    })
+      error => {
+        this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+      })
   }
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
+  }
+  async openPopUp(data: any = {}, isNew?) {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(ProfileBlankComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { payload: data }
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (!response)
+        return;
+      else {
+        this.crudService.Actualizar(this.toolService.getEmpresaActive().IDUsers, response, 'changepass/')
+          .subscribe(response2 => {
+            console.log(response2); 
+            if (response2) {
+              localStorage.clear();
+              location.reload();
+            }
+            else{
+              this.snack.open('Error Contraseña!', 'OK', { duration: 4000 });
+            }
+
+          });
+      }
+    });
   }
 
 }
