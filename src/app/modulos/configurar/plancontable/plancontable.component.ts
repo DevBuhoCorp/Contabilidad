@@ -182,7 +182,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   collapseAll($Etiqueta) {
-    $Etiqueta.scrollIntoView();
+    window.scrollTo(0, 0);
     this.filesTree0.forEach(node => {
       this.expandRecursive(node, false);
     });
