@@ -105,10 +105,10 @@ export class LibromayorComponent implements OnInit {
     this.items = data.data;
     this.Totales = null;
     this.Totales = data.totales;
-    this.items.data.map(i => {
+   /* this.items.data.map(i => {
       this.TotalDebe = this.TotalDebe + Number(i.Debe);
       this.TotalHaber = this.TotalHaber + Number(i.Haber);
-    })
+    })*/
 
   }
 

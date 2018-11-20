@@ -6,7 +6,7 @@ import {AuthGuard} from './auth/auth.guard';
 
 @Injectable()
 export class CrudService {
-  readonly puerto = "http://localhost:8000/";
+  readonly puerto = "http://192.168.4.107:8000/";
   private header: Headers;
 
   constructor(private http: Http, private httpClient: HttpClient ) {
