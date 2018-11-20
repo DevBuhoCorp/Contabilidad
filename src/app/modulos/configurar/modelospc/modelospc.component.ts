@@ -120,14 +120,11 @@ export class ModelospcComponent implements OnInit {
     this.getItems(event.offset + 1);
   }
 
-  async exportar( id ) {
-    let data: any = await this.crudService.SeleccionarAsync('cuentacontable/' + id);
-    this.excelService.exportAsExcelFile(data.map( ( row ) => {
-      return {
-        NumeroCuenta: row.NumeroCuenta,
-        Nombre: row.Etiqueta
-      }
-    } ), 'PlanContable');
+  exportar(row) {
+    let data = this.crudService.GetToFile('modeloplancontable/export/' + row.ID)
+      .subscribe(response => {
+        this.excelService.saveAsExcelFile(response, `Modelo - ${ row.Etiqueta }`)
+      });
 
   }
 
