@@ -197,10 +197,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     }
   }
 
-  exportar(): void {
-    this.excelService.exportAsExcelFile(this.filesTree0, 'PlanContable');
 
-  }
 
 
 }
