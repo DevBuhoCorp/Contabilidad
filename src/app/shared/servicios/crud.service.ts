@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/delay';
-import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
-import { HttpClient, HttpHeaders } from '../../../../node_modules/@angular/common/http';
+import {Http, Headers, RequestOptions, RequestMethod, ResponseContentType} from '@angular/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '../../../../node_modules/@angular/common/http';
 import {AuthGuard} from './auth/auth.guard';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class CrudService {
@@ -23,6 +24,11 @@ export class CrudService {
 
   Ejecutar(api, param?) {
     return this.http.get(this.puerto + api, { params: param, headers: this.getHeaders() });
+  }
+
+  GetToFile(api, param?) {
+    var headers = this.getHeaders();
+    return this.httpClient.get( this.puerto + api, { params: param, headers: headers.toJSON(), responseType: 'blob' } );
   }
 
   SeleccionarAsync(api, param?) {
@@ -49,7 +55,7 @@ export class CrudService {
       }
       index++;
     }
-    console.log(datos);
+    // console.log(datos);
     return datos;
   }
 

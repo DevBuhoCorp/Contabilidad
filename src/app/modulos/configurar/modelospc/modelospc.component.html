@@ -55,7 +55,7 @@
           <button mat-icon-button mat-sm-button color="primary" matTooltip="Habilitar por defecto" class="mr-1" (click)="habilitarMPC(row)">
             <mat-icon>check</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" class="mr-1" matTooltip="Exportar a excel" (click)="exportar(row.ID)">
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" matTooltip="Exportar a excel" (click)="exportar(row)">
             <mat-icon>get_app</mat-icon>
           </button>
           <button mat-icon-button mat-sm-button color="primary" matTooltip="Listar Cuentas Contables" class="mr-1" [routerLink]="['lista', row.ID]">
