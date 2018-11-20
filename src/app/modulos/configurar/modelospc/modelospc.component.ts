@@ -5,6 +5,7 @@ import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.
 import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
 import {CrudService} from '../../../shared/servicios/crud.service';
 import {ToolsService} from '../../../shared/servicios/tools.service';
+import {ExcelService} from '../../../shared/servicios/excel.service';
 
 @Component({
   selector: 'app-modelospc',
@@ -15,7 +16,7 @@ export class ModelospcComponent implements OnInit {
   selEmpresa: any;
   empresas: any;
 
-  pageSize = this.toolsService.getPaginas(); 
+  pageSize = this.toolsService.getPaginas();
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -30,7 +31,8 @@ export class ModelospcComponent implements OnInit {
     private crudService: CrudService,
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
-    private toolsService: ToolsService
+    private toolsService: ToolsService,
+    private excelService: ExcelService,
   ) {
   }
 
@@ -38,12 +40,16 @@ export class ModelospcComponent implements OnInit {
     this.empresas = this.crudService.SeleccionarAsync(`usuario/empresa`);
   }
 
-  loadApp(){
+  loadApp() {
     this.getItems();
   }
 
   async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('modeloplancontable', {page: indice, psize: this.selPageSize, empresa: this.selEmpresa});
+    this.items = await this.crudService.SeleccionarAsync('modeloplancontable', {
+      page: indice,
+      psize: this.selPageSize,
+      empresa: this.selEmpresa
+    });
     this.items.data = this.crudService.SetBool(this.items.data);
   }
 
@@ -100,11 +106,11 @@ export class ModelospcComponent implements OnInit {
   habilitarMPC(data) {
     this.confirmService.confirm({title: 'Confirmar', message: 'Desea definir este Modelo de Plan como predeterminado?'})
       .subscribe((result) => {
-        if( result ){
-          this.crudService.Ejecutar('modeloplancontable/habilitar/' + data.ID, { Empresa : this.selEmpresa  })
-            .subscribe(data =>{
-            this.snack.open('Habilitado!', 'OK', {duration: 4000});
-          });
+        if (result) {
+          this.crudService.Ejecutar('modeloplancontable/habilitar/' + data.ID, {Empresa: this.selEmpresa})
+            .subscribe(data => {
+              this.snack.open('Habilitado!', 'OK', {duration: 4000});
+            });
 
         }
       });
@@ -112,6 +118,17 @@ export class ModelospcComponent implements OnInit {
 
   setPage(event) {
     this.getItems(event.offset + 1);
+  }
+
+  async exportar( id ) {
+    let data: any = await this.crudService.SeleccionarAsync('cuentacontable/' + id);
+    this.excelService.exportAsExcelFile(data.map( ( row ) => {
+      return {
+        NumeroCuenta: row.NumeroCuenta,
+        Nombre: row.Etiqueta
+      }
+    } ), 'PlanContable');
+
   }
 
 }
