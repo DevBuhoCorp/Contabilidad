@@ -6,6 +6,7 @@ import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confi
 import {CrudService} from '../../../shared/servicios/crud.service';
 import {ToolsService} from '../../../shared/servicios/tools.service';
 import {ExcelService} from '../../../shared/servicios/excel.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-modelospc',
@@ -121,7 +122,7 @@ export class ModelospcComponent implements OnInit {
   }
 
   exportar(row) {
-    let data = this.crudService.GetToFile('modeloplancontable/export/' + row.ID)
+    this.crudService.GetToFile('modeloplancontable/export/' + row.ID)
       .subscribe(response => {
         this.excelService.saveAsExcelFile(response, `Modelo - ${ row.Etiqueta }`)
       });

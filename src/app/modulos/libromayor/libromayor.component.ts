@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
-import { AppLoaderService } from '../../shared/servicios/app-loader/app-loader.service';
-import { AppConfirmService } from '../../shared/servicios/app-confirm/app-confirm.service';
-import { PopupLibroMayor } from './popup/popup.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CrudService } from '../../shared/servicios/crud.service';
-import { ExcelService } from '../../shared/servicios/excel.service';
+import {Component, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {MatDialog, MatSnackBar, MatDialogRef} from '@angular/material';
+import {AppLoaderService} from '../../shared/servicios/app-loader/app-loader.service';
+import {AppConfirmService} from '../../shared/servicios/app-confirm/app-confirm.service';
+import {PopupLibroMayor} from './popup/popup.component';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {CrudService} from '../../shared/servicios/crud.service';
+import {ExcelService} from '../../shared/servicios/excel.service';
 import {ToolsService} from '../../shared/servicios/tools.service';
 
 @Component({
@@ -16,7 +16,7 @@ import {ToolsService} from '../../shared/servicios/tools.service';
 })
 
 export class LibromayorComponent implements OnInit {
-  pageSize = this.toolsService.getPaginas(); 
+  pageSize = this.toolsService.getPaginas();
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -32,16 +32,15 @@ export class LibromayorComponent implements OnInit {
   dtpInicio: any;
   dtpFin: any;
   tcuentas: any[] = [
-    { 'Descripcion': 'Todos', 'Cod': 'ALL' },
-    { 'Descripcion': 'Acredora', 'Cod': 'ACRE' },
-    { 'Descripcion': 'Adeudora', 'Cod': 'ADEU' }
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
+    {'Descripcion': 'Adeudora', 'Cod': 'ADEU'}
   ];
   ttransacions: any[] = [
-    { 'Descripcion': 'Todos', 'Cod': 'ALL' },
-    { 'Descripcion': 'Manual', 'Cod': 'manual' },
-    { 'Descripcion': 'Aplicación', 'Cod': 'app' }
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Manual', 'Cod': 'manual'},
+    {'Descripcion': 'Aplicación', 'Cod': 'app'}
   ];
-
 
 
   selApp: any;
@@ -76,7 +75,7 @@ export class LibromayorComponent implements OnInit {
 
   ngOnInit() {
     this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
-    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', { empresa: this.toolsService.getEmpresaActive().IDEmpresa });
+    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', {empresa: this.toolsService.getEmpresaActive().IDEmpresa});
     // this.getItems();
   }
 
@@ -105,10 +104,10 @@ export class LibromayorComponent implements OnInit {
     this.items = data.data;
     this.Totales = null;
     this.Totales = data.totales;
-   /* this.items.data.map(i => {
-      this.TotalDebe = this.TotalDebe + Number(i.Debe);
-      this.TotalHaber = this.TotalHaber + Number(i.Haber);
-    })*/
+    /* this.items.data.map(i => {
+       this.TotalDebe = this.TotalDebe + Number(i.Debe);
+       this.TotalHaber = this.TotalHaber + Number(i.Haber);
+     })*/
 
   }
 
@@ -122,13 +121,11 @@ export class LibromayorComponent implements OnInit {
   }
 
 
-
   async setPage(event) {
     if (event.offset == 0) {
       this.VienenDebe = 0;
       this.VienenHaber = 0;
-    }
-    else {
+    } else {
       this.VienenDebe = this.TotalDebe;
       this.VienenHaber = this.TotalHaber;
     }
@@ -146,7 +143,6 @@ export class LibromayorComponent implements OnInit {
       this.excelService.exportAsExcelFile(x, 'Libro Diario');
     });
 
-    
 
   }
 }

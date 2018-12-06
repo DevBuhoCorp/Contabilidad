@@ -4,8 +4,8 @@
       <div class="card-title-text" style="display: flex; justify-content: space-between;">
         <span #Etiqueta>Seleccione una cuenta para ver su Mayor</span>
       
+     <button mat-raised-button class="mb-05" color="primary" [routerLink]="['lista', selectedFile.data, selectedFile.label]" *ngIf="selectedFile?.children.length == 0">Listar Transacciones</button>
 
-     <button mat-raised-button class="mb-05" color="primary" [routerLink]="['lista', selectedFile.data, selectedFile.label]" *ngIf="selectedFile">Listar Transacciones</button>
     </div>
     </mat-card-title>
     <p-tree #expandingTree [style]="{'width':'100%'}"
