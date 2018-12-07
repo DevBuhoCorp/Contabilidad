@@ -137,12 +137,35 @@ export class LibromayorComponent implements OnInit {
 
   exportar(): void {
 
-    this.crudService.Seleccionar('export_librodiario').map((response) => {
+    /* this.crudService.Seleccionar('export_librodiario').map((response) => {
       return response.json();
     }).toPromise().then(x => {
       this.excelService.exportAsExcelFile(x, 'Libro Diario');
-    });
+    }); */
 
+    let params = {
+
+      Empresa: this.toolsService.getEmpresaActive().IDEmpresa,
+      Estado: 'ACT'
+    };
+    if (this.selTTransaccion !== 'ALL') {
+      params['ttransaccion'] = this.selTTransaccion;
+      if (this.selTTransaccion == 'app' && this.selApp != 'ALL')
+        params['app'] = this.selApp;
+    }
+    if (this.selTCuenta !== 'ALL')
+      params['tcuenta'] = this.selTCuenta;
+
+    if (this.dtpInicio)
+      params['FInicio'] = this.dtpInicio.toDateString();
+    if (this.dtpFin)
+      params['FFin'] = this.dtpFin.toDateString();
+
+
+      this.crudService.GetToFile('export_diario',params)
+      .subscribe(response => {
+        this.excelService.saveAsExcelFile(response, `Libro Diario`)
+      });
 
   }
 }
