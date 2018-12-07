@@ -4,6 +4,7 @@ import {Validators, FormGroup, FormControl} from '@angular/forms';
 import {CrudService} from '../../../shared/servicios/crud.service';
 import {AuthGuard} from '../../../shared/servicios/auth/auth.guard';
 import {ChangeempresaComponent} from '../../../modulos/configurar/changeempresa/changeempresa.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -20,7 +21,8 @@ export class SigninComponent implements OnInit {
     private crudService: CrudService,
     private authGuard: AuthGuard,
     private dialog: MatDialog,
-    private snack: MatSnackBar,) {
+    private snack: MatSnackBar,
+    private router: Router,) {
 
   }
 
@@ -60,7 +62,8 @@ export class SigninComponent implements OnInit {
           });
           dialogRef.afterClosed().subscribe(response => {
             if (response)
-              return window.location.href = `${ origin }/dashboard/`;
+              //return window.location.href = `${ origin }/principal/`;
+              this.router.navigate(['/principal']);
           });
 
 

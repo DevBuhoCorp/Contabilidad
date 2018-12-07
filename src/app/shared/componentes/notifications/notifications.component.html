@@ -5,7 +5,7 @@
   <!-- Notification item -->
   <mat-list-item *ngFor="let n of notifications" class="notific-item" role="listitem" routerLinkActive="open">
     <mat-icon [color]="n.color" class="notific-icon">{{n.icon}}</mat-icon>
-    <a [routerLink]="[n.route || '/dashboard']">
+    <a [routerLink]="[n.route || '/principal']">
       <div class="mat-list-text">
         <h4 class="message">{{n.message}}</h4>
         <small class="time text-muted">{{n.time}}</small>

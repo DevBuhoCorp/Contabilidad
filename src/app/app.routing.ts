@@ -28,7 +28,7 @@ export const rootRouterConfig: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'dashboard',
+        path: 'principal',
         loadChildren: './vistas/dashboard/dashboard.module#DashboardModule',
         data: {title: 'Dashboard', breadcrumb: 'DASHBOARD'}
       },
