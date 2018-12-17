@@ -5,7 +5,8 @@ import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/
 
 @Injectable()
 export class CrudService {
-  readonly puerto = "http://192.168.4.113:8000/"; 
+  readonly puerto = "http://localhost:8000/"; 
+  //readonly puerto = "http://192.168.4.113:8000/"; 
   //readonly puerto = "http://192.168.4.113/ContabilidadBackendLumen/public/";
   //readonly puerto = "http://localhost/ContabilidadBackendLumen/public/";
   private header: Headers;

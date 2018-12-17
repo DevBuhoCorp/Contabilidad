@@ -57,6 +57,11 @@ export class PopupTransaccion implements OnInit {
   }
 
   submit() {
+    if(this.itemForm.value.Debe && this.itemForm.value.Haber || !this.itemForm.value.Debe && !this.itemForm.value.Haber){
+      this.snack.open("Solo Ingresar un valor Debe o Haber", 'OK', { duration: 4000 });
+      return;
+    }
+
     if (this.itemForm.value.IDCuenta.cuenta) {
       this.itemForm.value.Cuenta = this.itemForm.value.IDCuenta.cuenta;
       this.itemForm.value.IDCuenta = this.itemForm.value.IDCuenta.ID;

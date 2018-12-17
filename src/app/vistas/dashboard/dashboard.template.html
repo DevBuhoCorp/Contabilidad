@@ -37,10 +37,10 @@
         <small class="text-muted">Total Transacciones este mes</small>
         <span fxFlex></span>
         <mat-chip class="icon-chip" color="primary" selected="true" *ngIf="porcentaje > 0">
-          <mat-icon>trending_up</mat-icon>{{porcentaje}}%
+          <mat-icon>trending_up</mat-icon>{{porcentaje | number : '1.2-2'}}%
         </mat-chip>
         <mat-chip class="icon-chip" color="warn" selected="true" *ngIf="porcentaje < 0">
-          <mat-icon>trending_down</mat-icon>{{porcentaje}}%
+          <mat-icon>trending_down</mat-icon>{{porcentaje | number : '1.2-2'}}%
         </mat-chip>
       </mat-card-title>
       <mat-card-content>
