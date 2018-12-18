@@ -1,32 +1,80 @@
 <mat-card class="p-0">
-
   <div class="m-333" style="display: flex; justify-content: space-between;">
-
     <div class="m-333">
-      <button mat-raised-button class="mb-05" color="primary" (click)="Guardar()">Contabilizar Transacción</button>
+      <button
+        mat-raised-button
+        class="mb-05"
+        color="primary"
+        (click)="Guardar()"
+      >
+        Contabilizar Transacción
+      </button>
     </div>
 
     <div class="select-group">
       <mat-form-field class="full-width">
-        <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
-          <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+        <mat-select
+          placeholder=" Seleccione número de ítems:"
+          [(ngModel)]="selPageSize"
+          (selectionChange)="getItems()"
+        >
+          <mat-option
+            *ngFor="let page of pageSize"
+            [value]="page"
+            ngDefaultControl
+            >{{ page }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
-
-
   </div>
 
-
-
   <mat-card-content class="p-0">
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
-                   [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
-                   (page)='setPage($event)'>
+    <ngx-datatable
+      #MyDatatableComponent
+      class="material ml-0 mr-0"
+      [rows]="items.data"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [rowIdentity]="getID"
+      [selected]="selectedTransacciones"
+      [selectionType]="'checkbox'"
+      [selectAllRowsOnPage]="false"
+      [externalPaging]="true"
+      [count]="items.total"
+      [limit]="items.per_page"
+      (page)="setPage($event)"
+    >
+      <ngx-datatable-column
+        [width]="30"
+        [sortable]="false"
+        [canAutoResize]="false"
+        [draggable]="false"
+        [resizeable]="false"
+        [headerCheckboxable]="true"
+        [checkboxable]="true"
+      >
+      </ngx-datatable-column>
+
+      <!--  <ngx-datatable-column
+        [width]="50"
+        [sortable]="false"
+        [canAutoResize]="false"
+        [draggable]="false"
+        [resizeable]="false"
+        [flexGrow]="1"
+      >
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          <mat-checkbox [(ngModel)]="row.Estado"></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
+ -->
 
       <ngx-datatable-column name="Fecha Transacción" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Fecha | date:'medium' }}
+          {{ row?.Fecha | date: "medium" }}
         </ng-template>
       </ngx-datatable-column>
 
@@ -38,36 +86,28 @@
 
       <ngx-datatable-column name="Debe" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Debe }}
+          {{ row?.Debe | currency }}
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Haber" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Haber }}
+          {{ row?.Haber | currency }}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Contabilizar Transacción" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <mat-checkbox [(ngModel)]="row.Estado"></mat-checkbox>
-        </ng-template>
-
-
-      </ngx-datatable-column>
       <ngx-datatable-column name="Lista de Detalles" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID, 'CONTABILIZAR']">
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="warn"
+            [routerLink]="['lista', row.ID, 'CONTABILIZAR']"
+          >
             <mat-icon>list</mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>
-
-
-
-
-
     </ngx-datatable>
   </mat-card-content>
-
 </mat-card>

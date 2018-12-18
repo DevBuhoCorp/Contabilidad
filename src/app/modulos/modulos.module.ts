@@ -21,7 +21,8 @@ import {
   MatTabsModule,
   MatProgressBarModule,
   MatAutocompleteModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatRadioModule
 } from '@angular/material';
 // PrimeNG
 import {TreeModule} from 'primeng/tree';
@@ -105,6 +106,7 @@ import {UserempresafilterPipe} from '../shared/pipes/userempresafilter.pipe';
     MatProgressBarModule,
     HttpClientModule,
     MatAutocompleteModule,
+    MatRadioModule,
     //PrimeNG
     TreeModule,
     RouterModule.forChild(ModulosRoutes)

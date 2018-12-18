@@ -18,8 +18,13 @@ export class PopupTransaccion implements OnInit {
   cuenta: any = {
     ID: 0
   };
+  lsTipos: any[] = [
+    {Value: 'D', Descripcion: 'Debe'},
+    {Value: 'H', Descripcion: 'Haber'},
+  ];
   Cuentas: any = [];
   public itemForm: FormGroup;
+  slTipo: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PopupTransaccion>,

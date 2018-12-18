@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { CrudService } from '../../../shared/servicios/crud.service';
 import {ToolsService} from '../../../shared/servicios/tools.service';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class ContabilizarCComponent implements OnInit {
     total: 0,
     per_page: 0
   };
+  selectedTransacciones: any = [];
+  @ViewChild("MyDatatableComponent") ngxDatatable: DatatableComponent;
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
@@ -43,8 +46,29 @@ export class ContabilizarCComponent implements OnInit {
     this.getItems(event.offset + 1);
   }
 
+  getID(row) {
+    return row.ID;
+  }
+
   Guardar() {
-    this.items.data.map(i => {
+    let selected = this.ngxDatatable.selected.map(row => row);
+    console.log(this.selectedTransacciones);
+    selected.map(i => {
+     try {
+        i.Estado = true;
+        this.crudService.Actualizar(i.ID, i, 'transaccion/').subscribe(async data => {
+          this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
+          this.getItems();
+        }, error => {
+          this.snack.open(error._body, 'OK', { duration: 4000 });
+        });
+      }
+      catch{
+        this.snack.open("Error al Contabilizar", 'OK', { duration: 4000 });
+      }
+    }); 
+    this.selectedTransacciones = [];
+    /* this.items.data.map(i => {
       if (i.Estado) {
         this.crudService.Actualizar(i.ID, i, 'transaccion/').subscribe(async data => {
           this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
@@ -53,8 +77,9 @@ export class ContabilizarCComponent implements OnInit {
           this.snack.open(error._body, 'OK', { duration: 4000 });
         });
       }
-    });
+    }); */
 
   }
+
 
 }

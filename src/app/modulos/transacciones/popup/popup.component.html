@@ -1,55 +1,92 @@
-<h1 matDialogTitle>{{data.title}}</h1>
-<form name="itemForm" (ngSubmit)="submit()">
+<h1 matDialogTitle>{{ data.title }}</h1>
+
+<div style="margin: 10px 0;" *ngIf="!slTipo">
+  <span>Tipo de Movimiento:</span>
+  <mat-radio-group class="example-radio-group" [(ngModel)]="slTipo">
+    <mat-radio-button
+      style="margin: 5px;"
+      *ngFor="let tipo of lsTipos"
+      [value]="tipo.Value"
+    >
+      {{ tipo.Descripcion }}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+
+<form name="itemForm" (ngSubmit)="submit()" *ngIf="slTipo">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
-
     <div fxFlex="50" class="pr-1">
-      <mat-form-field class="full-width"> 
-        <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="itemForm.controls['IDCuenta']">
-      
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let seleccionado of cuenta | async" [value]="seleccionado">
-          {{ seleccionado.cuenta }}
-        </mat-option>
-      </mat-autocomplete>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          placeholder="Cuenta"
+          [matAutocomplete]="auto"
+          [formControl]="itemForm.controls['IDCuenta']"
+        />
 
-    </mat-form-field>
-
-      <!--<mat-form-field>
-        <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="stateCtrl">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option
+            *ngFor="let seleccionado of (cuenta | async)"
+            [value]="seleccionado"
+          >
+            {{ seleccionado.cuenta }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
-      
-      <mat-autocomplete #auto="matAutocomplete" >
-        <mat-option *ngFor="let state of filteredStates | async" [value]="state">
-          {{ state.cuenta }}
-        </mat-option>
-      </mat-autocomplete>-->
     </div>
 
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="Etiqueta" placeholder="Etiqueta operación" [formControl]="itemForm.controls['Etiqueta']">
-
+        <input
+          matInput
+          name="Etiqueta"
+          placeholder="Etiqueta operación"
+          [formControl]="itemForm.controls['Etiqueta']"
+        />
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pt-1 pr-1">
+    <div fxFlex="50" class="pt-1 pr-1" *ngIf="slTipo == 'D'">
       <mat-form-field class="full-width">
-        <input type="number" min="0" matInput name="Debe" placeholder="Debe" [formControl]="itemForm.controls['Debe']">
+        <input
+          style="text-align: right;"
+          type="number"
+          min="0"
+          matInput
+          name="Debe"
+          placeholder="Debe"
+          [formControl]="itemForm.controls['Debe']"
+        />
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pt-1 pr-1">
+    <div fxFlex="50" class="pt-1 pr-1" *ngIf="slTipo == 'H'">
       <mat-form-field class="full-width">
-        <input type="number" min="0" matInput name="Haber" placeholder="Haber" [formControl]="itemForm.controls['Haber']">
+        <input
+          style="text-align: right;"
+          type="number"
+          min="0"
+          matInput
+          name="Haber"
+          placeholder="Haber"
+          [formControl]="itemForm.controls['Haber'] "
+        />
       </mat-form-field>
     </div>
-
-
 
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
       <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+      <button
+        mat-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
     </div>
   </div>
 </form>
