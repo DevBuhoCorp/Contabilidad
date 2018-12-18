@@ -1,24 +1,40 @@
 <div class="m-333" fxLayout="row wrap" fxLayoutAlign="space-between center">
-
   <button mat-raised-button class="mb-05" color="primary" (click)="exportar()">
     Exportar Archivo Excel
   </button>
-  
+
   <div class="select-group">
     <mat-form-field class="full-width">
-      <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
-        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+      <mat-select
+        placeholder=" Seleccione número de ítems:"
+        [(ngModel)]="selPageSize"
+        (selectionChange)="getItems()"
+      >
+        <mat-option
+          *ngFor="let page of pageSize"
+          [value]="page"
+          ngDefaultControl
+          >{{ page }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
   </div>
-
 </div>
 
 <mat-card class="p-0">
   <mat-card-content class="p-0">
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
-      [footerHeight]="50" [count]="items.total" [limit]="items.per_page" [rowHeight]="'auto'" [externalPaging]="true"
-      (page)='setPage($event)'>
+    <ngx-datatable
+      class="material ml-0 mr-0"
+      [rows]="items.data"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [count]="items.total"
+      [limit]="items.per_page"
+      [rowHeight]="'auto'"
+      [externalPaging]="true"
+      (page)="setPage($event)"
+    >
       <ngx-datatable-column name="Cuenta" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.Cuenta }}
@@ -29,14 +45,14 @@
           {{ row?.Etiqueta }}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Debe" [flexGrow]="1">
+      <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Debe | currency}}
+          <div style="text-align: right;">{{ row?.Debe | currency }}</div>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Haber" [flexGrow]="1">
+      <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Haber | currency }}
+          <div style="text-align: right;">{{ row?.Haber | currency }}</div>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
@@ -44,14 +60,24 @@
 </mat-card>
 
 <div class="m-333" *ngIf="!opt">
-  <button mat-raised-button class="mb-05" color="primary" [routerLink]="['/modulos/libromayor']">
+  <button
+    mat-raised-button
+    class="mb-05"
+    color="primary"
+    [routerLink]="['/modulos/libromayor']"
+  >
     <mat-icon>arrow_back</mat-icon>
     Regresar
   </button>
 </div>
 
 <div class="m-333" *ngIf="opt">
-  <button mat-raised-button class="mb-05" color="primary" [routerLink]="['/modulos/contabilizarcliente/contabilizar']">
+  <button
+    mat-raised-button
+    class="mb-05"
+    color="primary"
+    [routerLink]="['/modulos/contabilizarcliente/contabilizar']"
+  >
     <mat-icon>arrow_back</mat-icon>
     Regresar
   </button>

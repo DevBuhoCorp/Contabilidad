@@ -72,7 +72,7 @@
       </div>
       <mat-divider></mat-divider>
     </mat-card-title>
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'force'" [headerHeight]="50"
+    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
       [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
       (page)='setPage($event)'>
 
@@ -88,19 +88,19 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Debe" [flexGrow]="1">
+      <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Debe | currency }}
+            <div style="text-align: right;">  {{ row?.Debe | currency }}</div>
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Haber" [flexGrow]="1">
+      <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Haber | currency }}
+            <div style="text-align: right;">  {{ row?.Haber | currency }} </div>
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+      <ngx-datatable-column name="Acciones" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID, row.Etiqueta]">
             <mat-icon>list</mat-icon>

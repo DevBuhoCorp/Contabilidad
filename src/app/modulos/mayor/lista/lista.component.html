@@ -95,19 +95,19 @@
             {{ row?.Transaccion }}
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Debe" [flexGrow]="1">
+        <ngx-datatable-column name="Debe" [flexGrow]="0.25">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Debe | currency}}
+              <div style="text-align: right;">  {{ row?.Debe | currency}} </div>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Haber" [flexGrow]="1">
+        <ngx-datatable-column name="Haber" [flexGrow]="0.25">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Haber | currency }}
+              <div style="text-align: right;">  {{ row?.Haber | currency }} </div>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Saldo" [flexGrow]="1">
+        <ngx-datatable-column name="Saldo" [flexGrow]="0.25">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.saldo | currency }}
+              <div style="text-align: right;">  {{ row?.saldo | currency }} </div>
           </ng-template>
         </ngx-datatable-column>
       </ngx-datatable>

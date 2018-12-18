@@ -29,20 +29,13 @@
         </div>
 
         <div fxFlex="100" class="mt-1">
-          <button mat-raised-button class="mb-05" color="primary" [disabled]="itemForm.invalid  || trans">Crear</button>
+          <button mat-raised-button class="mb-05" color="primary" [disabled]="itemForm.invalid  || trans" >Crear</button>
 
-          <!--<div class="m-333" *ngIf="trans">-->
-            <!--<button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)"> Añadir Asiento-->
-            <!--</button>-->
-          <!--</div>-->
-          <!--<span fxFlex></span>-->
-          <!--<div class="m-333" *ngIf="ListaDetalles.length > 0">-->
-            <!--<button mat-raised-button class="mb-05" color="primary" (click)="Guardar()">Guardar transacción</button>-->
-          <!--</div>-->
-
-          <!--<span fxFlex></span>-->
-
-          <!--<button mat-button color="warn" type="button" (click)="Inicializar()">Cancelar</button>-->
+          
+          
+          <span fxFlex></span>
+          <button mat-button color="warn" type="button" (click)="Inicializar()">Cancelar</button>
+          <button mat-raised-button class="mr-1" color="primary" (click)="Guardar()" *ngIf="ListaDetalles.length > 0">Guardar Transacción</button>
 
         </div>
 
@@ -74,8 +67,7 @@
         <mat-checkbox [(ngModel)]="checked" *ngIf="ListaDetalles.length > 0">Contabilizar Transacción</mat-checkbox>
       </div>
 
-      <button mat-raised-button class="mr-1" color="primary" (click)="Guardar()" *ngIf="ListaDetalles.length > 0">Guardar transacción</button>
-
+     
     </div>
 
     <ngx-datatable class="material"
@@ -97,19 +89,19 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Debe" [flexGrow]="1">
+      <ngx-datatable-column name="Debe" [flexGrow]="0.5" >
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Debe | currency}}
+         <div style="text-align: right;">{{ row?.Debe | currency}}</div> 
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Haber" [flexGrow]="1">
+      <ngx-datatable-column name="Haber" [flexGrow]="0.5">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.Haber | currency}}
+            <div style="text-align: right;"> {{ row?.Haber | currency}}</div>
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+      <ngx-datatable-column name="Acciones" [flexGrow]="0.5">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <a mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
             <mat-icon>edit</mat-icon>
