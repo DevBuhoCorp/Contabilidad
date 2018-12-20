@@ -12,12 +12,18 @@
 <div class="m-333" style="display: flex; justify-content: space-between;">
 
   <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)"  [disabled]="!selEmpresa" >Agregar</button>
-  <div class="select-group">
-    <mat-form-field class="full-width">
-    <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)="loadApp()">
-      <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
-    </mat-select>
-    </mat-form-field> 
+
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-form-field>
+      <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" loadApp()">
+        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button color="warn" (click)="loadApp()" matTooltip="Refrescar">
+      <mat-icon>refresh</mat-icon>
+    </button>
   </div>
 </div>
 
@@ -58,8 +64,8 @@
           <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteItem(row)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" class="mr-1" [routerLink]="['estacion', row.ID]" >
-            <mat-icon>list</mat-icon>
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" [routerLink]="['estacion', row.ID]" matTooltip="Listar Estaciones" >
+            <mat-icon>computer</mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>

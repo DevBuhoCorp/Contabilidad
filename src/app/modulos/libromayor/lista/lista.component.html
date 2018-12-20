@@ -1,23 +1,28 @@
 <div class="m-333" fxLayout="row wrap" fxLayoutAlign="space-between center">
-  <button mat-raised-button class="mb-05" color="primary" (click)="exportar()">
-    Exportar Archivo Excel
+  <!--<button mat-raised-button class="mb-05" color="primary" (click)="exportar()">-->
+    <!--Exportar Archivo Excel-->
+  <!--</button>-->
+
+  <button
+    mat-raised-button
+    class="mb-05"
+    color="primary"
+  (click)="return()">
+    <mat-icon>arrow_back</mat-icon>
+    Regresar
   </button>
 
-  <div class="select-group">
-    <mat-form-field class="full-width">
-      <mat-select
-        placeholder=" Seleccione número de ítems:"
-        [(ngModel)]="selPageSize"
-        (selectionChange)="getItems()"
-      >
-        <mat-option
-          *ngFor="let page of pageSize"
-          [value]="page"
-          ngDefaultControl
-          >{{ page }}</mat-option
-        >
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-form-field>
+      <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
+      <mat-icon>refresh</mat-icon>
+    </button>
   </div>
 </div>
 
@@ -31,6 +36,7 @@
       [footerHeight]="50"
       [count]="items.total"
       [limit]="items.per_page"
+      [offset]="items?.current_page - 1"
       [rowHeight]="'auto'"
       [externalPaging]="true"
       (page)="setPage($event)"
@@ -47,38 +53,38 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <div style="text-align: right;">{{ row?.Debe | currency }}</div>
+          <div style="text-align: right;">{{ row?.Debe | currency:'USD':true:'.2-4' }}</div>
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <div style="text-align: right;">{{ row?.Haber | currency }}</div>
+          <div style="text-align: right;">{{ row?.Haber | currency:'USD':true:'.2-4' }}</div>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
   </mat-card-content>
 </mat-card>
 
-<div class="m-333" *ngIf="!opt">
-  <button
-    mat-raised-button
-    class="mb-05"
-    color="primary"
-    [routerLink]="['/modulos/libromayor']"
-  >
-    <mat-icon>arrow_back</mat-icon>
-    Regresar
-  </button>
-</div>
+<!--<div class="m-333" *ngIf="!opt">-->
+  <!--<button-->
+    <!--mat-raised-button-->
+    <!--class="mb-05"-->
+    <!--color="primary"-->
+    <!--[routerLink]="['/modulos/libromayor']"-->
+  <!--&gt;-->
+    <!--<mat-icon>arrow_back</mat-icon>-->
+    <!--Regresar-->
+  <!--</button>-->
+<!--</div>-->
 
-<div class="m-333" *ngIf="opt">
-  <button
-    mat-raised-button
-    class="mb-05"
-    color="primary"
-    [routerLink]="['/modulos/contabilizarcliente/contabilizar']"
-  >
-    <mat-icon>arrow_back</mat-icon>
-    Regresar
-  </button>
-</div>
+<!--<div class="m-333" *ngIf="opt">-->
+  <!--<button-->
+    <!--mat-raised-button-->
+    <!--class="mb-05"-->
+    <!--color="primary"-->
+    <!--[routerLink]="['/modulos/contabilizarcliente/contabilizar']"-->
+  <!--&gt;-->
+    <!--<mat-icon>arrow_back</mat-icon>-->
+    <!--Regresar-->
+  <!--</button>-->
+<!--</div>-->

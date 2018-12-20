@@ -33,7 +33,7 @@ export class RolesComponent implements OnInit {
     this.getItems(1);
   }
 
-  async getItems(indice) {
+  async getItems(indice=1) {
     this.items = await this.crudService.SeleccionarAsync("rol", { page: indice, psize: this.selPageSize });
     this.items.data = this.crudService.SetBool(this.items.data);
   }

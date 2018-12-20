@@ -1,6 +1,26 @@
 <div class="m-333">
   <h4 class="bc-title">Aplicación: {{ ( app.Descripcion  )  }}</h4>
-  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)" >Agregar</button>
+</div>
+<div class="m-333" fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <div >
+    <button mat-raised-button class="mr-1 mb-05" color="warn" [routerLink]="['/modulos/configurar/aplicacion']" >Regresar</button>
+    <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)" >Agregar</button>
+  </div>
+
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-form-field>
+      <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+
 </div>
 
 <mat-card class="p-0" >

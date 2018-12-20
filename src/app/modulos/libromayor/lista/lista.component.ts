@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CrudService } from '../../../shared/servicios/crud.service';
-import { ExcelService } from '../../../shared/servicios/excel.service';
-import { ToolsService } from '../../../shared/servicios/tools.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CrudService} from '../../../shared/servicios/crud.service';
+import {ExcelService} from '../../../shared/servicios/excel.service';
+import {ToolsService} from '../../../shared/servicios/tools.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-lista',
@@ -10,7 +11,7 @@ import { ToolsService } from '../../../shared/servicios/tools.service';
   styles: []
 })
 export class ListaDetallesComponent implements OnInit {
-  pageSize = this.toolsService.getPaginas(); 
+  pageSize = this.toolsService.getPaginas();
   selPageSize: any = this.pageSize[0];
   items: any = {
     data: [],
@@ -20,23 +21,34 @@ export class ListaDetallesComponent implements OnInit {
   };
   IDTransaccion;
   Etiqueta;
-  constructor(private router: ActivatedRoute,
-    private crudService: CrudService,
-    private excelService: ExcelService,
-    private toolsService: ToolsService
-  ) { }
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private crudService: CrudService,
+              private excelService: ExcelService,
+              private toolsService: ToolsService,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<ListaDetallesComponent>,
+  ) {
+  }
 
   ngOnInit() {
-    this.router.params.subscribe(async (params) => {
+console.log(this.data)
+    this.IDTransaccion = this.data['id'];
+    this.Etiqueta = this.data['etiqueta'];
+    this.getItems();
 
-      this.IDTransaccion = params['id'];
-      this.Etiqueta = params['etiqueta'];
-      this.getItems();
-
-    });
+    // this.route.params.subscribe(async (params) => {
+    //
+    //   this.IDTransaccion = params['id'];
+    //   this.Etiqueta = params['etiqueta'];
+    //   this.getItems();
+    //
+    // });
   }
+
   async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('transaccion/' + this.IDTransaccion, { page: indice, psize: this.selPageSize });
+    this.items = await this.crudService.SeleccionarAsync('transaccion/' + this.IDTransaccion, {page: indice, psize: this.selPageSize});
 
   }
 
@@ -53,10 +65,10 @@ export class ListaDetallesComponent implements OnInit {
     }).toPromise().then(x => {
       this.excelService.exportAsExcelFile(x, 'Detalle de Transacción' + this.Etiqueta);
     });
-
-
   }
 
-
+  return(){
+    this.dialogRef.close(true);
+  }
 
 }

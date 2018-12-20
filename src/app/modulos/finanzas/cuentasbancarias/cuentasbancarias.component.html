@@ -10,8 +10,23 @@
   </div>
 </div>
 
-<div class="m-333">
+<div class="m-333" fxLayout="row wrap" fxLayoutAlign="space-between center">
   <button mat-raised-button class="mb-05" color="primary" [disabled]="!selEmpresa" (click)="openPopUp({}, true)">Nueva Cuenta Financiera</button>
+
+
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-form-field>
+      <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
+        <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
 </div>
 
 <mat-card class="p-0">
@@ -25,6 +40,7 @@
                    [externalPaging]="true"
                    [count]="items.total"
                    [limit]="items.per_page"
+                    [offset]="items?.current_page - 1"
                    (page)='setPage($event)'>
       <ngx-datatable-column name="Banco" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>

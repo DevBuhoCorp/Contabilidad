@@ -173,7 +173,8 @@ import {UserempresafilterPipe} from '../shared/pipes/userempresafilter.pipe';
     PopupComponentAplicacion,
     PopupComponentRoles,
     PopupComponentUser,
-    UsersempresaComponent
+    UsersempresaComponent,
+    ListaDetallesComponent
   ]
 })
 export class ModulosModule {

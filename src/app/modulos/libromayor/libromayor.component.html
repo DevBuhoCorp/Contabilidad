@@ -36,7 +36,7 @@
       <mat-form-field fxFlex="20" *ngIf="selTTransaccion == 'app' " style="margin-right: 5px;">
         <mat-select placeholder="Seleccione la Aplicación" [(ngModel)]="selApp">
           <mat-option value="ALL" ngDefaultControl>Todos</mat-option>
-          <mat-option *ngFor="let app of aplicacions | async " [value]="app.ID" ngDefaultControl>{{ app.Descripcion }}</mat-option>
+          <mat-option *ngFor="let app of aplicacions" [value]="app.ID" ngDefaultControl>{{ app.Descripcion }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -51,15 +51,25 @@
       <button mat-raised-button class="mr-1" color="primary" (click)="exportar()">
         Exportar Archivo Excel
       </button>
+
+      <!--<button mat-raised-button class="mr-1" color="primary" (click)="getItems()" [disabled]="items.data.length == 0">-->
+        <!--Refrescar-->
+      <!--</button>-->
     </div>
 
-    <div class="select-group">
-      <mat-form-field class="full-width">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <mat-form-field>
         <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
           <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
+        <mat-icon>refresh</mat-icon>
+      </button>
     </div>
+
+
     
   </div>
 
@@ -68,13 +78,22 @@
   <mat-card-content class="p-0">
     <mat-card-title class="mat-bg-primary m-0">
       <div class="card-title-text">
-        <span>Total: Debe {{Totales.Debe | currency}}, Haber {{Totales.Haber | currency}}</span>
+        <span>Total: Debe {{Totales.Debe | currency:'USD':true:'.2-4'}}, Haber {{Totales.Haber | currency:'USD':true:'.2-4'}}</span>
       </div>
       <mat-divider></mat-divider>
     </mat-card-title>
-    <ngx-datatable class="material ml-0 mr-0" [rows]="items.data" [columnMode]="'flex'" [headerHeight]="50"
-      [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="items.total" [limit]="items.per_page"
-      (page)='setPage($event)'>
+
+    <ngx-datatable class="material ml-0 mr-0"
+                   [rows]="items.data"
+                   [columnMode]="'flex'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="items.total"
+                   [limit]="items.per_page"
+                   [offset]="items?.current_page - 1"
+                   (page)='setPage($event)'>
 
       <ngx-datatable-column name="Fecha Transacción" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
@@ -90,19 +109,19 @@
 
       <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;">  {{ row?.Debe | currency }}</div>
+            <div style="text-align: right;">  {{ row?.Debe | currency:'USD':true:'.2-4' }}</div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;">  {{ row?.Haber | currency }} </div>
+            <div style="text-align: right;">  {{ row?.Haber | currency:'USD':true:'.2-4' }} </div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Acciones" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="warn" [routerLink]="['lista', row.ID, row.Etiqueta]">
+          <button mat-icon-button mat-sm-button color="warn" (click)="viewAsientos(row)">
             <mat-icon>list</mat-icon>
           </button>
         </ng-template>

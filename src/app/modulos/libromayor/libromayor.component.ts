@@ -8,6 +8,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {CrudService} from '../../shared/servicios/crud.service';
 import {ExcelService} from '../../shared/servicios/excel.service';
 import {ToolsService} from '../../shared/servicios/tools.service';
+import {ListaDetallesComponent} from './lista/lista.component';
 
 @Component({
   selector: 'app-libromayor',
@@ -21,6 +22,7 @@ export class LibromayorComponent implements OnInit {
   items: any = {
     data: [],
     page: 1,
+    // current_page: 1,
     total: 0,
     per_page: 0
   };
@@ -69,13 +71,14 @@ export class LibromayorComponent implements OnInit {
     private crudService: CrudService,
     private excelService: ExcelService,
     private toolsService: ToolsService,
+    private dialog: MatDialog,
     private fb: FormBuilder) {
     this.buildItemForm();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
-    this.aplicacions = this.crudService.SeleccionarAsync('comboaplicacion', {empresa: this.toolsService.getEmpresaActive().IDEmpresa});
+    this.aplicacions = await this.crudService.SeleccionarAsync('comboaplicacion', {empresa: this.toolsService.getEmpresaActive().IDEmpresa});
     // this.getItems();
   }
 
@@ -120,6 +123,21 @@ export class LibromayorComponent implements OnInit {
 
   }
 
+  viewAsientos(row:any){
+    let params = {
+      id: row.ID,
+      etiqueta: row.Etiqueta
+    };
+
+    let dialogRef: MatDialogRef<any> = this.dialog.open(ListaDetallesComponent, {
+      width: '1080px',
+      minHeight: '20px',
+      data: params
+    });
+
+
+  }
+
 
   async setPage(event) {
     if (event.offset == 0) {
@@ -143,6 +161,14 @@ export class LibromayorComponent implements OnInit {
       this.excelService.exportAsExcelFile(x, 'Libro Diario');
     }); */
 
+    let cabecera = {
+      FInicio: '',
+      FFin: '',
+      Tcuenta: '',
+      App: '',
+      Ttransaccion: '',
+    };
+
     let params = {
 
       Empresa: this.toolsService.getEmpresaActive().IDEmpresa,
@@ -150,19 +176,35 @@ export class LibromayorComponent implements OnInit {
     };
     if (this.selTTransaccion !== 'ALL') {
       params['ttransaccion'] = this.selTTransaccion;
-      if (this.selTTransaccion == 'app' && this.selApp != 'ALL')
+      cabecera.Ttransaccion = this.ttransacions.find(row => row.Cod == this.selTTransaccion).Descripcion;
+      if (this.selTTransaccion == 'app' && this.selApp != 'ALL'){
         params['app'] = this.selApp;
+        cabecera.App = this.aplicacions.find(row => row.ID == this.selApp).Descripcion;
+      }
+
     }
-    if (this.selTCuenta !== 'ALL')
+    if (this.selTCuenta !== 'ALL'){
       params['tcuenta'] = this.selTCuenta;
-
-    if (this.dtpInicio)
-      params['FInicio'] = this.dtpInicio.toDateString();
-    if (this.dtpFin)
-      params['FFin'] = this.dtpFin.toDateString();
+      cabecera.Tcuenta = this.tcuentas.find(row => row.Cod == this.selTCuenta).Descripcion;
+    }
 
 
-      this.crudService.GetToFile('export_diario',params)
+    if (this.dtpInicio){
+      cabecera.FInicio = params['FInicio'] = this.dtpInicio.toDateString();
+    }
+
+    if (this.dtpFin){
+      cabecera.FFin = params['FFin'] = this.dtpFin.toDateString();
+
+    }
+
+
+
+    params['Cabecera'] = JSON.stringify(cabecera);
+
+
+
+      this.crudService.GetToFile('export_diario', params)
       .subscribe(response => {
         this.excelService.saveAsExcelFile(response, `Libro Diario`)
       });

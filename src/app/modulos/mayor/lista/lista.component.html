@@ -60,12 +60,16 @@
     </div>
 
 
-    <div class="select-group">
-      <mat-form-field class="full-width">
-        <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)="getItems()">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <mat-form-field>
+        <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
           <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
+        <mat-icon>refresh</mat-icon>
+      </button>
     </div>
 
     
