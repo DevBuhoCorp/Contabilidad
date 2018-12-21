@@ -32,12 +32,16 @@
 
           <button mat-raised-button mat-sm-button color="primary" (click)="openPopUp(selectedFile, true)" [disabled]="!selectedValue">
             <mat-icon>add</mat-icon>
-            Agregar Cuenta Contable
+            Agregar Cuenta
           </button>
           <button mat-raised-button mat-sm-button color="primary" (click)="openPopUp(selectedFile, false)" [disabled]="!selectedValue || !selectedFile">
             <mat-icon>edit</mat-icon>
-            Editar Cuenta Contable
+            Editar Cuenta
           </button>
+          <mat-form-field class="ml-1" style="width: 300px !important;">
+            <input matInput placeholder="Buscar" type="text" (keydown.enter)="onKeydown($event)" >
+          </mat-form-field>
+
 
         </div>
 
@@ -54,7 +58,7 @@
           <mat-icon>arrow_downward</mat-icon>
           Expandir Plan Contable
         </button>
-        <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)"
+        <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll()"
           [disabled]="!selectedValue">
           <mat-icon>arrow_upward</mat-icon>
           Contraer Plan Contable

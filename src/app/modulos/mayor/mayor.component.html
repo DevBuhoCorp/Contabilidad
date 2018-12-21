@@ -1,26 +1,40 @@
 <div class="p-0">
   <mat-card>
     <mat-card-title>
-      <div class="card-title-text" style="display: flex; justify-content: space-between;">
-        <span #Etiqueta>Seleccione una cuenta para ver su Mayor</span>
-      
-     <button mat-raised-button class="mb-05" color="primary" [routerLink]="['lista', selectedFile.data, selectedFile.label]" *ngIf="selectedFile?.children.length == 0">Listar Transacciones</button>
+      <div class="card-title-text">
+        <span>Seleccione una cuenta para ver su Mayor</span>
+      </div>
+
+    </mat-card-title>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+      <mat-form-field style="width: 300px !important;">
+        <input matInput placeholder="Buscar" type="text" (keydown.enter)="onKeydown($event)">
+      </mat-form-field>
+
+      <button mat-raised-button class="mb-05" color="primary"
+              [routerLink]="['lista', selectedFile.data, selectedFile.label]"
+              *ngIf="selectedFile?.children.length == 0">
+        Listar Transacciones
+      </button>
 
     </div>
-    </mat-card-title>
+
+
     <p-tree #expandingTree [style]="{'width':'100%'}"
-            [value]="filesTree0[0].data"
+            [value]="filesTree0"
             selectionMode="single"
             [(selection)]="selectedFile"
-            (onNodeSelect)="nodeSelect($event)" >
+            (onNodeSelect)="nodeSelect($event)">
     </p-tree>
 
     <div style="margin-top: 8px">
-      <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()" style="margin-right: .25em">
+      <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="expandAll()"
+              style="margin-right: .25em">
         <mat-icon>arrow_downward</mat-icon>
         Expandir Plan Contable
       </button>
-      <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)">
+      <button mat-raised-button class="mb-05" mat-sm-button color="primary" (click)="collapseAll()">
         <mat-icon>arrow_upward</mat-icon>
         Contraer Plan Contable
       </button>
