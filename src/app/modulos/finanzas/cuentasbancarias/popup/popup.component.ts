@@ -90,7 +90,7 @@ export class PopupComponentCB implements OnInit {
       IDTipoCuenta: [ item.IDTipoCuenta || '' , Validators.required ],
       IDBanco: [ item.IDBanco || '' , Validators.required ],
       IDCuentaContable: [ {ID:item.IDCuentaContable, cuenta:item.Cuenta} || '' , Validators.required ],
-      IDEmpresa: [ item.IDEmpresa || '' , Validators.required ],
+      IDEmpresa: [ item.IDEmpresa || ''  ],
       Estado: [ item.Estado || '' ],
     })
   }
