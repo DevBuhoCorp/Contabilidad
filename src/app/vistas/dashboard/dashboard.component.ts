@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CrudService } from '../../shared/servicios/crud.service';
-import { ToolsService } from '../../shared/servicios/tools.service';
+import {Component, OnInit} from '@angular/core';
+import {CrudService} from '../../shared/servicios/crud.service';
+import {ToolsService} from '../../shared/servicios/tools.service';
 
 @Component({
   selector: 'dashboard',
@@ -18,6 +18,12 @@ export class DashboardComponent implements OnInit {
       position: 'bottom'
     }
   };
+  chartColors2: Array<any> =
+    [
+      {
+        backgroundColor:[ '#3f51b5', "#FF7360", "#6FC8CE", "#FAFFF2", "#FFFCC4", "#B9E8E0"]
+      }
+    ];
   chartColors: Array<any> = [{
     backgroundColor: '#3f51b5',
     borderColor: '#3f51b5',
@@ -41,16 +47,17 @@ export class DashboardComponent implements OnInit {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
   }];
+
   lineChartData: Array<any> = [{
     data: [],
     borderWidth: 1
   }];
-  
+
   barChartData: any[] = [{
     data: [],
     borderWidth: 0
   }];
-  
+
   lineChartLabels: any = [];
   barChartLabels: any[] = [];
   lineChartOptions: any = Object.assign({
@@ -147,43 +154,64 @@ export class DashboardComponent implements OnInit {
   topm: number;
   totales: any = [];
   porcentaje: number;
-  movimientos:any=[];
-  constructor(private crudService: CrudService, private toolsService: ToolsService) { }
+  movimientos: any = [];
+
+  constructor(private crudService: CrudService, private toolsService: ToolsService) {
+  }
+
   ngOnInit() {
     this.gettrans();
     this.gettopcuentas();
     this.getporcentaje();
     this.getmovimiento();
   }
+
   async gettrans() {
     let clone = JSON.parse(JSON.stringify(this.lineChartData));
-    let datos: any = await this.crudService.SeleccionarAsync("transpormes/" + this.toolsService.getEmpresaActive().IDEmpresa);
+    let datos: any = await this.crudService.SeleccionarAsync('transpormes/' + this.toolsService.getEmpresaActive().IDEmpresa);
     this.lineChartData = datos.map(i => {
       clone[0].data.push(i.data);
       this.lineChartLabels.push(i.label);
-    })
-    this.lineChartData = clone
+    });
+    this.lineChartData = clone;
   }
 
   async gettopcuentas() {
-    this.topcuentas = await this.crudService.SeleccionarAsync("topcuentas/" + this.toolsService.getEmpresaActive().IDEmpresa);
+    this.topcuentas = await this.crudService.SeleccionarAsync('topcuentas/' + this.toolsService.getEmpresaActive().IDEmpresa);
     this.top = this.topcuentas[0].Saldo;
   }
+
   async getporcentaje() {
-    try{
-    this.totales = await this.crudService.SeleccionarAsync("porcentaje/" + this.toolsService.getEmpresaActive().IDEmpresa);
-    this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
+    try {
+      this.totales = await this.crudService.SeleccionarAsync('porcentaje/' + this.toolsService.getEmpresaActive().IDEmpresa);
+      this.porcentaje = (this.totales[1].data - this.totales[0].data) * 100 / this.totales[0].data;
     }
-    catch{}
-    
+    catch {
+    }
+
   }
+
   async getmovimiento() {
     let clone = JSON.parse(JSON.stringify(this.barChartData));
-    let datos: any = await this.crudService.SeleccionarAsync("movimiento/" + this.toolsService.getEmpresaActive().IDEmpresa);
+    let datos: any = await this.crudService.SeleccionarAsync('movimiento/' + this.toolsService.getEmpresaActive().IDEmpresa);
     this.barChartData = datos.map(i => {
       clone[0].data.push(i.data);
       this.barChartLabels.push(i.label);
-    })
-    this.barChartData = clone
+    });
+    this.barChartData = clone;
+  }
+
+
+  getRandomColor2() {
+    var length = 6;
+    var chars = '0123456789ABCDEF';
+    var hex = '#';
+    while(length--) hex += chars[(Math.random() * 16) | 0];
+    return hex;
+  }
+
+  getRandomColor() {
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + ('000000' + color).slice(-6);
   }
 }

@@ -8,8 +8,14 @@
         <mat-divider></mat-divider>
       </mat-card-title>
       <mat-card-content>
-        <canvas baseChart class="chart" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-          [colors]="chartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+        <!--[colors]="chartColors"-->
+        <canvas baseChart class="chart"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="chartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
       </mat-card-content>
     </mat-card>
   </div>
@@ -25,7 +31,10 @@
       <mat-card-content>
         <div class="mb-1" *ngFor="let data of topcuentas">
           <p class="mb-05 text-muted">{{data.Etiqueta}} {{data.Saldo | currency }}</p>
-          <mat-progress-bar class="" color="primary" mode="determinate" [value]="data.Saldo * 100 / top">
+
+          <mat-progress-bar class=""
+                            color="primary"
+                            mode="determinate" [value]="data.Saldo * 100 / top">
           </mat-progress-bar>
         </div>
       </mat-card-content>
@@ -60,7 +69,7 @@
       </mat-card-title>
       <mat-card-content>
         <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-          [colors]="chartColors" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+          [colors]="chartColors2" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
       </mat-card-content>
     </mat-card>
   </div>
