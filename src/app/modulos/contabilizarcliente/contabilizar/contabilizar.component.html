@@ -27,33 +27,33 @@
 
   <mat-card-content class="p-0">
     <ngx-datatable
-      #MyDatatableComponent
-      class="material ml-0 mr-0"
-      [rows]="items.data"
-      [columnMode]="'flex'"
-      [headerHeight]="50"
-      [footerHeight]="50"
-      [rowHeight]="'auto'"
-      [rowIdentity]="getID"
-      [selected]="selectedTransacciones"
-      [selectionType]="'checkbox'"
-      [selectAllRowsOnPage]="false"
-      [externalPaging]="true"
-      [count]="items.total"
-      [limit]="items.per_page"
-      [offset]="items?.current_page - 1"
-      (page)="setPage($event)"
+    #MyDatatableComponent
+    class="material ml-0 mr-0"
+    [rows]="items.data"
+    [columnMode]="'flex'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [rowIdentity]="getID"
+    [selected]="selectedTransacciones"
+    [selectionType]="'checkbox'"
+    [selectAllRowsOnPage]="true"
+    [externalPaging]="true"
+    [count]="items.total"
+    [limit]="items.per_page"
+    [offset]="items?.current_page - 1"
+    (page)="setPage($event)"
+  >
+    <ngx-datatable-column
+      [width]="30"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [draggable]="false"
+      [resizeable]="false"
+      [headerCheckboxable]="true"
+      [checkboxable]="true"
     >
-      <ngx-datatable-column
-        [width]="30"
-        [sortable]="false"
-        [canAutoResize]="false"
-        [draggable]="false"
-        [resizeable]="false"
-        [headerCheckboxable]="true"
-        [checkboxable]="true"
-      >
-      </ngx-datatable-column>
+    </ngx-datatable-column>
 
       <!--  <ngx-datatable-column
         [width]="50"
@@ -83,13 +83,13 @@
 
       <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;"> {{ row?.Debe | currency }} </div>
+            <div style="text-align: right;"> {{ row?.Debe | currency:'USD':'symbol':'.2-4'}} </div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;"> {{ row?.Haber | currency }} </div>
+            <div style="text-align: right;"> {{ row?.Haber | currency:'USD':'symbol':'.2-4'}} </div>
         </ng-template>
       </ngx-datatable-column>
 
@@ -101,8 +101,18 @@
             color="warn"
             (click)="viewAsientos(row)"
           >
-            <!--[routerLink]="['lista', row.ID, 'CONTABILIZAR']"-->
             <mat-icon>list</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="warn"
+            matTooltip="Ajustar Transacción"
+            *ngIf="row?.Debe != row?.Haber"
+            (click)="openPopUp(row)"
+          >
+            <mat-icon>account_balance_wallet
+            </mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>

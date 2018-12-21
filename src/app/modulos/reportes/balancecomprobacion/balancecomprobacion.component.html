@@ -84,25 +84,25 @@
 
       <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;">   {{ row?.Debe | currency }} </div>
+            <div style="text-align: right;">   {{ row?.Debe | currency:'USD':'symbol':'.2-4'}} </div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;">  {{ row?.Haber | currency }} </div>
+            <div style="text-align: right;">  {{ row?.Haber | currency:'USD':'symbol':'.2-4'}} </div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Saldo Deudor" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-         <div style="text-align: right;"> {{ row?.Deudor | currency }} </div>
+         <div style="text-align: right;"> {{ row?.Deudor | currency:'USD':'symbol':'.2-4'}} </div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Saldo Acreedor" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-        <div style="text-align: right;">  {{ row?.Acreedor | currency }} </div>
+        <div style="text-align: right;">  {{ row?.Acreedor | currency:'USD':'symbol':'.2-4'}} </div>
         </ng-template>
       </ngx-datatable-column>
 

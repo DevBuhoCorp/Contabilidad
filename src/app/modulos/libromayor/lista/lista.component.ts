@@ -13,12 +13,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class ListaDetallesComponent implements OnInit {
   pageSize = this.toolsService.getPaginas();
   selPageSize: any = this.pageSize[0];
-  items: any = {
-    data: [],
-    page: 1,
-    total: 0,
-    per_page: 0
-  };
+  items: any = [];
   IDTransaccion;
   Etiqueta;
 
@@ -33,7 +28,6 @@ export class ListaDetallesComponent implements OnInit {
   }
 
   ngOnInit() {
-console.log(this.data)
     this.IDTransaccion = this.data['id'];
     this.Etiqueta = this.data['etiqueta'];
     this.getItems();
@@ -47,17 +41,17 @@ console.log(this.data)
     // });
   }
 
-  async getItems(indice = 1) {
-    this.items = await this.crudService.SeleccionarAsync('transaccion/' + this.IDTransaccion, {page: indice, psize: this.selPageSize});
+  async getItems() {
+    this.items = await this.crudService.SeleccionarAsync('transaccion/' + this.IDTransaccion);
 
   }
 
 
-  async setPage(event) {
+ /*  async setPage(event) {
 
     this.getItems(event.offset + 1);
 
-  }
+  } */
 
   exportar(): void {
     this.crudService.Seleccionar('export_detalletrans/' + this.IDTransaccion).map((response) => {

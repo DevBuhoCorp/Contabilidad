@@ -14,11 +14,11 @@
 
 
   <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <mat-form-field>
+   <!--  <mat-form-field>
       <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
         <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
       <mat-icon>refresh</mat-icon>
@@ -30,16 +30,13 @@
   <mat-card-content class="p-0">
     <ngx-datatable
       class="material ml-0 mr-0"
-      [rows]="items.data"
+      [rows]="items"
       [columnMode]="'flex'"
       [headerHeight]="50"
       [footerHeight]="50"
-      [count]="items.total"
-      [limit]="items.per_page"
-      [offset]="items?.current_page - 1"
+      [limit]="10"
       [rowHeight]="'auto'"
-      [externalPaging]="true"
-      (page)="setPage($event)"
+      
     >
       <ngx-datatable-column name="Cuenta" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
@@ -53,12 +50,12 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <div style="text-align: right;">{{ row?.Debe | currency:'USD':true:'.2-4' }}</div>
+          <div style="text-align: right;">{{ row?.Debe | currency:'USD':'symbol':'.2-4' }}</div>
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <div style="text-align: right;">{{ row?.Haber | currency:'USD':true:'.2-4' }}</div>
+          <div style="text-align: right;">{{ row?.Haber | currency:'USD':'symbol':'.2-4' }}</div>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>

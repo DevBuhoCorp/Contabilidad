@@ -24,7 +24,7 @@
       </mat-card-title>
       <mat-card-content>
         <div class="mb-1" *ngFor="let data of topcuentas">
-          <p class="mb-05 text-muted">{{data.Etiqueta}} {{data.Saldo | currency }}</p>
+          <p class="mb-05 text-muted">{{data.Etiqueta}} {{data.Saldo | currency:'USD':'symbol':'.2-4'}}</p>
           <mat-progress-bar class="" color="primary" mode="determinate" [value]="data.Saldo * 100 / top">
           </mat-progress-bar>
         </div>

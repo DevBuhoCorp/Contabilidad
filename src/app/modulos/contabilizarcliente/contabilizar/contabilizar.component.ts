@@ -5,6 +5,7 @@ import {CrudService} from '../../../shared/servicios/crud.service';
 import {ToolsService} from '../../../shared/servicios/tools.service';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 import {ListaDetallesComponent} from '../../libromayor/lista/lista.component';
+import { PopUpAjusteComponent } from '../ajuste/ajuste.component';
 
 
 @Component({
@@ -85,6 +86,31 @@ export class ContabilizarCComponent implements OnInit {
     this.selectedTransacciones = [];
 
 
+  }
+
+  async openPopUp(data: any = {}) {
+
+    let title = 'Ajustar Transacción';
+    let ID = data.ID;
+    data = await this.crudService.SeleccionarAsync("transaccion/" + data.ID);
+    let dialogRef: MatDialogRef<any> = this.dialog.open(PopUpAjusteComponent, {
+      width: '1080px',
+      minHeight: '20px',
+      disableClose: true,
+      data: { title: title, payload: data }
+    })
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+        this.crudService.Actualizar(ID, res,"transaccion_ajuste/").subscribe(async data => {
+          this.getItems();
+          this.snack.open(data, 'OK', { duration: 4000 });
+          //this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
+        });
+      })
   }
 
 

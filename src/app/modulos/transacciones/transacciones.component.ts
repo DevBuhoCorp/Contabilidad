@@ -59,7 +59,7 @@ export class TransaccionesComponent implements OnInit {
     this.itemForm.disable();
   }
 
-  async openPopUp(data: any = {}, isNew?) {
+  openPopUp(data: any = {}, isNew?) {
     if (isNew) {
       data.ID = this.ListaDetalles.length + 1;
     }

@@ -27,13 +27,13 @@
 
           <ngx-datatable-column name="Debe" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Deudor | currency }}
+              {{ row?.Deudor | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Haber" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Acreedor | currency }}
+              {{ row?.Acreedor | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
@@ -54,13 +54,13 @@
 
           <ngx-datatable-column name="Débito" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Deudor | currency }}
+              {{ row?.Deudor | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Crédito" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Acreedor | currency }}
+              {{ row?.Acreedor | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
@@ -80,13 +80,13 @@
 
           <ngx-datatable-column name="Deudor" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Deudor | currency }}
+              {{ row?.Deudor | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Acreedor" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Acreedor | currency }}
+              {{ row?.Acreedor | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
@@ -107,13 +107,13 @@
 
           <ngx-datatable-column name="Debe" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Debe | currency }}
+              {{ row?.Debe | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Haber" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.Haber | currency }}
+              {{ row?.Haber | currency:'USD':'symbol':'.2-4'}}
             </ng-template>
           </ngx-datatable-column>
 
