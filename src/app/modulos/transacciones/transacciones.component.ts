@@ -137,7 +137,7 @@ export class TransaccionesComponent implements OnInit {
       temp[0].Detalle.map(row => delete row.Cuenta);
       temp[0].Detalle.map(row => delete row.ID);
       this.crudService.Insertar(temp[0], 'transaccion/' + this.toolsService.getEmpresaActive().IDEmpresa).subscribe(async data => {
-        this.snack.open('Transacción Finalizada!', 'OK', { duration: 4000 });
+        this.snack.open(data, 'OK', { duration: 4000 });
         this.Inicializar();
       }, error => {
         this.snack.open(error._body, 'OK', { duration: 4000 });

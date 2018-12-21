@@ -25,9 +25,20 @@ export class EstadoresultadoComponent implements OnInit {
   }
 
   exportar(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.items.resultado);
+   /*  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.items.resultado);
     const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.items.resultado2);
-    this.excelService.exporthojas({ 'Cuentas': worksheet, 'Utilidades-Impuestos': worksheet2 }, ['Cuentas','Utilidades-Impuestos'], 'Estado de Resultados');
+    this.excelService.exporthojas({ 'Cuentas': worksheet, 'Utilidades-Impuestos': worksheet2 }, ['Cuentas','Utilidades-Impuestos'], 'Estado de Resultados'); */
+
+    
+
+    this.crudService
+      .GetToFile(
+        "export_estado_resultado/" +
+          this.toolsService.getEmpresaActive().IDEmpresa
+      )
+      .subscribe(response => {
+        this.excelService.saveAsExcelFile(response, `Balance de Comprobación`);
+      });
 
   }
 
