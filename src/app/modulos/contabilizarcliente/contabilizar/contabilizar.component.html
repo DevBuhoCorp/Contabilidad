@@ -1,25 +1,122 @@
 <mat-card class="p-0">
+  <div class="m-333">
+    <div fxLayout="row wrap">
+      <div fxFlex="20" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [matDatepicker]="pickerInicio"
+            placeholder="Fecha Inicio"
+            [(ngModel)]="dtpInicio"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerInicio"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex="20" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [matDatepicker]="pickerFin"
+            placeholder="Fecha Fin"
+            [(ngModel)]="dtpFin"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerFin"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerFin></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="right center">
+      <mat-form-field fxFlex="20" class="pr-1">
+        <mat-select placeholder="Tipo de cuenta" [(ngModel)]="selTCuenta">
+          <mat-option
+            *ngFor="let tcuenta of tcuentas"
+            [value]="tcuenta.Cod"
+            ngDefaultControl
+            >{{ tcuenta.Descripcion }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20" class="pr-1">
+        <mat-select
+          placeholder="Tipo de Transaccion"
+          [(ngModel)]="selTTransaccion"
+        >
+          <mat-option
+            *ngFor="let ttransacion of ttransacions"
+            [value]="ttransacion.Cod"
+            ngDefaultControl
+            >{{ ttransacion.Descripcion }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field
+        fxFlex="20"
+        *ngIf="selTTransaccion == 'app'"
+        style="margin-right: 5px;"
+      >
+        <mat-select placeholder="Seleccione la Aplicación" [(ngModel)]="selApp">
+          <mat-option value="ALL" ngDefaultControl>Todos</mat-option>
+          <mat-option
+            *ngFor="let app of aplicacions"
+            [value]="app.ID"
+            ngDefaultControl
+            >{{ app.Descripcion }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
   <div class="m-333" style="display: flex; justify-content: space-between;">
     <div class="m-333">
       <button
         mat-raised-button
-        class="mb-05"
+        class="mb-05 mr-1"
         color="primary"
         (click)="Guardar()"
         [disabled]="selectedTransacciones.length == 0"
       >
         Contabilizar Transacción
       </button>
+
+      <button mat-raised-button class="mr-1" color="primary" (click)="getItems()">
+          Filtrar
+        </button>
     </div>
+
+    
 
     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
       <mat-form-field>
-        <mat-select placeholder=" Seleccione número de ítems:" [(ngModel)]="selPageSize" (selectionChange)=" getItems()">
-          <mat-option *ngFor="let page of pageSize" [value]="page" ngDefaultControl>{{ page }}</mat-option>
+        <mat-select
+          placeholder=" Seleccione número de ítems:"
+          [(ngModel)]="selPageSize"
+          (selectionChange)="getItems()"
+        >
+          <mat-option
+            *ngFor="let page of pageSize"
+            [value]="page"
+            ngDefaultControl
+            >{{ page }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
 
-      <button mat-icon-button color="warn" (click)="getItems()" matTooltip="Refrescar">
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="getItems()"
+        matTooltip="Refrescar"
+      >
         <mat-icon>refresh</mat-icon>
       </button>
     </div>
@@ -27,33 +124,33 @@
 
   <mat-card-content class="p-0">
     <ngx-datatable
-    #MyDatatableComponent
-    class="material ml-0 mr-0"
-    [rows]="items.data"
-    [columnMode]="'flex'"
-    [headerHeight]="50"
-    [footerHeight]="50"
-    [rowHeight]="'auto'"
-    [rowIdentity]="getID"
-    [selected]="selectedTransacciones"
-    [selectionType]="'checkbox'"
-    [selectAllRowsOnPage]="true"
-    [externalPaging]="true"
-    [count]="items.total"
-    [limit]="items.per_page"
-    [offset]="items?.current_page - 1"
-    (page)="setPage($event)"
-  >
-    <ngx-datatable-column
-      [width]="30"
-      [sortable]="false"
-      [canAutoResize]="false"
-      [draggable]="false"
-      [resizeable]="false"
-      [headerCheckboxable]="true"
-      [checkboxable]="true"
+      #MyDatatableComponent
+      class="material ml-0 mr-0"
+      [rows]="items.data"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [rowIdentity]="getID"
+      [selected]="selectedTransacciones"
+      [selectionType]="'checkbox'"
+      [selectAllRowsOnPage]="true"
+      [externalPaging]="true"
+      [count]="items.total"
+      [limit]="items.per_page"
+      [offset]="items?.current_page - 1"
+      (page)="setPage($event)"
     >
-    </ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="30"
+        [sortable]="false"
+        [canAutoResize]="false"
+        [draggable]="false"
+        [resizeable]="false"
+        [headerCheckboxable]="true"
+        [checkboxable]="true"
+      >
+      </ngx-datatable-column>
 
       <!--  <ngx-datatable-column
         [width]="50"
@@ -83,13 +180,17 @@
 
       <ngx-datatable-column name="Debe" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;"> {{ row?.Debe | currency:'USD':'symbol':'.2-4'}} </div>
+          <div style="text-align: right;">
+            {{ row?.Debe | currency: "USD":"symbol":".2-4" }}
+          </div>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Haber" [flexGrow]="0.25">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="text-align: right;"> {{ row?.Haber | currency:'USD':'symbol':'.2-4'}} </div>
+          <div style="text-align: right;">
+            {{ row?.Haber | currency: "USD":"symbol":".2-4" }}
+          </div>
         </ng-template>
       </ngx-datatable-column>
 
@@ -111,8 +212,7 @@
             *ngIf="row?.Debe != row?.Haber"
             (click)="openPopUp(row)"
           >
-            <mat-icon>account_balance_wallet
-            </mat-icon>
+            <mat-icon>account_balance_wallet </mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>

@@ -23,6 +23,25 @@ export class ContabilizarCComponent implements OnInit {
     per_page: 0
   };
   selectedTransacciones: any = [];
+  selTCuenta: any;
+  selTTransaccion: any;
+
+  dtpInicio: any;
+  dtpFin: any;
+  tcuentas: any[] = [
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Acredora', 'Cod': 'ACRE'},
+    {'Descripcion': 'Adeudora', 'Cod': 'ADEU'}
+  ];
+  ttransacions: any[] = [
+    {'Descripcion': 'Todos', 'Cod': 'ALL'},
+    {'Descripcion': 'Manual', 'Cod': 'manual'},
+    {'Descripcion': 'Aplicación', 'Cod': 'app'}
+  ];
+
+
+  selApp: any;
+  aplicacions: any;
   @ViewChild('MyDatatableComponent') ngxDatatable: DatatableComponent;
   public getItemSub: Subscription;
 
@@ -34,19 +53,34 @@ export class ContabilizarCComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.getItems();
+  async ngOnInit() {
+    this.selApp = this.selTTransaccion = this.selTCuenta = 'ALL';
+    this.aplicacions = await this.crudService.SeleccionarAsync('comboaplicacion', {empresa: this.toolsService.getEmpresaActive().IDEmpresa});
+    //this.getItems();
 
   }
 
   async getItems(indice = 1) {
-    //this.items = await this.crudService.SeleccionarAsync('transaccion', { page: indice, psize: this.selPageSize, Estado: 'INA' });
-    let data: any = await this.crudService.SeleccionarAsync('transaccion', {
+    let params = {
       page: indice,
       psize: this.selPageSize,
-      Estado: 'INA',
-      Empresa: this.toolsService.getEmpresaActive().IDEmpresa
-    });
+      Empresa: this.toolsService.getEmpresaActive().IDEmpresa,
+      Estado: 'ACT'
+    };
+    if (this.selTTransaccion !== 'ALL') {
+      params['ttransaccion'] = this.selTTransaccion;
+      if (this.selTTransaccion == 'app' && this.selApp != 'ALL')
+        params['app'] = this.selApp;
+    }
+    if (this.selTCuenta !== 'ALL')
+      params['tcuenta'] = this.selTCuenta;
+
+    if (this.dtpInicio)
+      params['FInicio'] = this.dtpInicio.toDateString();
+    if (this.dtpFin)
+      params['FFin'] = this.dtpFin.toDateString();
+
+    let data: any = await this.crudService.SeleccionarAsync('transaccion',params);
     this.items = data.data;
   //  this.items.data = this.crudService.SetBool(this.items.data);
   }

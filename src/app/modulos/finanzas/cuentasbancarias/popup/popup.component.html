@@ -81,8 +81,8 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="pr-1">
-      <mat-form-field>
+    <div fxFlex="50" class="pr-1" >
+      <mat-form-field class="full-width">
         <input matInput placeholder="Cuenta" [matAutocomplete]="auto" [formControl]="itemForm.controls['IDCuentaContable']">
 
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
