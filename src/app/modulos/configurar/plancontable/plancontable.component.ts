@@ -1,19 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';import { TreeNode } from 'primeng/components/common/api';
+import {Component, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {MatDialogRef, MatDialog, MatSnackBar} from '@angular/material';
+import {Subscription} from 'rxjs/Subscription';
+import {TreeNode} from 'primeng/components/common/api';
 
-import { TreeDragDropService } from 'primeng/api';
+import {TreeDragDropService} from 'primeng/api';
 
-import { PopupComponentPC } from './popup/popup.component';
-import { AppLoaderService } from '../../../shared/servicios/app-loader/app-loader.service';
-import { AppConfirmService } from '../../../shared/servicios/app-confirm/app-confirm.service';
-import { CrudService } from '../../../shared/servicios/crud.service';
+import {PopupComponentPC} from './popup/popup.component';
+import {AppLoaderService} from '../../../shared/servicios/app-loader/app-loader.service';
+import {AppConfirmService} from '../../../shared/servicios/app-confirm/app-confirm.service';
+import {CrudService} from '../../../shared/servicios/crud.service';
 
-import { HttpClient } from '@angular/common/http';
-import { ExcelService } from '../../../shared/servicios/excel.service';
+import {HttpClient} from '@angular/common/http';
+import {ExcelService} from '../../../shared/servicios/excel.service';
 
 @Component({
-  selector: 'app-plancontable', 
+  selector: 'app-plancontable',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './plancontable.component.html',
   styleUrls: [
@@ -23,6 +24,8 @@ import { ExcelService } from '../../../shared/servicios/excel.service';
     TreeDragDropService
   ]
 })
+
+
 export class PlancontableComponent implements OnInit, OnDestroy {
   selEmpresa: any;
   empresas: any;
@@ -30,6 +33,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   selectedValue: string = '';
   res: any = {};
+  data: TreeNode[];
   filesTree0: TreeNode[];
   filesDrag: TreeNode[];
   selectedFile: any;
@@ -42,6 +46,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   Cuentas: any[];
   public items: any[];
   public getItemSub: Subscription;
+
   constructor(
     private dialog: MatDialog,
     private httpClient: HttpClient,
@@ -50,29 +55,74 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService,
     private confirmService: AppConfirmService,
     private excelService: ExcelService,
-  ) { }
+  ) {
+  }
 
   async loadModelos() {
-    this.Modelos = await this.crudService.SeleccionarAsync("combomodelo", { IDEmpresa: this.selEmpresa });
-    this.filesTree0 = null;
+    this.Modelos = await this.crudService.SeleccionarAsync('combomodelo', {IDEmpresa: this.selEmpresa});
+    this.data = this.filesTree0 = null;
   }
 
   ngOnInit() {
     this.empresas = this.crudService.SeleccionarAsync(`usuario/empresa`);
   }
 
+
+  onKeydown(text) {
+    text = text.target.value.toLowerCase();
+    if (text != '')
+      this.filesTree0 = this.filterData(this.data, function (subject) {
+        return subject.label.toLowerCase().includes(text);
+      });
+    else {
+      this.filesTree0 = this.data.slice(0);
+      this.collapseAll();
+    }
+  }
+
+  filterData(data, predicate) {
+
+    // if no data is sent in, return null, otherwise transform the data
+    return !!!data ? null : data.reduce((list, entry) => {
+
+      let clone = null;
+      if (predicate(entry)) {
+        // if the object matches the filter, clone it as it is
+        clone = Object.assign({}, entry);
+      }
+      if (entry.children != null) {
+        // if the object has childrens, filter the list of children
+        let children = this.filterData(entry.children, predicate);
+        if (children.length > 0) {
+          // if any of the children matches, clone the parent object, overwrite
+          // the children list with the filtered list
+          clone = Object.assign({}, entry, {children: children});
+          clone.expanded = true;
+        }
+      }
+
+      // if there's a cloned object, push it to the output list
+      clone && list.push(clone);
+      return list;
+    }, []);
+
+  }
+
   CargarPlan() {
-    this.crudService.Seleccionar('plancontable', { Modelo: this.selectedValue }).map((response) => {
-      return response.json();
-    }).toPromise().then(x => {
-      this.filesTree0 = JSON.parse(x[0].data) as TreeNode[];
+    this.crudService.Seleccionar('plancontable', {Modelo: this.selectedValue})
+      .map((response) => {
+        return response.json();
+      }).toPromise().then(x => {
+      this.data = JSON.parse(x[0].data) as TreeNode[];
+      this.filesTree0 = this.data.slice(0);
     });
+
 
   }
 
   loadCuentas() {
     this.list = true;
-    this.crudService.Seleccionar('dragcuentacontable', { id: this.selectedValue }).map((response) => {
+    this.crudService.Seleccionar('dragcuentacontable', {id: this.selectedValue}).map((response) => {
       return response.json();
     }).toPromise().then(x => {
       this.filesDrag = x as TreeNode[];
@@ -89,25 +139,25 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   async openPopUp(data: any = {}, isNew?) {
     let title = isNew ? 'Agregar' : 'Actualizar';
     if (!isNew) {
-      data.promise = await this.crudService.SeleccionarAsync("cuentacontable/" + data.data);
+      data.promise = await this.crudService.SeleccionarAsync('cuentacontable/' + data.data);
     }
     else if (!data.data) {
       data.promise = null;
-      data.promise2 = await this.crudService.SeleccionarAsync("cuentapadre", { Modelo: this.selectedValue });
+      data.promise2 = await this.crudService.SeleccionarAsync('cuentapadre', {Modelo: this.selectedValue});
     }
     else {
       data.promise = null;
-      data.promise2 = await this.crudService.SeleccionarAsync("numerocuenta", { padre: data.data, plancontable: this.selectedValue });
+      data.promise2 = await this.crudService.SeleccionarAsync('numerocuenta', {padre: data.data, plancontable: this.selectedValue});
     }
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupComponentPC, {
       width: '720px',
       disableClose: true,
-      data: { title: title, payload: data, PlanContable: this.selectedValue }
+      data: {title: title, payload: data, PlanContable: this.selectedValue}
     });
     dialogRef.afterClosed()
       .subscribe(res => {
         if (!res) {
-          data.payload = []; 
+          data.payload = [];
           return;
         }
         this.loader.open();
@@ -115,7 +165,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
           this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
-            this.snack.open('Agregado!', 'OK', { duration: 4000 });
+            this.snack.open('Agregado!', 'OK', {duration: 4000});
             //this.selectedFile = null;
             this.selectedFile_2 = null;
           });
@@ -123,7 +173,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
           this.crudService.Actualizar(data.data, res, 'cuentacontable/').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
-            this.snack.open('Actualizado!', 'OK', { duration: 4000 });
+            this.snack.open('Actualizado!', 'OK', {duration: 4000});
             this.selectedFile = undefined;
             this.selectedFile_2 = undefined;
           });
@@ -132,14 +182,14 @@ export class PlancontableComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(row) {
-    this.confirmService.confirm({ message: `Eliminar ${row.Etiqueta}?` })
+    this.confirmService.confirm({message: `Eliminar ${row.Etiqueta}?`})
       .subscribe(res => {
         if (res) {
           this.loader.open();
           this.crudService.Eliminar(row.ID, 'modeloplancontable/').subscribe(data => {
             // this.getItems("All", 0);
             this.loader.close();
-            this.snack.open('Eliminado!', 'OK', { duration: 4000 });
+            this.snack.open('Eliminado!', 'OK', {duration: 4000});
           });
         }
       });
@@ -159,8 +209,8 @@ export class PlancontableComponent implements OnInit, OnDestroy {
 
   async onNDrop(event) {
     this.res = {};
-    let cuenta = await this.crudService.SeleccionarAsync("numerocuenta", { padre: event.dropNode.data, plancontable: this.selectedValue });
-    this.res.Estado = "ACT";
+    let cuenta = await this.crudService.SeleccionarAsync('numerocuenta', {padre: event.dropNode.data, plancontable: this.selectedValue});
+    this.res.Estado = 'ACT';
     this.res.Etiqueta = event.dragNode.label;
     this.res.IDDiario = event.dropNode.diario;
     this.res.IDGrupoCuenta = 2;
@@ -170,7 +220,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     this.crudService.Insertar(this.res, 'cuentacontable/').subscribe(data => {
       this.CargarPlan();
       this.loader.close();
-      this.snack.open('Agregado!', 'OK', { duration: 4000 });
+      this.snack.open('Agregado!', 'OK', {duration: 4000});
     });
 
   }
@@ -181,7 +231,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     });
   }
 
-  collapseAll($Etiqueta) {
+  collapseAll() {
     window.scrollTo(0, 0);
     this.filesTree0.forEach(node => {
       this.expandRecursive(node, false);
@@ -196,8 +246,6 @@ export class PlancontableComponent implements OnInit, OnDestroy {
       });
     }
   }
-
-
 
 
 }

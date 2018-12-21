@@ -1,7 +1,15 @@
-<div class="p-0" #Etiqueta>
+<div class="p-0" >
   <mat-card>
-    <!-- <h3 class="first">Basic</h3> -->
-    <p-tree [style]="{'width':'100%'}" [value]="filesTree0[0].data" >
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+      <mat-form-field style="width: 300px !important;">
+        <input matInput placeholder="Buscar" type="text" (keydown.enter)="onKeydown($event)" >
+      </mat-form-field>
+
+    </div>
+
+    <p-tree [style]="{'width':'100%'}" [value]="filesTree0" >
     </p-tree>
 
   </mat-card>
@@ -13,7 +21,7 @@
     <mat-icon>arrow_downward</mat-icon>
     Expandir Plan Contable
   </button>
-  <button mat-raised-button class="mr-1" mat-sm-button color="primary" (click)="collapseAll(Etiqueta)">
+  <button mat-raised-button class="mr-1" mat-sm-button color="primary" (click)="collapseAll()">
     <mat-icon>arrow_upward</mat-icon>
     Contraer Plan Contable
   </button>
