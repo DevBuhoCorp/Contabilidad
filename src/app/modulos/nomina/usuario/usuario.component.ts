@@ -60,7 +60,7 @@ export class UsuarioComponent implements OnInit {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(res, 'usuario/').subscribe(data => {
+          this.crudService.Insertar(res, 'usuario').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
@@ -79,7 +79,7 @@ export class UsuarioComponent implements OnInit {
             this.getItems(1);
             this.loader.close();           
             this.snack.open('Actualizado!', 'OK', { duration: 4000 });
-          })
+          });
         }
       });
   }
@@ -89,13 +89,13 @@ export class UsuarioComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.Eliminar(row.ID, "usuario/").subscribe(data => {
+          this.crudService.Eliminar(row.ID, 'usuario/').subscribe(data => {
             this.getItems(1);
             this.loader.close();
-            this.snack.open('Eliminado!', 'OK', { duration: 4000 })
-          })
+            this.snack.open('Eliminado!', 'OK', { duration: 4000 });
+          });
         }
-      })
+      });
 
   }
 

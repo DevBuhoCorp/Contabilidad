@@ -59,7 +59,7 @@ export class RolesComponent implements OnInit {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(res, 'rol/').subscribe(data => {
+          this.crudService.Insertar(res, 'rol').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', { duration: 4000 });
@@ -79,7 +79,7 @@ export class RolesComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.Eliminar(row.ID, "rol/").subscribe(data => {
+          this.crudService.Eliminar(row.ID, 'rol/').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Eliminado!', 'OK', { duration: 4000 })

@@ -76,7 +76,7 @@ export class AplicacionComponent implements OnInit {
       this.loader.open();
       if(isNew){
         response.IDEmpresa = this.selEmpresa;
-        this.crudService.Insertar(response, 'aplicacion/').subscribe(data => {
+        this.crudService.Insertar(response, 'aplicacion').subscribe(data => {
           this.loadApp();
           this.loader.close();
           this.snack.open('Agregado!', 'OK', { duration: 4000 });

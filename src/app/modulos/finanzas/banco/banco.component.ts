@@ -56,7 +56,7 @@ export class BancoComponent implements OnInit {
 
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(response, 'banco/').subscribe(data => {
+          this.crudService.Insertar(response, 'banco').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', {duration: 4000});

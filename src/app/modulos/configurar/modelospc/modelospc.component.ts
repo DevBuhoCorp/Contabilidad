@@ -74,7 +74,7 @@ export class ModelospcComponent implements OnInit {
         this.loader.open();
         res.IDEmpresa = this.selEmpresa;
         if (isNew) {
-          this.crudService.Insertar(res, 'modeloplancontable/').subscribe(data => {
+          this.crudService.Insertar(res, 'modeloplancontable').subscribe(data => {
             this.getItems(1);
             this.loader.close();
             this.snack.open('Agregado!', 'OK', {duration: 4000});

@@ -32,11 +32,11 @@ export const rootRouterConfig: Routes = [
         loadChildren: './vistas/dashboard/dashboard.module#DashboardModule',
         data: {title: 'Dashboard', breadcrumb: 'DASHBOARD'}
       },
-      {
-        path: 'inbox',
-        loadChildren: './vistas/app-inbox/app-inbox.module#AppInboxModule',
-        data: {title: 'Inbox', breadcrumb: 'INBOX'}
-      },
+      // {
+      //   path: 'inbox',
+      //   loadChildren: './vistas/app-inbox/app-inbox.module#AppInboxModule',
+      //   data: {title: 'Inbox', breadcrumb: 'INBOX'}
+      // },
       {
         path: 'profile',
         loadChildren: './vistas/profile/profile.module#ProfileModule',

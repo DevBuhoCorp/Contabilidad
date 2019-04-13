@@ -62,7 +62,7 @@ export class EstacionComponent implements OnInit {
       this.loader.open();
       if (isNew) {
         response.IDAplicacion = this.app.ID;
-        this.crudService.Insertar(response, 'estacion/').subscribe(data => {
+        this.crudService.Insertar(response, 'estacion').subscribe(data => {
           this.getItems();
           this.loader.close();
           this.snack.open('Agregado!', 'OK', {duration: 4000});

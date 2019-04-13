@@ -162,7 +162,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
         }
         this.loader.open();
         if (isNew) {
-          this.crudService.Insertar(res, 'cuentacontable/').subscribe(data => {
+          this.crudService.Insertar(res, 'cuentacontable').subscribe(data => {
             this.CargarPlan();
             this.loader.close();
             this.snack.open('Agregado!', 'OK', {duration: 4000});
@@ -217,7 +217,7 @@ export class PlancontableComponent implements OnInit, OnDestroy {
     this.res.IDPadre = event.dropNode.data;
     this.res.IDPlanContable = this.selectedValue;
     this.res.NumeroCuenta = event.dropNode.numerocuenta + '.' + cuenta[0].ncuenta;
-    this.crudService.Insertar(this.res, 'cuentacontable/').subscribe(data => {
+    this.crudService.Insertar(this.res, 'cuentacontable').subscribe(data => {
       this.CargarPlan();
       this.loader.close();
       this.snack.open('Agregado!', 'OK', {duration: 4000});

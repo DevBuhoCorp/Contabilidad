@@ -75,7 +75,7 @@ export class ContabilizarCComponent implements OnInit {
   Guardar() {
     let selected = this.ngxDatatable.selected.map(row => row.ID);
 
-    this.crudService.Insertar(selected, 'transaccion_contabilizar/')
+    this.crudService.Insertar(selected, 'transaccion_contabilizar')
       .subscribe(async data => {
         this.snack.open(data.message, 'OK', {duration: 4000});
         this.getItems();

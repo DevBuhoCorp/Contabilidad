@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
 import {Headers, Http, RequestMethod, RequestOptions, ResponseContentType} from '@angular/http';
-import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+declare var configuracion: any;
 
 @Injectable()
 export class CrudService {
-  readonly puerto = "http://localhost:8000/";
+  readonly puerto = configuracion.url;
   // readonly puerto = "http://192.168.4.113:8000/";
   //readonly puerto = "http://192.168.4.113/ContabilidadBackendLumen/public/";
   //readonly puerto = "http://localhost/ContabilidadBackendLumen/public/";
